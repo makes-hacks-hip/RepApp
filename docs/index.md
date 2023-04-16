@@ -163,6 +163,7 @@ Die Geräte Detailseite hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichn
 ### Anmeldung eines defekten Gerätes
 
 Als Besitzer eines defekten Gerätes,
+
 - gehe ich auf die Seite der Repair-Café Termine (1)
 - dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin.
 - Der Link bringt mich auf eine neue Seite mit einem Formular (2).
