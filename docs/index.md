@@ -56,13 +56,12 @@ Ein Organisator ist Mitglied des Repair-Cafés der die Termine mit den Gästen o
 Ein Cafe ist ein Repair-Café Termin.
 
 Attribute:
+
 - Datum: Datum der Veranstaltung
 - Ort: Beschreibung wo das Repair-Café stattfindet
 
-Technische Attribute:
-- Id: Aufsteigende Nummer des Repair-Café
-
 Annahmen:
+
 - Ein Repair-Café beginnt um 13:00 Uhr.
 - Ein Repair-Café hat drei aufeinanderfolgende Slots mit je einer Stunde
 
@@ -71,13 +70,12 @@ Annahmen:
 Ein Reparateur ist ein Mitglied des Repair-Cafés das Gäste bei der Reparatur ihrer Geräte unterstützt.
 
 Attribute:
+
 - Name: Name des Reparateurs
 - Mail: eMail-Adresse für Benachrichtigungen
 
-Technische Attribute:
-- Id: Aufsteigende Nummer des Reparateurs
-
 Annahmen:
+
 - Reparatuere sind immmer verfügbar, d.h. jeder Reparatuer wird zu einem neuen Repair-Café Termin automatisch hinzugefügt.
 - Reparatuere können alles reparieren. Greäte Kategorien, Skills, ... können später hinzugefügt werden. 
 
@@ -86,17 +84,16 @@ Annahmen:
 Ein Organisator ist ein Mitglied des Repair-Cafés das Reparaturtermine mit den Gästen vereinbart.
 
 Attribute:
+
 - Name: Name des Organisators
 - Mail: eMail-Adresse für Benachrichtigungen
-
-Technische Attribute:
-- Id: Aufsteigende Nummer des Organisators
 
 ### Gerät
 
 Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés repariert werden soll.
 
 Attribute:
+
 - Besitzer: Name des Besitzers
 - Mail: eMail-Adresse des Besitzers für Benachrichtigungen
 - Gerät: Bezeichnung des Geräts
@@ -104,9 +101,11 @@ Attribute:
 - Folgetermin: Boolesches Flag das anzeigt ob es sich um einen Folgetermin handelt.
 
 Technische Attribute:
-- Id: SHA256 Hash aus Gerät + Besitzer + Timestamp
+
+- Identifier: SHA256 Hash aus Gerät + Besitzer + Timestamp
 
 Annahmen:
+
 - Es gibt nur eine Geräteanmeldung pro Besitzer. Mehrere Geräte pro Besitzer kann später hinzugefügt werden.
 - Für einen Folgetermin werden alle Daten neu eingegeben. Eine Folgereparatur auf Basis der ersten Anmeldung kann später hinzugefügt werden.
 
@@ -115,25 +114,28 @@ Annahmen:
 Ein Termin ist eine Zuordnung von einem Gerät zu einem Zeitslot der Repair-Café Veranstaltung und einem Reparateur. Ein Termin ist bestätigt, wenn eine Organisator eine Termineinladung gesendet hat und er Gast diese bestätigt hat. 
 
 Attribute:
+
 - Uhrzeit: Uhrzeit des Termins
 - Betätigt: Boolesches Flag. True wenn eine Einladung gesendet und bestätigt wurde.
 
 Technische Attribute:
-- Id: Aufsteigende Nummer des Termins
+
 - CafeId: Referenz zum Cafe
 - ReparateurId: Referenz um Reparateur oder NULL
 - GerätId: Referenz zum Gerät
 
-### Rückfrage
+### Frage
 
-Eine Rückfrage ist eine Zuordnung von einem Gerät zu einem Organisator oder einem Reparateur.
+Eine Frage ist eine Zuordnung von einem Gerät zu einem Organisator oder einem Reparateur.
 
 Attribute:
+
 - Frage: Frage zum Gerät oder Defekt
 - Antwort: Antwort des Gastes
 - Datum: Datum der Erstellung der Rückfrage
 
 Technische Attribute:
+
 - OrganisatorId: Referenz zum Organisator oder NULL
 - ReparateurId: Referenz zum Reparateur oder NULL
 - GerätId: Referenz zum Gerät
