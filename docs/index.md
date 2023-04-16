@@ -49,8 +49,6 @@ Ein Organisator ist Mitglied des Repair-Cafés der die Termine mit den Gästen o
 
 ## Daten
 
-![Datenmodell](RepAppDaten.drawio.svg "Datenmodell")
-
 ### Cafe
 
 Ein Cafe ist ein Repair-Café Termin.
@@ -140,6 +138,18 @@ Technische Attribute:
 
 - OrganisatorId: Referenz zum Organisator oder NULL
 - ReparateurId: Referenz zum Reparateur oder NULL
+- GerätId: Referenz zum Gerät
+
+### Warteliste
+
+Die Warteliste enthält Geräte ohne festen Termin. Diese Geräte werden von den Gästen zu Beginn des Repair-Café gebracht und am Ende abgeholt. Falls ein Reparateur Zeit hat kann er eines dieser Geräte reparieren.
+
+- Betätigt: Boolesches Flag. True wenn eine Einladung gesendet und bestätigt wurde.
+
+Technische Attribute:
+
+- CafeId: Referenz zum Cafe
+- ReparateurId: Referenz um Reparateur oder NULL
 - GerätId: Referenz zum Gerät
 
 ## Ansichten
