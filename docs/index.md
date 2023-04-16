@@ -20,32 +20,32 @@ Ein Organisator ist Mitglied des Repair-Cafés der die Termine mit den Gästen o
 
 ### Gast
 
-- Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. Dafür Stelle ich Informationen zum Gerät und eine Fehlerbeschreibung zur Verfügung.
-- Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
-- Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
-- Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
-- Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
-- Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
+- [ ] Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. Dafür Stelle ich Informationen zum Gerät und eine Fehlerbeschreibung zur Verfügung.
+- [ ] Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
+- [ ] Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
+- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
+- [ ] Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
+- [ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
 
 ### Reparateur
 
-- Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
-- Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
-- Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
-- Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
-- Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
-- Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
-- Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
-- Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
+- [ ] Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
+- [ ] Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
+- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
+- [ ] Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
+- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
+- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
+- [ ] Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
+- [ ] Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
 
 ### Organisator
 
-- Als Organisator möchte ich ein Café anmelden können.
-- Als Organisator möchte ich die Terminanfragen einsehen können.
-- Als Organisator möchte ich eine Rückfrage zu einer Terminanfrage stellen können.
-- Als Organisator möchte ich eine Terminanfrage ablehnen können.
-- Als Organisator möchte ich eine Terminanfrage zu einem Termin zuordnen können.
-- Als Organisator möchte ich einen Terminanfrage zu einem Reparateur zuordnen können.
+- [ ] Als Organisator möchte ich ein Café anmelden können.
+- [ ] Als Organisator möchte ich die Terminanfragen einsehen können.
+- [ ] Als Organisator möchte ich eine Rückfrage zu einer Terminanfrage stellen können.
+- [ ] Als Organisator möchte ich eine Terminanfrage ablehnen können.
+- [ ] Als Organisator möchte ich eine Terminanfrage zu einem Termin zuordnen können.
+- [ ] Als Organisator möchte ich einen Terminanfrage zu einem Reparateur zuordnen können.
 
 ## Daten
 
@@ -95,6 +95,8 @@ Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés reparie
 Attribute:
 
 - Besitzer: Name des Besitzers
+- Telefon: Festnetz oder Mobilnummer des Besitzers
+- Wohnort: Wohnort des Besitzers
 - Mail: eMail-Adresse des Besitzers für Benachrichtigungen
 - Gerät: Bezeichnung des Geräts
 - Fehler: Beschreibung des Defekts

@@ -42,6 +42,8 @@ class Organisator(models.Model):
 class Device(models.Model):
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
     owner = models.CharField(max_length=200, verbose_name=_("Besitzer"))
+    phone = models.CharField(max_length=200, verbose_name=_("Telefonnummer"))
+    residence = models.CharField(max_length=200, verbose_name=_("Wohnort"))
     mail = models.CharField(max_length=200, verbose_name=_("eMail"))
     device = models.CharField(max_length=200, verbose_name=_("Gerät"))
     error = models.TextField(verbose_name=_("Fehler"))
