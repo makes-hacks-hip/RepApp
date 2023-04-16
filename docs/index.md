@@ -86,16 +86,31 @@ Attribute:
 - Name: Name des Organisators
 - Mail: eMail-Adresse für Benachrichtigungen
 
+### Gast
+
+Ein Gast ist ein Gerätebesitzer, der ein Gerät zur Reparatur anmeldet.
+
+Attribute:
+
+- Name: Name des Besitzers
+- Telefon: Festnetz oder Mobilnummer des Besitzers
+- Wohnort: Wohnort des Besitzers
+- Mail: eMail-Adresse des Besitzers für Benachrichtigungen
+
+Technische Attribute:
+
+- Identifier: SHA256 Hash aus Name + Wohnort + Timestamp
+
+Annahmen:
+
+- Es gibt nur eine Geräteanmeldung pro Besitzer. Mehrere Geräte pro Besitzer kann später hinzugefügt werden.
+
 ### Gerät
 
 Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés repariert werden soll.
 
 Attribute:
 
-- Besitzer: Name des Besitzers
-- Telefon: Festnetz oder Mobilnummer des Besitzers
-- Wohnort: Wohnort des Besitzers
-- Mail: eMail-Adresse des Besitzers für Benachrichtigungen
 - Gerät: Bezeichnung des Geräts
 - Fehler: Beschreibung des Defekts
 - Folgetermin: Boolesches Flag das anzeigt ob es sich um einen Folgetermin handelt.
@@ -103,10 +118,10 @@ Attribute:
 Technische Attribute:
 
 - Identifier: SHA256 Hash aus Gerät + Besitzer + Timestamp
+- GastId: Referenz zum Gast der das Gerät besitzt
 
 Annahmen:
 
-- Es gibt nur eine Geräteanmeldung pro Besitzer. Mehrere Geräte pro Besitzer kann später hinzugefügt werden.
 - Für einen Folgetermin werden alle Daten neu eingegeben. Eine Folgereparatur auf Basis der ersten Anmeldung kann später hinzugefügt werden.
 
 ### Termin
