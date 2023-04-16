@@ -138,8 +138,34 @@ Technische Attribute:
 - ReparateurId: Referenz zum Reparateur oder NULL
 - GerätId: Referenz zum Gerät
 
-## Abläufe
-
 ## Ansichten
 
+### (1) Landing Page: Repair-Cafés
 
+Liste der Repair-Café Termine
+
+### (2) Gerät anmelden
+
+Das Formular zum anmelden der Geräte hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung` und einen Knopf `Absenden` zum senden des Formulars.
+
+### (3) Anmeldebestätigung
+
+Die Anmeldebestätigung zeigt die Geräte Daten erneut an, zusammen mit der Information dass das Gerät angelegt wurde und einem Link zur Geräte Detailseite.
+
+### (4) Geräte Detailseite
+
+Die Geräte Detailseite hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung` die mit den Angaben des Besitzers ausgefüllt sind. Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet und die Daten aktualisiert.
+
+## Abläufe
+
+### Anmeldung eines defekten Gerätes
+
+Als Besitzer eines defekten Gerätes,
+- gehe ich auf die Seite der Repair-Café Termine (1)
+- dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin.
+- Der Link bringt mich auf eine neue Seite mit einem Formular (2).
+- Das Formular hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung`.
+- Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`.
+- Der Klick auf Absenden bringt mich zu einer neuen Seite, die bestätigt dass mein Gerät angemeldet wurde und einen Link zu einer `Geräte Detailseite` (4) hat.
+- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls den Link zur `Geräte Detailseite` hat.
+- Der Klick auf den Link zur (4) `Geräte Detailseite` bringt mich zu einer Seite auf der ich meine Angaben sehe und aktualisieren kann.
