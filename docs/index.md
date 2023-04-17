@@ -10,7 +10,7 @@ Ein Gast ist ein Gerätebesitzer der ein oder mehrere Geräte zur Reparatur anme
 
 ### Reparateur
 
-Ein Reparateur ist ein Mitglied des Repair-Cafés das die Gerätebesitzer bei der Reparatur ihrer Geräte unterstützt.
+Ein Reparateur ist ein Mitglied des Repair-Cafés das die Gäste bei der Reparatur ihrer Geräte unterstützt.
 
 ### Organisator
 
@@ -20,32 +20,32 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 
 ### Gast
 
-- [ ] (1) Als Gast möchte ich einen Termin für eine Reparatur vereinbaren.
-- [ ] (2) Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
-- [ ] (3) Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
-- [ ] (4) Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
-- [ ] (5) Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
-- [ ] (6) Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
+- [ ] (A1) Als Gast möchte ich einen Termin für eine Reparatur vereinbaren.
+- [ ] (A2) Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
+- [ ] (A3) Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
+- [ ] (A4) Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
+- [ ] (A5) Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
+- [ ] (A6) Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
 
 ### Reparateur
 
-- [ ] (7) Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
-- [ ] (8) Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
-- [ ] (9) Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
-- [ ] (10) Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
-- [ ] (11) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
-- [ ] (12) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
-- [ ] (13) Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
-- [ ] (14) Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
+- [ ] (A7) Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
+- [ ] (A8) Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
+- [ ] (A9) Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
+- [ ] (A10) Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
+- [ ] (A11) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
+- [ ] (A12) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
+- [ ] (A13) Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
+- [ ] (A14) Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
 
 ### Organisator
 
-- [ ] (15) Als Organisator möchte ich ein Repair-Café anlegen können.
-- [ ] (16) Als Organisator möchte ich die Geräte einsehen können.
-- [ ] (17) Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können.
-- [ ] (18) Als Organisator möchte ich ein Geräte ablehnen können.
-- [ ] (19) Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können.
-- [ ] (20) Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können.
+- [ ] (A15) Als Organisator möchte ich ein Repair-Café anlegen können.
+- [ ] (A16) Als Organisator möchte ich die Geräte einsehen können.
+- [ ] (A17) Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können.
+- [ ] (A18) Als Organisator möchte ich ein Geräte ablehnen können.
+- [ ] (A19) Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können.
+- [ ] (A20) Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können.
 
 ## Daten
 
@@ -92,10 +92,10 @@ Ein Gast ist ein Gerätebesitzer, der ein Gerät zur Reparatur anmeldet.
 
 Attribute:
 
-- Name: Name des Besitzers
-- Telefon: Festnetz oder Mobilnummer des Besitzers
-- Wohnort: Wohnort des Besitzers
-- Mail: eMail-Adresse des Besitzers für Benachrichtigungen
+- Name: Name des Gastes
+- Telefon: Festnetz oder Mobilnummer des Gastes
+- Wohnort: Wohnort des Gastes
+- Mail: eMail-Adresse des Gastes für Benachrichtigungen
 
 Technische Attribute:
 
@@ -113,7 +113,7 @@ Attribute:
 
 Technische Attribute:
 
-- Identifier: SHA256 Hash aus Gerät + Besitzer + Timestamp
+- Identifier: SHA256 Hash aus Gerät + Gast + Timestamp
 - GastId: Referenz zum Gast der das Gerät besitzt
 
 Annahmen:
@@ -168,33 +168,61 @@ Technische Attribute:
 
 ## Ansichten
 
-### (1) Landing Page: Repair-Cafés
+### (S1) Landing Page: Repair-Cafés
 
 Liste der Repair-Café Termine
 
-### (2) Gerät anmelden
+### (S2) Gerät anmelden
 
-Das Formular zum anmelden der Geräte hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung` und einen Knopf `Absenden` zum senden des Formulars.
+Das Formular zum anmelden der Geräte hat die Felder `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung`, eine Kontrollkästchen `Folgetermin` und einen Knopf `Absenden` zum senden des Formulars.
 
-### (3) Anmeldebestätigung
+### (S3) Gast anmelden
 
-Die Anmeldebestätigung zeigt die Geräte Daten erneut an, zusammen mit der Information dass das Gerät angelegt wurde und einem Link zur Geräte Detailseite.
+Das Formular zum anmelden eines neuen Gastes hat die Felder `Name`, `Telefon`, `Wohnort` und einen Knopf `Absenden` zum senden des Formulars.
 
-### (4) Geräte Detailseite
+### (S4) Anmeldebestätigung
 
-Die Geräte Detailseite hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung` die mit den Angaben des Besitzers ausgefüllt sind. Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet und die Daten aktualisiert.
+Die Anmeldebestätigung zeigt die Geräte und Gast Daten erneut an, zusammen mit der Information dass das Gerät angelegt.
+Weiter enthält die Ansicht einen Link zur Geräte Detailseite und einen Link zur Gast Detailseite.
+
+### (S5) Geräte Detailseite
+
+Die Geräte Detailseite hat die Felder `Gerätebezeichnung`, `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin` die mit den Angaben des Gastes ausgefüllt sind.
+Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet und die Daten aktualisiert und einen Link zur Detailseite des Gastes.
+
+### (S6) Gast Detailseite
+
+Die Gast Detailseite hat die Felder `Name`, `eMail`, `Telefon` und `Wohnort` die mit den Angaben des Gastes ausgefüllt sind.
+Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet.
+Die Ansicht enthält auch eine Liste mit Links zu allen Geräten die der Gast angemeldet hat.
 
 ## Abläufe
 
 ### Anmeldung eines defekten Gerätes
 
-Als Besitzer eines defekten Gerätes,
+#### Variante: Neuer Gast
 
-- gehe ich auf die Seite der Repair-Café Termine (1)
+Als neuer Gast der ein defekten Geräte anmelden möchte,
+
+- gehe ich auf die Seite (S1) der Repair-Café Termine.
 - dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin.
-- Der Link bringt mich auf eine neue Seite mit einem Formular (2).
-- Das Formular hat die Felder `Name`, `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung`.
+- Der Link bringt mich auf eine neue Seite (S2) mit einem Formular.
+- Das Formular hat die Felder `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin`.
 - Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`.
-- Der Klick auf Absenden bringt mich zu einer neuen Seite, die bestätigt dass mein Gerät angemeldet wurde und einen Link zu einer `Geräte Detailseite` (4) hat.
-- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls den Link zur `Geräte Detailseite` hat.
-- Der Klick auf den Link zur (4) `Geräte Detailseite` bringt mich zu einer Seite auf der ich meine Angaben sehe und aktualisieren kann.
+- Der Klick auf Absenden bringt mich zu einer neuen Seite (S3) mit einem Formular.
+- Das Formular hat die Felder `Name`, `Telefon` und `Wohnort`.
+- Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`.
+- Der Link bringt mich auf eine neue Seite (S4) die bestätigt dass mein Gerät angemeldet wurde, die Geräte Daten und meine Daten zur Bestätigung anzeigt und einen Link zu einer `Geräte Detailseite` (S4) und einen Link zu einer `Gast Detailseite` (S6) hat.
+- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls den Link zur `Geräte Detailseite` und den Link zur `Gast Detailseite` enthält.
+
+#### Variante: Existierender Gast
+
+Als neuer Gast der ein defekten Geräte anmelden möchte,
+
+- gehe ich auf die Seite (S1) der Repair-Café Termine.
+- dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin.
+- Der Link bringt mich auf eine neue Seite (S2) mit einem Formular.
+- Das Formular hat die Felder `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin`.
+- Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`.
+- Der Link bringt mich auf eine neue Seite (S4) die bestätigt dass mein Gerät angemeldet wurde, die Geräte Daten und meine Daten zur Bestätigung anzeigt und einen Link zu einer `Geräte Detailseite` (S4) und einen Link zu einer `Gast Detailseite` (S6) hat.
+- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls den Link zur `Geräte Detailseite` und den Link zur `Gast Detailseite` enthält.
