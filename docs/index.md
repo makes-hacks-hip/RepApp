@@ -10,42 +10,42 @@ Ein Gast ist ein Gerätebesitzer der ein oder mehrere Geräte zur Reparatur anme
 
 ### Reparateur
 
-Ein Reparateur ist ein Mitglied des Repair-Cafés der die Gerätebesitzer bei der Reparatur ihrer Geräte unterstützt.
+Ein Reparateur ist ein Mitglied des Repair-Cafés das die Gerätebesitzer bei der Reparatur ihrer Geräte unterstützt.
 
 ### Organisator
 
-Ein Organisator ist Mitglied des Repair-Cafés der die Termine mit den Gästen organisiert und die Reparateure zu den Geräten zuordnet.
+Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen organisiert und die Reparateure zu den Geräten zuordnet.
 
-## Use-Cases
+## Anwendungsfälle
 
 ### Gast
 
-- [ ] Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. Dafür Stelle ich Informationen zum Gerät und eine Fehlerbeschreibung zur Verfügung.
-- [ ] Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
-- [ ] Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
-- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
-- [ ] Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
-- [ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
+- [ ] (1) Als Gast möchte ich einen Termin für eine Reparatur vereinbaren.
+- [ ] (2) Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
+- [ ] (3) Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
+- [ ] (4) Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
+- [ ] (5) Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
+- [ ] (6) Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
 
 ### Reparateur
 
-- [ ] Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
-- [ ] Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
-- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
-- [ ] Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
-- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
-- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
-- [ ] Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
-- [ ] Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
+- [ ] (7) Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
+- [ ] (8) Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
+- [ ] (9) Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
+- [ ] (10) Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
+- [ ] (11) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
+- [ ] (12) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
+- [ ] (13) Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
+- [ ] (14) Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
 
 ### Organisator
 
-- [ ] Als Organisator möchte ich ein Café anmelden können.
-- [ ] Als Organisator möchte ich die Terminanfragen einsehen können.
-- [ ] Als Organisator möchte ich eine Rückfrage zu einer Terminanfrage stellen können.
-- [ ] Als Organisator möchte ich eine Terminanfrage ablehnen können.
-- [ ] Als Organisator möchte ich eine Terminanfrage zu einem Termin zuordnen können.
-- [ ] Als Organisator möchte ich einen Terminanfrage zu einem Reparateur zuordnen können.
+- [ ] (15) Als Organisator möchte ich ein Repair-Café anlegen können.
+- [ ] (16) Als Organisator möchte ich die Geräte einsehen können.
+- [ ] (17) Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können.
+- [ ] (18) Als Organisator möchte ich ein Geräte ablehnen können.
+- [ ] (19) Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können.
+- [ ] (20) Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können.
 
 ## Daten
 
@@ -61,7 +61,7 @@ Attribute:
 Annahmen:
 
 - Ein Repair-Café beginnt um 13:00 Uhr.
-- Ein Repair-Café hat drei aufeinanderfolgende Slots mit je einer Stunde
+- Ein Repair-Café hat drei aufeinanderfolgende Zeitslots pro Reparateur mit je einer Stunde
 
 ### Reparateur
 
@@ -74,8 +74,8 @@ Attribute:
 
 Annahmen:
 
-- Reparateure sind immer verfügbar, d.h. jeder Reparateur wird zu einem neuen Repair-Café Termin automatisch hinzugefügt.
-- Reparateure können alles reparieren. Geräte Kategorien, Skills, ... können später hinzugefügt werden. 
+- Reparateure sind immer verfügbar, d.h. Zeitslots für jeden Reparateur werden zu einem neuen Repair-Café Termin automatisch hinzugefügt.
+- Reparateure können alles reparieren. Geräte Kategorien, Skills, ... werden im Moment nicht berücksichtigt. 
 
 ### Organisator
 
@@ -101,10 +101,6 @@ Technische Attribute:
 
 - Identifier: SHA256 Hash aus Name + Wohnort + Timestamp
 
-Annahmen:
-
-- Es gibt nur eine Geräteanmeldung pro Besitzer. Mehrere Geräte pro Besitzer kann später hinzugefügt werden.
-
 ### Gerät
 
 Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés repariert werden soll.
@@ -122,11 +118,12 @@ Technische Attribute:
 
 Annahmen:
 
-- Für einen Folgetermin werden alle Daten neu eingegeben. Eine Folgereparatur auf Basis der ersten Anmeldung kann später hinzugefügt werden.
+- Für einen Folgetermin werden alle Daten neu eingegeben. Eine Folgereparatur auf Basis der ersten Anmeldung kann später umgesetzt werden.
 
 ### Termin
 
-Ein Termin ist eine Zuordnung von einem Gerät zu einem Zeitslot der Repair-Café Veranstaltung und einem Reparateur. Ein Termin ist bestätigt, wenn eine Organisator eine Termineinladung gesendet hat und er Gast diese bestätigt hat. 
+Ein Termin ist eine Zuordnung von einem Gerät zu einem Zeitslot der Repair-Café Veranstaltung und einem Reparateur.
+Ein Termin ist bestätigt, wenn eine Organisator eine Termineinladung gesendet hat und er Gast diese bestätigt hat. 
 
 Attribute:
 
@@ -141,7 +138,7 @@ Technische Attribute:
 
 ### Frage
 
-Eine Frage ist eine Zuordnung von einem Gerät zu einem Organisator oder einem Reparateur.
+Eine Frage ist eine Rückfrage nach mehr Informationen zu einem Gerät, erstellt von einem Organisator oder einem Reparateur.
 
 Attribute:
 
@@ -155,9 +152,11 @@ Technische Attribute:
 - ReparateurId: Referenz zum Reparateur oder NULL
 - GerätId: Referenz zum Gerät
 
-### Warteliste
+### Kandidat
 
-Die Warteliste enthält Geräte ohne festen Termin. Diese Geräte werden von den Gästen zu Beginn des Repair-Café gebracht und am Ende abgeholt. Falls ein Reparateur Zeit hat kann er eines dieser Geräte reparieren.
+Ein Kandidat ist ein Geräte ohne festen Termin.
+Diese Geräte werden von den Gästen zu Beginn des Repair-Café gebracht und am Ende abgeholt.
+Falls ein Reparateur Zeit hat kann er eines dieser Geräte reparieren.
 
 - Betätigt: Boolesches Flag. True wenn eine Einladung gesendet und bestätigt wurde.
 

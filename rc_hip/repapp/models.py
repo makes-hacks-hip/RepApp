@@ -110,6 +110,25 @@ class Appointment(models.Model):
         return f'Termin {self.cafe_id.event_date} {self.time} für Gerät {self.device_id.device}'
 
 
+class Candidate(models.Model):
+    """
+    A Candidate is a match of a broken Device and a Repair-Café without a fixed timeslot
+    or pre-assigned Reparateur.
+    """
+    confirmed = models.BooleanField(verbose_name=_("bestätigt"))
+    cafe_id = models.ForeignKey(
+        Cafe, on_delete=models.CASCADE, verbose_name=_("Repair-Café"))
+    device_id = models.ForeignKey(
+        Device, on_delete=models.CASCADE, null=True, verbose_name=_("Gerät"))
+
+    class Meta:
+        verbose_name = _('Kandidat')
+        verbose_name_plural = _('Kandidaten')
+
+    def __str__(self):
+        return f'Kandidat {self.cafe_id.event_date} für Gerät {self.device_id.device}'
+
+
 class Question(models.Model):
     """
     A Question is a request for information form a Organisator or a Reparateur for a Device.
