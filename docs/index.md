@@ -74,8 +74,8 @@ Attribute:
 
 Annahmen:
 
-- Reparatuere sind immmer verfügbar, d.h. jeder Reparatuer wird zu einem neuen Repair-Café Termin automatisch hinzugefügt.
-- Reparatuere können alles reparieren. Greäte Kategorien, Skills, ... können später hinzugefügt werden. 
+- Reparateure sind immer verfügbar, d.h. jeder Reparateur wird zu einem neuen Repair-Café Termin automatisch hinzugefügt.
+- Reparateure können alles reparieren. Geräte Kategorien, Skills, ... können später hinzugefügt werden. 
 
 ### Organisator
 
