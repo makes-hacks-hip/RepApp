@@ -9,21 +9,28 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import mimetypes
+import os
 from pathlib import Path
+
+mimetypes.add_type("text/css", ".css", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ura&_-(r(&&b$0s!a=07c@k6c!8=8m7$5(4#w8m@79-e%rn6s*'
+# SECRET_KEY = 'django-insecure-ura&_-(r(&&b$0s!a=07c@k6c!8=8m7$5(4#w8m@79-e%rn6s*'
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY", 'django-insecure-ura&_-(r(&&b$0s!a=07c@k6c!8=8m7$5(4#w8m@79-e%rn6s*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", 'true').lower() in ('true', '1', 't')
 
 ALLOWED_HOSTS = []
 
@@ -77,7 +84,7 @@ WSGI_APPLICATION = 'rc_hip.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'data' / 'db.sqlite3',
     }
 }
 
@@ -122,3 +129,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://repapp.rc-hip.de',
+    'http://127.0.0.1:8020'
+]
