@@ -20,32 +20,32 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 
 ### Gast
 
-- [ ] (A1) Als Gast möchte ich einen Termin für eine Reparatur vereinbaren.
-- [ ] (A2) Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen.
-- [ ] (A3) Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen.
-- [ ] (A4) Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können.
-- [ ] (A5) Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können.
-- [ ] (A6) Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können
+- [ ] Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. (A1)
+- [ ] Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen. (A2)
+- [ ] Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen. (A3)
+- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)
+- [ ] Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können. (A5)
+- [ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können. (A6)
 
 ### Reparateur
 
-- [ ] (A7) Als Reparateur möchte ich die angemeldeten Geräte ansehen können.
-- [ ] (A8) Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können.
-- [ ] (A9) Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können.
-- [ ] (A10) Als Reparateur möchte ich Rückfragen zum Gerät stellen können.
-- [ ] (A11) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird.
-- [ ] (A12) Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird.
-- [ ] (A13) Als Reparateur möchte ich mich für ein Repair-Café anmelden können.
-- [ ] (A14) Als Reparateur möchte ich mich für ein Repair-Café abmelden können.
+- [ ] Als Reparateur möchte ich die angemeldeten Geräte ansehen können. (A7)
+- [ ] Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können. (A8)
+- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)
+- [ ] Als Reparateur möchte ich Rückfragen zum Gerät stellen können. (A10)
+- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird. (A11)
+- [ ] Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird. (A12)
+- [ ] Als Reparateur möchte ich mich für ein Repair-Café anmelden können. (A13)
+- [ ] Als Reparateur möchte ich mich für ein Repair-Café abmelden können. (A14)
 
 ### Organisator
 
-- [ ] (A15) Als Organisator möchte ich ein Repair-Café anlegen können.
-- [ ] (A16) Als Organisator möchte ich die Geräte einsehen können.
-- [ ] (A17) Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können.
-- [ ] (A18) Als Organisator möchte ich ein Geräte ablehnen können.
-- [ ] (A19) Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können.
-- [ ] (A20) Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können.
+- [ ] Als Organisator möchte ich ein Repair-Café anlegen können. (A15)
+- [ ] Als Organisator möchte ich die Geräte einsehen können. (A16)
+- [ ] Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können. (A17)
+- [ ] Als Organisator möchte ich ein Geräte ablehnen können. (A18)
+- [ ] Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können. (A19)
+- [ ] Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können. (A20)
 
 ## Daten
 
@@ -168,29 +168,29 @@ Technische Attribute:
 
 ## Ansichten
 
-### (S1) Landing Page: Repair-Cafés
+### Landing Page: Repair-Cafés (S1)
 
 Liste der Repair-Café Termine
 
-### (S2) Gerät anmelden
+### Gerät anmelden (S2)
 
 Das Formular zum anmelden der Geräte hat die Felder `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung`, eine Kontrollkästchen `Folgetermin` und einen Knopf `Absenden` zum senden des Formulars.
 
-### (S3) Gast anmelden
+### Gast anmelden (S3)
 
 Das Formular zum anmelden eines neuen Gastes hat die Felder `Name`, `Telefon`, `Wohnort` und einen Knopf `Absenden` zum senden des Formulars.
 
-### (S4) Anmeldebestätigung
+### Anmeldebestätigung (S4)
 
 Die Anmeldebestätigung zeigt die Geräte und Gast Daten erneut an, zusammen mit der Information dass das Gerät angelegt.
 Weiter enthält die Ansicht einen Link zur Geräte Detailseite und einen Link zur Gast Detailseite.
 
-### (S5) Geräte Detailseite
+### Geräte Detailseite (S5)
 
 Die Geräte Detailseite hat die Felder `Gerätebezeichnung`, `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin` die mit den Angaben des Gastes ausgefüllt sind.
 Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet und die Daten aktualisiert und einen Link zur Detailseite des Gastes.
 
-### (S6) Gast Detailseite
+### Gast Detailseite (S6)
 
 Die Gast Detailseite hat die Felder `Name`, `eMail`, `Telefon` und `Wohnort` die mit den Angaben des Gastes ausgefüllt sind.
 Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet.

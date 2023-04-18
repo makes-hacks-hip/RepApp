@@ -1,0 +1,16 @@
+{% extends "repapp/base.html" %}
+
+{% block title %}- Repair-Cafés{% endblock title %}
+
+{% block content %}
+<h1>Repair-Cafés</h1>
+<ul class="list-group">
+{% for cafe in object_list %}
+    <li class="list-group-item">
+        <button type="button" class="btn btn-primary">Repair-Café am {{ cafe.event_date|date }}, {{ cafe.location }}</button>
+    </li>
+{% empty %}
+    <li class="list-group-item">Es gibt keine geplanten Repair-Cafés.</li>
+{% endfor %}
+</ul>
+{% endblock content %}

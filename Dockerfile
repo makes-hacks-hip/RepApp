@@ -10,6 +10,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 RUN mkdir -p /opt/app
 RUN mkdir -p /opt/app/pip_cache
 RUN mkdir -p /opt/app/rc_hip
+RUN mkdir -p /opt/app/rc_hip/data
 
 COPY rc_hip /opt/app/rc_hip
 RUN rm -f /opt/app/rc_hip/data/db.sqlite3
