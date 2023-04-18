@@ -7,7 +7,9 @@
 <ul class="list-group">
 {% for cafe in object_list %}
     <li class="list-group-item">
-        <button type="button" class="btn btn-primary">Repair-Café am {{ cafe.event_date|date }}, {{ cafe.location }}</button>
+        <a  href="{% url 'register_device' cafe.id %}">
+            <button type="button" class="btn btn-primary">Repair-Café am {{ cafe.event_date|date }}, {{ cafe.location }}</button>
+        </a>
     </li>
 {% empty %}
     <li class="list-group-item">Es gibt keine geplanten Repair-Cafés.</li>

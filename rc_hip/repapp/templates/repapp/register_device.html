@@ -1,0 +1,30 @@
+{% extends "repapp/base.html" %}
+
+{% block title %}- Gerät anmelden{% endblock title %}
+
+{% block content %}
+<form action="{% url 'register_device' cafe.id %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="email_address" class="form-label">eMail Adresse</label>
+      <input type="text" class="form-control" id="email_address" name="email_address" aria-describedby="email_help">
+      <div id="email_help" class="form-text">Diese eMail-Adresse wird für Aktualisierungen zur Anfrage verwendet.</div>
+    </div>
+    <div class="mb-3">
+        <label for="device" class="form-label">Gerätebezeichnung</label>
+        <input type="text" class="form-control" id="device" name="device" aria-describedby="device_help">
+        <div id="device_help" class="form-text">Bitte geben Sie den Hersteller und die Gerätebezeichnung an.</div>
+    </div>
+    <div class="mb-3">
+        <label for="issue" class="form-label">Fehlerbeschreibung</label>
+        <textarea rows="6" cols="60" class="form-control" id="issue" name="issue" aria-describedby="issue_help"></textarea>
+        <div id="issue_help" class="form-text">Beschreiben Sie hier das Problem ihres Gerätes.</div>
+    </div>  
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="follow_up" name="follow_up" aria-describedby="follow_up_help">
+      <label class="form-check-label" for="follow_up">Folgetermin</label>
+      <div id="follow_up_help" class="form-text">Klicken Sie dieses Kästchen an wenn sie mit diesem Gerät bereits bei einem Repair-Café waren.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Absenden</button>
+</form>
+{% endblock content %}
