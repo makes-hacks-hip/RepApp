@@ -85,7 +85,7 @@ class Device(models.Model):
         verbose_name_plural = _('Geräte')
 
     def __str__(self):
-        return f'Gerät {self.device} von {self.guest_id.name}'
+        return f'Gerät {self.device}'
 
 
 class Appointment(models.Model):

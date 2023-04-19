@@ -8,7 +8,8 @@
         "Reparateure",
         "reparateur_id",
         "organisator_id",
-        "Reparateurs"
+        "Reparateurs",
+        "repapp"
     ],
     "ignoreWords": [],
     "import": []
