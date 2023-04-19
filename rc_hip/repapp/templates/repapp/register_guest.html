@@ -2,12 +2,12 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %}- Gerät anmelden{% endblock title %}
+{% block title %}- Gast anmelden{% endblock title %}
 
 {% block content %}
-<h1 class="mt-2">Gerät anmelden</h1>
+<h1 class="mt-2">Ihre Daten</h1>
 <hr class="mt-0 mb-4">
-<form action="{% url 'register_device' cafe.id %}" method="post">
+<form action="{% url 'register_guest' cafe.id device.identifier mail %}" method="post">
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary">Absenden</button>
