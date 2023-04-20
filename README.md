@@ -8,6 +8,7 @@ For documentation see https://makes-hacks-hip.github.io/RepApp/.
 
 - Clone repo
 - python -m venv venv 
+- source venv/bin/activate
 - cd rc_hip
 - python manage.py makemigrations
 - python manage.py migrate
