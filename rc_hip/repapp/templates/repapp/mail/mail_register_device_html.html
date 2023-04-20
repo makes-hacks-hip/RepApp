@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="de">
+    <body>
+        <p>Hallo {{ guest.name }},</p>
+        <p>
+            Ihre  Anmeldung von {{ device.device }} für das Repair-Café am {{ cafe.event_date|date }}
+            ist bei uns angekommen.
+        </p>
+        <p>
+            Bitte bestätigen sie ihre Anmeldung in dem Sie
+            <a href="https://repapp.rc-hip.de/confirm/{{ device.identifier }}/code/{{ device.secret }}">hier</a>
+            klicken.
+        </p>
+        <p>
+            Viele Grüße,
+            <br>
+            Ihr Repair-Café
+        </p>
+    </body>
+</html>

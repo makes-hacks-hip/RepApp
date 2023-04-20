@@ -1,0 +1,18 @@
+{% extends "repapp/base.html" %}
+{% block title %}
+    - {{ device.device }}
+{% endblock title %}
+{% block content %}
+    <h1 class="mt-2">Gerät: {{ device.device }}</h1>
+    <hr class="mt-0 mb-4">
+    <p>Fehler:</p>
+    <p>{{ device.error }}</p>
+    <p>
+        Folgetermin:
+        {% if device.follow_up %}
+            Ja
+        {% else %}
+            Nein
+        {% endif %}
+    </p>
+{% endblock content %}

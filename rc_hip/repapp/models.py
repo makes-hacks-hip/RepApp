@@ -60,6 +60,7 @@ class Guest(models.Model):
     phone = models.CharField(max_length=200, verbose_name=_("Telefonnummer"))
     residence = models.CharField(max_length=200, verbose_name=_("Wohnort"))
     mail = models.CharField(max_length=200, verbose_name=_("eMail"))
+    confirmed = models.BooleanField(verbose_name=_("Bestätigt"), default=False)
 
     class Meta:
         verbose_name = _('Gast')
@@ -74,11 +75,16 @@ class Device(models.Model):
     A Device is a broken device owned by a guest which shall be repaired during a Repair-Café.
     """
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
+    secret = models.CharField(
+        max_length=200, verbose_name=_("Bestätigungscode"), default="TEST12345")
     device = models.CharField(max_length=200, verbose_name=_("Gerät"))
     error = models.TextField(verbose_name=_("Fehler"))
     follow_up = models.BooleanField(verbose_name=_("Folgetermin"))
-    guest_id = models.ForeignKey(
+    confirmed = models.BooleanField(verbose_name=_("Bestätigt"), default=False)
+    guest = models.ForeignKey(
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
+    cafe = models.ForeignKey(
+        Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
 
     class Meta:
         verbose_name = _('Gerät')
@@ -95,11 +101,11 @@ class Appointment(models.Model):
     """
     time = models.TimeField(verbose_name=_("Zeit"))
     confirmed = models.BooleanField(verbose_name=_("bestätigt"))
-    cafe_id = models.ForeignKey(
+    cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, verbose_name=_("Repair-Café"))
-    reparateur_id = models.ForeignKey(
+    reparateur = models.ForeignKey(
         Reparateur, on_delete=models.CASCADE, verbose_name=_("Reparateur"))
-    device_id = models.ForeignKey(
+    device = models.ForeignKey(
         Device, on_delete=models.CASCADE, null=True, verbose_name=_("Gerät"))
 
     class Meta:
@@ -107,7 +113,7 @@ class Appointment(models.Model):
         verbose_name_plural = _('Termine')
 
     def __str__(self):
-        return f'Termin {self.cafe_id.event_date} {self.time} für Gerät {self.device_id.device}'
+        return f'Termin {self.cafe.event_date} {self.time} für Gerät {self.device.device}'
 
 
 class Candidate(models.Model):
@@ -116,9 +122,9 @@ class Candidate(models.Model):
     or pre-assigned Reparateur.
     """
     confirmed = models.BooleanField(verbose_name=_("bestätigt"))
-    cafe_id = models.ForeignKey(
+    cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, verbose_name=_("Repair-Café"))
-    device_id = models.ForeignKey(
+    device = models.ForeignKey(
         Device, on_delete=models.CASCADE, null=True, verbose_name=_("Gerät"))
 
     class Meta:
@@ -126,7 +132,7 @@ class Candidate(models.Model):
         verbose_name_plural = _('Kandidaten')
 
     def __str__(self):
-        return f'Kandidat {self.cafe_id.event_date} für Gerät {self.device_id.device}'
+        return f'Kandidat {self.cafe.event_date} für Gerät {self.device.device}'
 
 
 class Question(models.Model):
@@ -136,11 +142,11 @@ class Question(models.Model):
     question = models.TextField(verbose_name=_("Frage"))
     answer = models.TextField(verbose_name=_("Antwort"))
     date = models.DateField(verbose_name=_("Erstellungsdatum"))
-    organisator_id = models.ForeignKey(
+    organisator = models.ForeignKey(
         Organisator, on_delete=models.CASCADE, null=True, verbose_name=_("Organisator"))
-    reparateur_id = models.ForeignKey(
+    reparateur = models.ForeignKey(
         Reparateur, on_delete=models.CASCADE, null=True, verbose_name=_("Reparateur"))
-    device_id = models.ForeignKey(
+    device = models.ForeignKey(
         Device, on_delete=models.CASCADE, verbose_name=_("Gerät"))
 
     class Meta:
@@ -148,4 +154,4 @@ class Question(models.Model):
         verbose_name_plural = _('Fragen')
 
     def __str__(self):
-        return f'Frage vom {self.date} zum Gerät {self.device_id.device}'
+        return f'Frage vom {self.date} zum Gerät {self.device.device}'
