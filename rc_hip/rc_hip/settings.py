@@ -143,3 +143,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://repapp.rc-hip.de',
     'http://127.0.0.1:8020'
 ]
+
+EMAIL_HOST = os.getenv("DJANGO_EMAIL_HOST", '')
+EMAIL_PORT = (int)(os.getenv("DJANGO_EMAIL_PORT", '25'))
+EMAIL_HOST_USER = os.getenv("DJANGO_EMAIL_HOST_USER", None)
+EMAIL_HOST_PASSWORD = os.getenv("DJANGO_EMAIL_HOST_PASSWORD", None)
+EMAIL_USE_TLS = os.getenv("DJANGO_EMAIL_USE_TLS", 'true') in ('true', '1', 't')

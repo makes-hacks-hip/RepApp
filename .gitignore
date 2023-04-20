@@ -1,4 +1,6 @@
 
+.env
+
 rc_hip/static
 rc_hip/static/**
 
