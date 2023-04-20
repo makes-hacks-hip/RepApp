@@ -4,6 +4,17 @@ Web App um Reparaturtermine zu vereinbaren.
 
 For documentation see https://makes-hacks-hip.github.io/RepApp/.
 
+## Setup for development
+
+- Clone repo
+- python -m venv venv 
+- source venv/bin/activate
+- cd rc_hip
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py createsuperuser 
+- python manage.py runserver
+
 ## Build Docker image
 
 - Build the image: `docker build -t repapp .`
