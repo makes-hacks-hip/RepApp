@@ -187,7 +187,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Gerät anmelden (S2)
 
-URL: cafe/<int:cafe>/
+URL: cafe/int:cafe/
 
 Name: register_device
 
@@ -202,7 +202,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Gast anmelden (S3)
 
-URL: cafe/<int:cafe>/device/<str:deviceentifier>/<str:mail>/
+URL: cafe/int:cafe/device/str:deviceentifier/str:mail/
 
 Name: register_guest
 
@@ -217,7 +217,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Bestätigung gesendet (S4)
 
-URL: cafe/<int:cafe>/device/<str:deviceentifier>/guest/<str:guestentifier>/
+URL: cafe/int:cafe/device/str:deviceentifier/guest/str:guestentifier/
 
 Name: register_device_final
 
@@ -234,7 +234,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Anmeldung bestätigt (S7)
 
-URL: confirm/<str:deviceentifier>/code/<str:device_secret>
+URL: confirm/str:deviceentifier/code/str:device_secret/
 
 Name: register_device_confirm
 
@@ -250,7 +250,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Geräte Detailseite (S5)
 
-URL: device/<str:deviceentifier>
+URL: device/str:deviceentifier/
 
 Name: view_device
 
