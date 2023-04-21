@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="de">
     <body>
-        <p>Hallo {{ guest.name }},</p>
+        <p>Guten Tag,</p>
         <p>
-            Ihre  Anmeldung von {{ device.device }} für das Repair-Café am {{ cafe.event_date|date }}
-            ist bei uns angekommen.
+            dies ist eine automatische Nachricht, die du erhältst, nachdem du unser Anmeldeformular abgesendet hast und deine Angaben in unserer Datenbank gespeichert wurden.
         </p>
         <p>
-            Bitte bestätigen sie ihre Anmeldung in dem Sie
-            <a href="https://repapp.rc-hip.de/confirm/{{ device.identifier }}/code/{{ device.secret }}">hier</a>
-            klicken.
+            Vielen Dank für die Anmeldung des Geräts {{ device.device }} - {{ device.manufacturer }} zur Reparatur im Repair-Café am {{ cafe.event_date|date }}.
         </p>
         <p>
-            Viele Grüße,
-            <br>
-            Ihr Repair-Café
+            Die Organisation unserer Repair-Cafés beginnt i.a. einige Tage vor dem jeweiligen Termin. Dann erstellen wir anhand der angemeldeten Geräte und der Spezialgebiete der anwesenden Reparateure einen Zeitplan.
         </p>
+        <p>
+            Sobald dieser Zeitplan fertig gestellt ist, erhältst du von einem Mitglied unseres Organisationsteams eine Mail. Diese beinhaltet im Normalfall den Reparaturtermin inkl. der Uhrzeit, für die die Reparatur vorgesehen ist. In Ausnahmefällen (z.B. wenn kein Spezialist für die Gerätegruppe anwesend sein wird oder überbucht ist) ist es aber auch möglich, dass wir deinen gewünschten Termin absagen und dir einen Alternativtermin vorschlagen müssen.
+        </p>
+        <p>
+            Falls du in der Zwischenzeit Rückfragen hast oder deinen Wunschtermin doch nicht wahrnehmen kannst, antworte bitte einfach auf diese Nachricht.
+        </p>
+        <p>Herzliche Grüße sendet dir das Organisationsteam vom Repair-Café Hilpoltstein!</p>
     </body>
 </html>

@@ -63,6 +63,7 @@ Attribute:
 
 - Datum: Datum der Veranstaltung
 - Ort: Beschreibung wo das Repair-Café stattfindet
+- Adresse: Adresse an der das Repair-Café stattfindet
 
 Annahmen:
 
@@ -102,7 +103,6 @@ Attribute:
 - Telefon: Festnetz oder Mobilnummer des Gastes
 - Wohnort: Wohnort des Gastes
 - Mail: eMail-Adresse des Gastes für Benachrichtigungen
-- Bestätigt: Ein boolesches Flag das anzeigt ob der Gast seine eMail-Adresse bestätigt hat.
 
 Technische Attribute:
 
@@ -115,15 +115,18 @@ Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés reparie
 Attribute:
 
 - Gerät: Bezeichnung des Geräts
+- Hersteller: Hersteller des Geräts
 - Fehler: Beschreibung des Defekts
 - Folgetermin: Boolesches Flag das anzeigt ob es sich um einen Folgetermin handelt.
-- Bestätigt: Ein boolesches Flag das anzeigt ob der Gast die Greäteanmeldung bestätigt hat.
+- Foto vom Gerät
+- Foto vom Typenschild
+- Bestätigung gesendet?: Ein boolesches Flag das anzeigt ob eine eMail als Anmeldebestätigung gesendet wurde.
 
 Technische Attribute:
 
 - Identifier: SHA256 Hash aus Gerät + Gast + Timestamp
-- Geheimnis: SHA256 Hash aus Gerät + Gast + Timestamp + Zufallszahl
 - Gast: Referenz zum Gast der das Gerät besitzt
+- Cafe: Referenz zum Repair-Café für das diese Gerät angemeldet ist
 
 ### Termin
 
@@ -192,9 +195,11 @@ URL: cafe/int:cafe/
 Name: register_device
 
 Diese Seite zeigt das Formular zum anmelden der Geräte.
-Das Formular hat die Felder `eMail-Adresse`, `Gerätebezeichnung`, `Fehlerbeschreibung`, eine Kontrollkästchen `Folgetermin` und einen Knopf `Absenden` zum senden des Formulars.
+Das Formular hat die Felder `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung`, ein Kontrollkästchen `Datenschutz` und einen Knopf `Absenden` zum senden des Formulars.
 
 Das Repair-Café zu dem die Anmeldung gehört ist über eine ID in der URL der Seite festgelegt.
+
+Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet, falls die eMail Adresse zu einem bekannten Gast gehört.
 
 #### Sicherheit
 
@@ -202,7 +207,7 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Gast anmelden (S3)
 
-URL: cafe/int:cafe/device/str:deviceentifier/str:mail/
+URL: cafe/int:cafe/device/str:device_identifier/mail/str:mail/
 
 Name: register_guest
 
@@ -211,36 +216,19 @@ Das Formular hat die Felder `Name`, `Telefon`, `Wohnort` und einen Knopf `Absend
 
 Die eMail-Adresse und das Gerät zu dem die Gast-Kontaktdaten gehören ist über IDs in der URL der Seite festgelegt.
 
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
-
-### Bestätigung gesendet (S4)
-
-URL: cafe/int:cafe/device/str:deviceentifier/guest/str:guestentifier/
-
-Name: register_device_final
-
-Die Seite Bestätigung gesendet zeigt einen Hinweis dass eine eMail gesendet wurde und die Anmeldung des Gerätes durch einen Klick auf einen Link in der eMail bestätigt werden muss.
-
-Die eMail-Bestätigung wird während des Aufrufs dieser Seite gesendet.
-
-Das Repair-Café, der Gast und das Gerät sind über IDs in der URL der Seite festgelegt.
+Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet.
 
 #### Sicherheit
 
 Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
-
 
 ### Anmeldung bestätigt (S7)
 
-URL: confirm/str:deviceentifier/code/str:device_secret/
+URL: cafe/int:cafe/device/str:device_identifier/confirm/
 
-Name: register_device_confirm
+Name: register_device_final
 
 Die Seite Anmeldung bestätigt zeigt einen Hinweis dass die Anmeldung des Gerätes erfolgreich abgeschlossen wurde.
-
-Die eMail-Benachrichtigung and die Organisatoren wird während des Aufrufs dieser Seite gesendet.
 
 Die Geräte ID ist in der URL der Seite festgelegt.
 
@@ -250,11 +238,11 @@ Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Geräte Detailseite (S5)
 
-URL: device/str:deviceentifier/
+URL: device/str:device_identifier/
 
 Name: view_device
 
-Die Geräte Detailseite zeigt die Informationen `Gerätebezeichnung`, `Fehlerbeschreibung` und `Folgetermin` an.
+Die Geräte Detailseite zeigt die Informationen `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild` und `Folgetermin` an.
 
 Das Gerät ist über IDs in der URL der Seite festgelegt.
 
@@ -283,16 +271,16 @@ Die Seite enthält persönliche Daten und ist nur nach Anmeldung erreichbar.
 Als neuer Gast der ein defekten Geräte anmelden möchte,
 
 - gehe ich auf die Seite (S1) der Repair-Café Termine. Dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin. Dieser Klick bringt mich auf die nächste Seite.
-- Die nächste Seite (S2) enthält ein Formular mit den Feldern `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`. Dieser Klick bringt mich auf die nächste Seite.
+- Die nächste Seite (S2) enthält ein Formular mit den Feldern `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung` une ein Kontrollkästchen `Datenschutz`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`. Dieser Klick bringt mich auf die nächste Seite.
 - Die nächste Seite (S3) enthält ein Formular mit den Feldern `Name`, `Telefon` und `Wohnort`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`.  Dieser Klick bringt mich auf die nächste Seite.
-- Die nächste Seite (S4) weißt mich darauf hin dass eine eMail gesendet wurde und ich die Anmeldung über einen Klick in der eMail bestätigen muss.
-- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls einen Link enthält um die Anmeldung zu bestätigen. Ein Klick auf diesen Link bringt mich auf die Seite Anmeldung bestätigt (S7).
+- Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
+- In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
 
 #### Variante: Bekannter Gast (existierende eMail Adresse)
 
 Als bekannter Gast der ein defekten Geräte anmelden möchte,
 
 - gehe ich auf die Seite (S1) der Repair-Café Termine. Dort klicke ich auf `Gerät anmelden` bei dem richtigen Repair-Café Termin. Dieser Klick bringt mich auf die nächste Seite.
-- Die nächste Seite (S2) enthält ein Formular mit den Feldern `eMail-Adresse`, `Gerätebezeichnung` und `Fehlerbeschreibung` und eine Kontrollkästchen `Folgetermin`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`. Dieser Klick bringt mich auf die nächste Seite.
-- Die nächste Seite (S4) weißt mich darauf hin dass eine eMail gesendet wurde und ich die Anmeldung über einen Klick in der eMail bestätigen muss.
-- In meinem eMail Posteingang finde ich eine Bestätigung der Geräteanmeldung die ebenfalls einen Link enthält um die Anmeldung zu bestätigen. Ein Klick auf diesen Link bringt mich auf die Seite Anmeldung bestätigt (S7).
+- Die nächste Seite (S2) enthält ein Formular mit den Feldern `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung` une ein Kontrollkästchen `Datenschutz`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`. Dieser Klick bringt mich auf die nächste Seite.
+- Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
+- In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
