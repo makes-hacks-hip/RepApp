@@ -10,4 +10,7 @@ server {
     location /static {
         root /opt/app/rc_hip;
     }
+    location /media {
+        root /opt/app/rc_hip;
+    }
 }

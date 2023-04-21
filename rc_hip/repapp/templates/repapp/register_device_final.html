@@ -1,12 +1,16 @@
 {% extends "repapp/base.html" %}
-
-{% block title %}{% endblock title %}
-
+{% block title %}
+{% endblock title %}
 {% block content %}
-<h1 class="mt-2">Bestätigung ihrer Daten</h1>
-<hr class="mt-0 mb-4">
-<p>
-Wir haben ihnen eine eMail mit ihren Daten gesendet. Bitte bestätigen
-Sie ihre Anmeldung durch Klick auf den Link in der eMail.
-</p>
+    <h1 class="mt-2">Anmeldung erfolgreich!</h1>
+    <hr class="mt-0 mb-4">
+    <p>
+        Vielen Dank für die Anmeldung des Geräts {{ device.device }} - {{ device.manufacturer }} zur Reparatur im Repair-Café am {{ cafe.event_date|date }}.
+    </p>
+    <p>
+        Die Organisation unserer Repair-Cafés beginnt i.a. einige Tage vor dem jeweiligen Termin. Dann erstellen wir anhand der angemeldeten Geräte und der Spezialgebiete der anwesenden Reparateure einen Zeitplan.
+    </p>
+    <p>
+        Sobald dieser Zeitplan fertig gestellt ist, erhältst du von einem Mitglied unseres Organisationsteams eine Mail. Diese beinhaltet im Normalfall den Reparaturtermin inkl. der Uhrzeit, für die die Reparatur vorgesehen ist. In Ausnahmefällen (z.B. wenn kein Spezialist für die Gerätegruppe anwesend sein wird oder überbucht ist) ist es aber auch möglich, dass wir deinen gewünschten Termin absagen und dir einen Alternativtermin vorschlagen müssen.
+    </p>
 {% endblock content %}

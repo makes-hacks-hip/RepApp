@@ -11,6 +11,8 @@ class Cafe(models.Model):
     """
     location = models.CharField(
         max_length=200, verbose_name=_("Ort"))
+    address = models.CharField(
+        max_length=200, verbose_name=_("Adresse"))
     event_date = models.DateField(verbose_name=_("Datum"))
 
     class Meta:
@@ -60,7 +62,6 @@ class Guest(models.Model):
     phone = models.CharField(max_length=200, verbose_name=_("Telefonnummer"))
     residence = models.CharField(max_length=200, verbose_name=_("Wohnort"))
     mail = models.CharField(max_length=200, verbose_name=_("eMail"))
-    confirmed = models.BooleanField(verbose_name=_("Bestätigt"), default=False)
 
     class Meta:
         verbose_name = _('Gast')
@@ -70,21 +71,29 @@ class Guest(models.Model):
         return f'Gast {self.name} (eMail: {self.mail})'
 
 
+def device_directory_path(instance, filename):
+    return f'device_{instance.identifier}/{filename}'
+
+
 class Device(models.Model):
     """
     A Device is a broken device owned by a guest which shall be repaired during a Repair-Café.
     """
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
-    secret = models.CharField(
-        max_length=200, verbose_name=_("Bestätigungscode"), default="TEST12345")
-    device = models.CharField(max_length=200, verbose_name=_("Gerät"))
-    error = models.TextField(verbose_name=_("Fehler"))
+    device = models.CharField(max_length=200, verbose_name=_("Art des Geräts"))
+    manufacturer = models.CharField(
+        max_length=200, verbose_name=_("Hersteller & Modell/Typ"))
+    error = models.TextField(verbose_name=_("Fehlerbeschreibung"))
     follow_up = models.BooleanField(verbose_name=_("Folgetermin"))
-    confirmed = models.BooleanField(verbose_name=_("Bestätigt"), default=False)
+    device_picture = models.FileField(
+        upload_to=device_directory_path, null=True, verbose_name=_("Foto vom Gerät"))
+    type_plate_picture = models.FileField(
+        upload_to=device_directory_path, null=True, verbose_name=_("Foto vom Typenschild"))
     guest = models.ForeignKey(
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
+    confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
 
     class Meta:
         verbose_name = _('Gerät')
@@ -116,25 +125,6 @@ class Appointment(models.Model):
         return f'Termin {self.cafe.event_date} {self.time} für Gerät {self.device.device}'
 
 
-class Candidate(models.Model):
-    """
-    A Candidate is a match of a broken Device and a Repair-Café without a fixed timeslot
-    or pre-assigned Reparateur.
-    """
-    confirmed = models.BooleanField(verbose_name=_("bestätigt"))
-    cafe = models.ForeignKey(
-        Cafe, on_delete=models.CASCADE, verbose_name=_("Repair-Café"))
-    device = models.ForeignKey(
-        Device, on_delete=models.CASCADE, null=True, verbose_name=_("Gerät"))
-
-    class Meta:
-        verbose_name = _('Kandidat')
-        verbose_name_plural = _('Kandidaten')
-
-    def __str__(self):
-        return f'Kandidat {self.cafe.event_date} für Gerät {self.device.device}'
-
-
 class Question(models.Model):
     """
     A Question is a request for information form a Organisator or a Reparateur for a Device.
@@ -155,3 +145,22 @@ class Question(models.Model):
 
     def __str__(self):
         return f'Frage vom {self.date} zum Gerät {self.device.device}'
+
+
+class Candidate(models.Model):
+    """
+    A Candidate is a match of a broken Device and a Repair-Café without a fixed timeslot
+    or pre-assigned Reparateur.
+    """
+    confirmed = models.BooleanField(verbose_name=_("bestätigt"))
+    cafe = models.ForeignKey(
+        Cafe, on_delete=models.CASCADE, verbose_name=_("Repair-Café"))
+    device = models.ForeignKey(
+        Device, on_delete=models.CASCADE, null=True, verbose_name=_("Gerät"))
+
+    class Meta:
+        verbose_name = _('Kandidat')
+        verbose_name_plural = _('Kandidaten')
+
+    def __str__(self):
+        return f'Kandidat {self.cafe.event_date} für Gerät {self.device.device}'

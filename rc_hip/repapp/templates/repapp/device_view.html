@@ -5,14 +5,56 @@
 {% block content %}
     <h1 class="mt-2">Gerät: {{ device.device }}</h1>
     <hr class="mt-0 mb-4">
-    <p>Fehler:</p>
-    <p>{{ device.error }}</p>
-    <p>
-        Folgetermin:
-        {% if device.follow_up %}
-            Ja
-        {% else %}
-            Nein
-        {% endif %}
-    </p>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Art des Geräts</th>
+                <td>{{ device.device }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Hersteller & Modell/Typ</th>
+                <td>{{ device.manufacturer }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Fehlerbeschreibung</th>
+                <td>{{ device.error }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Folgetermin</th>
+                <td>
+                    {% if device.follow_up %}
+                        Ja
+                    {% else %}
+                        Nein
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Foto vom Gerät</th>
+                <td>
+                    {% if device.device_picture %}
+                        <img alt="Foto vom Gerät"
+                             height="100%"
+                             width="50%"
+                             src="/media/{{ device.device_picture }}" />
+                    {% else %}
+                        kein Bild
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Foto vom Typenschild</th>
+                <td>
+                    {% if device.device_picture %}
+                        <img alt="Foto vom Typenschild"
+                             height="100%"
+                             width="50%"
+                             src="/media/{{ device.type_plate_picture }}" />
+                    {% else %}
+                        kein Bild
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 {% endblock content %}
