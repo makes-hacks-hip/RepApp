@@ -21,4 +21,6 @@ urlpatterns = [
          views.register_device_final, name="register_device_final"),
     path("device/<str:device_identifier>/",
          views.device_view, name="view_device"),
+    path("guest/profile/",
+         views.profile, name="guest_profile"),
 ]

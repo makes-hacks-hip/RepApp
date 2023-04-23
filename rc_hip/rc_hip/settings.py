@@ -155,3 +155,5 @@ EMAIL_USE_TLS = os.getenv("DJANGO_EMAIL_USE_TLS", 'true') in ('true', '1', 't')
 AUTH_USER_MODEL = "repapp_users.CustomUser"
 AUTHENTICATION_BACKENDS = [
     "repapp_users.backends.EmailBackend", "django.contrib.auth.backends.ModelBackend"]
+
+LOGIN_REDIRECT_URL = '/guest/profile/'

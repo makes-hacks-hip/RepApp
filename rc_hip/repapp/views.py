@@ -3,14 +3,19 @@ Views of RepApp.
 """
 import datetime
 import os
+import random
+import string
 from hashlib import sha256
 from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from repapp_users.models import CustomUser
 from .models import Cafe, Device, Guest, Organisator
 from .forms import RegisterDevice, RegisterGuest
 
@@ -156,6 +161,7 @@ class RegisterGuestFormView(generic.edit.FormView):
         device = get_object_or_404(Device, identifier=device_identifier)
 
         name = form.cleaned_data['name']
+        mail = self.kwargs['mail']
         residence = form.cleaned_data['residence']
         identifier = sha256(
             f'{name}{residence}{datetime.datetime.now()}'.encode('utf-8')
@@ -165,12 +171,24 @@ class RegisterGuestFormView(generic.edit.FormView):
             name=name,
             phone=form.cleaned_data['phone'],
             residence=residence,
-            mail=self.kwargs['mail'],
+            mail=mail,
         )
         guest.save()
 
         device.guest = guest
         device.save()
+
+        if not CustomUser.objects.filter(email=mail).exists():
+            password = ''.join(random.choice(string.ascii_letters)
+                               for i in range(10))
+            user = CustomUser.objects.create_user(
+                username=name,
+                email=mail,
+                password=password)
+            user.save()
+
+            print(f'{mail} {password}')
+            # TODO: send account creation email
 
         send_confirmation_mails(device, guest, cafe, self.request)
 
@@ -208,11 +226,38 @@ def register_device_final(request, cafe, device_identifier):
     )
 
 
+@login_required
 def device_view(request, device_identifier):
+    user = request.user
+    if not user:
+        raise PermissionDenied()
+
     device = get_object_or_404(Device, identifier=device_identifier)
+    if not device.guest:
+        raise PermissionDenied()
+
+    # TODO: Guests can only view their devices, Reparateur and Orga can view all devices.
 
     return render(
         request,
         "repapp/device_view.html",
         {"device": device},
+    )
+
+
+@login_required
+def profile(request):
+    user = request.user
+    if not user:
+        raise PermissionDenied()
+
+    guest = get_object_or_404(Guest, mail=user.email)
+
+    return render(
+        request,
+        "repapp/guest_profile.html",
+        {
+            'user': user,
+            'guest': guest
+        }
     )
