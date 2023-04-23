@@ -41,16 +41,17 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'repapp_users.apps.RepappUsersConfig',
     'repapp.apps.RepappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'mozilla_django_oidc',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
     'crispy_bootstrap4',
+    'repapp_users.apps.RepappUsersConfig',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
@@ -154,6 +155,27 @@ EMAIL_USE_TLS = os.getenv("DJANGO_EMAIL_USE_TLS", 'true') in ('true', '1', 't')
 
 AUTH_USER_MODEL = "repapp_users.CustomUser"
 AUTHENTICATION_BACKENDS = [
-    "repapp_users.backends.EmailBackend", "django.contrib.auth.backends.ModelBackend"]
+    "repapp_users.backends.EmailBackend",
+    "django.contrib.auth.backends.ModelBackend",
+    # 'mozilla_django_oidc.auth.OIDCAuthenticationBackend',
+    'repapp_users.backends.KeycloakOIDCAB'
+]
 
 LOGIN_REDIRECT_URL = '/guest/profile/'
+
+OIDC_RP_CLIENT_ID = "repapp"
+OIDC_RP_CLIENT_SECRET = os.getenv("DJANGO_OIDC_RP_CLIENT_SECRET", None)
+
+OIDC_RP_SIGN_ALGO = "RS256"
+OIDC_OP_JWKS_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/protocol/openid-connect/certs"
+
+OIDC_OP_AUTHORIZATION_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/protocol/openid-connect/auth"
+OIDC_OP_TOKEN_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/protocol/openid-connect/token"
+OIDC_OP_USER_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/protocol/openid-connect/userinfo"
+
+if DEBUG:
+    LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/"
+    LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/"
+else:
+    LOGIN_REDIRECT_URL = "https://repapp.rc-hip.de/"
+    LOGOUT_REDIRECT_URL = "https://repapp.rc-hip.de/"

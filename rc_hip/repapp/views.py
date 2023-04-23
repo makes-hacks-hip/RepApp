@@ -257,7 +257,13 @@ def profile(request):
         request,
         "repapp/guest_profile.html",
         {
-            'user': user,
             'guest': guest
         }
+    )
+
+
+def member_login(request):
+    return render(
+        request,
+        "repapp/member_login.html"
     )

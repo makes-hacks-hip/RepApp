@@ -23,4 +23,6 @@ urlpatterns = [
          views.device_view, name="view_device"),
     path("guest/profile/",
          views.profile, name="guest_profile"),
+    path("member/login/",
+         views.member_login, name="member_login"),
 ]
