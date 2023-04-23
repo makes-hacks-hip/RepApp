@@ -1,4 +1,21 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
+
+class HoneypotField(forms.BooleanField):
+    default_widget = forms.CheckboxInput(
+        {'style': 'display:none !important;', 'tabindex': '-1', 'autocomplete': 'off'})
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('widget', HoneypotField.default_widget)
+        kwargs['required'] = False
+        super().__init__(*args, **kwargs)
+
+    def clean(self, value):
+        if cleaned_value := super().clean(value):
+            raise ValidationError('')
+        else:
+            return cleaned_value
 
 
 class RegisterDevice(forms.Form):
@@ -48,6 +65,7 @@ class RegisterDevice(forms.Form):
         "Datenschutzerklärung</a> einverstanden.",
         required=True
     )
+    accept_agb = HoneypotField(label="")
 
 
 class RegisterGuest(forms.Form):
@@ -64,3 +82,4 @@ class RegisterGuest(forms.Form):
         label="Wohnort",
         max_length=200
     )
+    accept_agb = HoneypotField(label="")
