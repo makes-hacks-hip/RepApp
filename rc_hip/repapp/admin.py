@@ -2,7 +2,6 @@
 Admin interface configuration for RepApp.
 """
 from django.contrib import admin
-
 from .models import (Organisator, Cafe, Question, Device,
                      Reparateur, Appointment, Guest, Candidate)
 

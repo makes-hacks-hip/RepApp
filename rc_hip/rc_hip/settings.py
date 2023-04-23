@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'repapp_users.apps.RepappUsersConfig',
     'repapp.apps.RepappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -150,3 +151,7 @@ EMAIL_PORT = (int)(os.getenv("DJANGO_EMAIL_PORT", '25'))
 EMAIL_HOST_USER = os.getenv("DJANGO_EMAIL_HOST_USER", None)
 EMAIL_HOST_PASSWORD = os.getenv("DJANGO_EMAIL_HOST_PASSWORD", None)
 EMAIL_USE_TLS = os.getenv("DJANGO_EMAIL_USE_TLS", 'true') in ('true', '1', 't')
+
+AUTH_USER_MODEL = "repapp_users.CustomUser"
+AUTHENTICATION_BACKENDS = [
+    "repapp_users.backends.EmailBackend", "django.contrib.auth.backends.ModelBackend"]

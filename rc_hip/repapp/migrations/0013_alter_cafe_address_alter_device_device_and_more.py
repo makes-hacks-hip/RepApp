@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='device',
             name='device',
-            field=models.CharField(max_length=200, verbose_name='Art des Geräts'),
+            field=models.CharField(
+                max_length=200, verbose_name='Art des Geräts'),
         ),
         migrations.AlterField(
             model_name='device',
@@ -28,6 +29,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='device',
             name='manufacturer',
-            field=models.CharField(max_length=200, verbose_name='Hersteller & Modell/Typ'),
+            field=models.CharField(
+                max_length=200, verbose_name='Hersteller & Modell/Typ'),
         ),
     ]
