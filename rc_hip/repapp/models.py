@@ -207,3 +207,22 @@ class OneTimeLogin(models.Model):
 
     def __str__(self):
         return f'Einmal-Login {self.user.email}'
+
+
+class Message(models.Model):
+    """
+    A Message is a request from a guest.
+    """
+    message = models.TextField(verbose_name=_("Nachricht"))
+    answer = models.TextField(verbose_name=_("Antwort"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
+    guest = models.ForeignKey(
+        Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
+
+    class Meta:
+        verbose_name = _('Nachricht')
+        verbose_name_plural = _('Nachrichten')
+
+    def __str__(self):
+        return f'Nachricht vom {self.date} von {self.guest.mail}'
