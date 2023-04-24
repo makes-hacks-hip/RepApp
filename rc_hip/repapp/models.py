@@ -175,6 +175,9 @@ class Candidate(models.Model):
 
 
 class CustomUser(AbstractUser):
+    """
+    Custom user object with unique email.
+    """
     email = models.EmailField(unique=True, verbose_name=_("eMail Adresse"))
 
     class Meta:

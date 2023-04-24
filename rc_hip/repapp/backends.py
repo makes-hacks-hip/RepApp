@@ -28,10 +28,10 @@ class EmailBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        userModel = get_user_model()
+        user_model = get_user_model()
         try:
-            user = userModel.objects.get(email=username)
-        except userModel.DoesNotExist:
+            user = user_model.objects.get(email=username)
+        except user_model.DoesNotExist:
             return None
         else:
             if user.check_password(password):
@@ -41,7 +41,8 @@ class EmailBackend(ModelBackend):
 
 class KeycloakOIDCAB(OIDCAuthenticationBackend):
     """
-    KeycloakOIDCAB allows a login using Open ID Connect (with the Repair-Café Keycloak Single Sign On server)
+    KeycloakOIDCAB allows a login using Open ID Connect
+    (with the Repair-Café Keycloak Single Sign On server)
     """
 
     def create_user(self, claims):

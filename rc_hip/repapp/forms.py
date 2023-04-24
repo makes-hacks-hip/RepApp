@@ -6,6 +6,9 @@ from django.core.exceptions import ValidationError
 
 
 class HoneypotField(forms.BooleanField):
+    """
+    Simple honeypot field.
+    """
     default_widget = forms.CheckboxInput(
         {'style': 'display:none !important;', 'tabindex': '-1', 'autocomplete': 'off'})
 
@@ -22,6 +25,9 @@ class HoneypotField(forms.BooleanField):
 
 
 class RegisterDevice(forms.Form):
+    """
+    Form for registering a device for a repair cafe.
+    """
     mail = forms.EmailField(
         label="eMail Adresse",
         help_text="Diese eMail-Adresse wird für Aktualisierungen"
@@ -49,7 +55,8 @@ class RegisterDevice(forms.Form):
     )
     follow_up = forms.BooleanField(
         label="Folgetermin",
-        help_text="Kreuzen Sie diese Kästchen an wenn sie mit diesem Gerät bereits bei einem Repair-Café Termin waren.",
+        help_text="Kreuzen Sie diese Kästchen an wenn sie mit diesem Gerät "
+        "bereits bei einem Repair-Café Termin waren.",
         required=False
     )
     confirm_repair = forms.BooleanField(
@@ -72,6 +79,9 @@ class RegisterDevice(forms.Form):
 
 
 class RegisterGuest(forms.Form):
+    """
+    Form for registering new guests.
+    """
     name = forms.CharField(
         label="Name",
         max_length=200

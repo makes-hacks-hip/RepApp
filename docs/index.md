@@ -4,6 +4,8 @@ RepApp ist eine Web App um Reparaturen im Rahmen eines Repair-Cafés zu organisi
 
 ## Benutzer
 
+RepApp unterscheidet zwischen den folgenden Benutzer-Typen:
+
 ### Gast
 
 Ein Gast ist ein Gerätebesitzer der ein oder mehrere Geräte zur Reparatur anmelden möchte.
@@ -18,6 +20,9 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 
 ## Anwendungsfälle
 
+Die Anwendungsfälle sind in Meilensteine unterteilt.
+Zu Meilenstein 1 (M1) gehören alle Anwendungsfälle die notwendig sind um RepApp "produktiv" für die Anmeldung von Geräten zu verwenden.
+
 ### Gast
 
 - [x] M1: Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. (A1)
@@ -30,7 +35,9 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 - [ ] Als Gast möchte ich meine Daten ansehen können. (A21)
 - [ ] Als Gast möchte ich meine Daten löschen können. (A22)
 - [ ] Als Gast möchte ich eine Geräteanmeldung löschen können. (A23)
-- [ ] M1: Als Gast möchte ausschließlich per eMail mit dem System interagieren können. (A30)
+- [ ] M1: Als Gast möchte ich ausschließlich per eMail mit dem System interagieren können. (A30)
+- [ ] M1: Als Gast möchte per eMail Fragen ans Team stellen können. (A33)
+- [ ] M1: Als Gast möchte ich per eMail auf Rückfragen antworten können. (A34)
 
 ### Reparateur
 
@@ -272,7 +279,7 @@ Die Seite enthält persönliche Daten und ist nur nach Anmeldung erreichbar.
 
 ### Anmeldung eines defekten Gerätes
 
-#### Variante: Neuer Gast
+#### Variante: Neuer Gast (F1)
 
 Als neuer Gast der ein defekten Geräte anmelden möchte,
 
@@ -282,7 +289,7 @@ Als neuer Gast der ein defekten Geräte anmelden möchte,
 - Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
 - In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
 
-#### Variante: Bekannter Gast (existierende eMail Adresse)
+#### Variante: Bekannter Gast (existierende eMail Adresse) (F2)
 
 Als bekannter Gast der ein defekten Geräte anmelden möchte,
 

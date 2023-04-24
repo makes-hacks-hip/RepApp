@@ -103,6 +103,9 @@ class RegisterDeviceFormView(generic.edit.FormView):
 
 
 class RegisterGuestFormView(generic.edit.FormView):
+    """
+    View for registering a new guest.
+    """
     template_name = "repapp/register_guest.html"
     form_class = RegisterGuest
 
@@ -137,7 +140,8 @@ class RegisterGuestFormView(generic.edit.FormView):
             user = CustomUser.objects.create_user(
                 username=name,
                 email=mail,
-                password=password)
+            )
+            user.set_password(password)
             user.save()
 
             send_guest_account_mail(guest, password, self.request)
@@ -168,6 +172,9 @@ class RegisterGuestFormView(generic.edit.FormView):
 
 
 def register_device_final(request, cafe, device_identifier):
+    """
+    View to confirm device registration.
+    """
     cafe = get_object_or_404(Cafe, pk=cafe)
     device = get_object_or_404(Device, identifier=device_identifier)
 
@@ -180,6 +187,9 @@ def register_device_final(request, cafe, device_identifier):
 
 @login_required
 def device_view(request, device_identifier):
+    """
+    View for showing device details.
+    """
     user = request.user
     if not user:
         raise PermissionDenied()
@@ -200,6 +210,9 @@ def device_view(request, device_identifier):
 
 @login_required
 def profile(request):
+    """
+    View for showing guest details.
+    """
     user = request.user
     if not user:
         raise PermissionDenied()
@@ -216,6 +229,9 @@ def profile(request):
 
 
 def member_login(request):
+    """
+    Login page for repair cafe members, using OIDC.
+    """
     return render(
         request,
         "repapp/member_login.html"
@@ -223,14 +239,24 @@ def member_login(request):
 
 
 def cron(request):
+    """
+    View to trigger automated regular tasks.
+    """
     pass
 
 
 def process_mails(request):
+    """
+    View to trigger processing of email in inbox.
+    """
     pass
 
 
 def one_time_login(request, secret):
+    """
+    View for one time login.
+    """
+    # waste a little time as brute force protection
     time.sleep(1)
 
     otl = get_object_or_404(OneTimeLogin, secret=secret)

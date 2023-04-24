@@ -5,7 +5,7 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin, ExportActionMixin
 from import_export import resources
 from .models import (Organisator, Cafe, Question, Device, CustomUser,
-                     Reparateur, Appointment, Guest, Candidate, OneTimeLogin)
+                     Reparateur, Appointment, Guest, Candidate, OneTimeLogin, Message)
 
 
 class GuestResource(resources.ModelResource):
@@ -96,13 +96,16 @@ class ExportAdmin(ImportExportModelAdmin, ExportActionMixin):
     ]
 
 
+# Register all models of RepApp for the admin interface.
 admin.site.register(Organisator)
 admin.site.register(Cafe)
+admin.site.register(Reparateur)
+admin.site.register(CustomUser)
+admin.site.register(OneTimeLogin)
+admin.site.register(Message)
+# Make the "data" models exportable.
 admin.site.register(Question, ExportAdmin)
 admin.site.register(Guest, ExportAdmin)
 admin.site.register(Device, ExportAdmin)
-admin.site.register(Reparateur)
 admin.site.register(Appointment, ExportAdmin)
 admin.site.register(Candidate, ExportAdmin)
-admin.site.register(CustomUser)
-admin.site.register(OneTimeLogin)

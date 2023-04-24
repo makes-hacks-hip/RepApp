@@ -163,7 +163,6 @@ AUTH_USER_MODEL = "repapp.CustomUser"
 AUTHENTICATION_BACKENDS = [
     "repapp.backends.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
-    # "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
     "repapp.backends.KeycloakOIDCAB",
     "repapp.backends.OneTimeLoginBackend",
 ]
