@@ -1,0 +1,13 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Gast Login
+{% endblock title %}
+{% block content %}
+    <h2>Gast Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Anmelden</button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "repapp/base.html" %}
+{% block title %}
+    - Gast Daten
+{% endblock title %}
+{% block content %}
+    <h1 class="mt-2">Ihre Daten</h1>
+    <hr class="mt-0 mb-4">
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">eMail Adresse</th>
+                <td>{{ guest.mail }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Name</th>
+                <td>{{ guest.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Wohnort</th>
+                <td>{{ guest.residence }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Telefonnummer</th>
+                <td>{{ guest.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}

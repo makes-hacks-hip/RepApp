@@ -6,3 +6,6 @@ pylint-django==2.5.3
 pylint-plugin-utils==0.7
 django-crispy-forms==2.0
 crispy-bootstrap4==2022.1
+mozilla-django-oidc==3.0.0
+djlint==1.23.3
+django-import-export==3.2.0

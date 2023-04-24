@@ -1,8 +1,10 @@
 """
 This module implements the models of RepApp.
 """
+import django.utils.timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import AbstractUser
 
 
 class Cafe(models.Model):
@@ -72,6 +74,9 @@ class Guest(models.Model):
 
 
 def device_directory_path(instance, filename):
+    """
+    device_directory_path generates a device-specific storage path for file uploads.
+    """
     return f'device_{instance.identifier}/{filename}'
 
 
@@ -94,6 +99,8 @@ class Device(models.Model):
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
     confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
 
     class Meta:
         verbose_name = _('Gerät')
@@ -131,7 +138,8 @@ class Question(models.Model):
     """
     question = models.TextField(verbose_name=_("Frage"))
     answer = models.TextField(verbose_name=_("Antwort"))
-    date = models.DateField(verbose_name=_("Erstellungsdatum"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
     organisator = models.ForeignKey(
         Organisator, on_delete=models.CASCADE, null=True, verbose_name=_("Organisator"))
     reparateur = models.ForeignKey(
@@ -164,3 +172,57 @@ class Candidate(models.Model):
 
     def __str__(self):
         return f'Kandidat {self.cafe.event_date} für Gerät {self.device.device}'
+
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True, verbose_name=_("eMail Adresse"))
+
+    class Meta:
+        verbose_name = _('Benutzer')
+        verbose_name_plural = _('Benutzer')
+
+    def __str__(self):
+        return f'{self.email}'
+
+
+class OneTimeLogin(models.Model):
+    """
+    A OneTimeLogin is a secret which can be used once to login a user.
+    """
+    secret = models.CharField(max_length=200, verbose_name=_(
+        "secret"), unique=True, null=False)
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=False, verbose_name=_("Benutzer"))
+    url = models.CharField(max_length=200, verbose_name=_("URL"))
+    created = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
+    login_used = models.BooleanField(
+        verbose_name=_("Login benutzt?"), default=False)
+    login_date = models.DateField(verbose_name=_(
+        "Login Datum"), null=True)
+
+    class Meta:
+        verbose_name = _('Einmal-Login')
+        verbose_name_plural = _('Einmal-Login')
+
+    def __str__(self):
+        return f'Einmal-Login {self.user.email}'
+
+
+class Message(models.Model):
+    """
+    A Message is a request from a guest.
+    """
+    message = models.TextField(verbose_name=_("Nachricht"))
+    answer = models.TextField(verbose_name=_("Antwort"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
+    guest = models.ForeignKey(
+        Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
+
+    class Meta:
+        verbose_name = _('Nachricht')
+        verbose_name_plural = _('Nachrichten')
+
+    def __str__(self):
+        return f'Nachricht vom {self.date} von {self.guest.mail}'
