@@ -1,6 +1,7 @@
 """
 This module implements the models of RepApp.
 """
+import django.utils.timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -94,6 +95,8 @@ class Device(models.Model):
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
     confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
 
     class Meta:
         verbose_name = _('Gerät')
@@ -131,7 +134,8 @@ class Question(models.Model):
     """
     question = models.TextField(verbose_name=_("Frage"))
     answer = models.TextField(verbose_name=_("Antwort"))
-    date = models.DateField(verbose_name=_("Erstellungsdatum"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
     organisator = models.ForeignKey(
         Organisator, on_delete=models.CASCADE, null=True, verbose_name=_("Organisator"))
     reparateur = models.ForeignKey(
