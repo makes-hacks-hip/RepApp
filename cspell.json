@@ -9,7 +9,15 @@
         "reparateur",
         "organisator",
         "Reparateurs",
-        "repapp"
+        "repapp",
+        "oidc",
+        "anmeldung",
+        "repaircafe",
+        "hilpoltstein",
+        "KeycloakOIDCAB",
+        "Keycloak",
+        "tabindex",
+        "onetimelogin"
     ],
     "ignoreWords": [],
     "import": []

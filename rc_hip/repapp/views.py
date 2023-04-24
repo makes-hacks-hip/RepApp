@@ -2,9 +2,9 @@
 Views of RepApp.
 """
 import datetime
-import os
 import random
 import string
+import time
 from hashlib import sha256
 from django.views import generic
 from django.urls import reverse_lazy
@@ -12,12 +12,14 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
 from django.contrib.auth.decorators import login_required
-from repapp_users.models import CustomUser
-from .models import Cafe, Device, Guest, Organisator
+from django.contrib.auth import authenticate, login
+from django.utils.timezone import now
+from repapp.models import CustomUser
+from .models import Cafe, Device, Guest, OneTimeLogin
 from .forms import RegisterDevice, RegisterGuest
+from .utils import (send_confirmation_mails, create_one_time_login,
+                    send_one_time_login_mail, send_guest_account_mail, is_member)
 
 
 class IndexView(generic.ListView):
@@ -32,59 +34,10 @@ class IndexView(generic.ListView):
         return Cafe.objects.filter(event_date__gte=datetime.date.today())
 
 
-def send_confirmation_mails(device, guest, cafe, request):
-    organizers = []
-    for organizer in Organisator.objects.all():
-        organizers.append(organizer.mail)
-
-    text = render_to_string('repapp/mail/notice_new_device.html', {
-        'guest': device.guest,
-        'device': device,
-        'cafe': device.cafe,
-    })
-
-    send_mail(
-        subject=f"Neues Gerät { device.device }",
-        message=text,
-        from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
-        recipient_list=organizers,
-        fail_silently=True
-    )
-
-    subject = render_to_string('repapp/mail/mail_register_device_subject.html', {
-        'guest': guest,
-        'device': device,
-        'cafe': cafe,
-    }).replace('\n', '')
-    text = render_to_string('repapp/mail/mail_register_device_text.html', {
-        'guest': guest,
-        'device': device,
-        'cafe': cafe,
-    })
-    html = render_to_string('repapp/mail/mail_register_device_html.html', {
-        'guest': guest,
-        'device': device,
-        'cafe': cafe,
-    })
-
-    ok = send_mail(
-        subject=subject,
-        message=text,
-        from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
-        recipient_list=[f"{guest.mail}"],
-        fail_silently=True,
-        html_message=html
-    )
-
-    if ok > 0:
-        device.confirmed = True
-        device.save()
-    else:
-        messages.add_message(request, messages.ERROR,
-                             'Fehler beim senden der Bestätigungs-eMail!')
-
-
 class RegisterDeviceFormView(generic.edit.FormView):
+    """
+    RegisterDeviceFormView shows the form for registering new devices.
+    """
     template_name = "repapp/register_device.html"
     form_class = RegisterDevice
 
@@ -187,8 +140,7 @@ class RegisterGuestFormView(generic.edit.FormView):
                 password=password)
             user.save()
 
-            print(f'{mail} {password}')
-            # TODO: send account creation email
+            send_guest_account_mail(guest, password, self.request)
 
         send_confirmation_mails(device, guest, cafe, self.request)
 
@@ -236,7 +188,8 @@ def device_view(request, device_identifier):
     if not device.guest:
         raise PermissionDenied()
 
-    # TODO: Guests can only view their devices, Reparateur and Orga can view all devices.
+    if not (is_member(user) or device.guest.mail == user.email):
+        raise PermissionDenied()
 
     return render(
         request,
@@ -267,3 +220,38 @@ def member_login(request):
         request,
         "repapp/member_login.html"
     )
+
+
+def cron(request):
+    pass
+
+
+def process_mails(request):
+    pass
+
+
+def one_time_login(request, secret):
+    time.sleep(1)
+
+    otl = get_object_or_404(OneTimeLogin, secret=secret)
+
+    if otl.login_used:
+        messages.add_message(request, messages.ERROR,
+                             'Der Einmal-Login wurde schon verwendet und ist nichtmehr gültig.')
+        new_otl = create_one_time_login(otl.user, otl.url)
+        send_one_time_login_mail(new_otl, request)
+        return HttpResponseRedirect(reverse_lazy('index'))
+    else:
+        otl.login_used = True
+        otl.login_date = now()
+        otl.save()
+
+    user = authenticate(request, username=secret, password=None)
+
+    if user is not None:
+        login(request, user)
+        messages.add_message(request, messages.INFO, 'Login erfolgreich!')
+        return HttpResponseRedirect(otl.url)
+    else:
+        messages.add_message(request, messages.ERROR, 'Login fehlgeschlagen.')
+        return HttpResponseRedirect(reverse_lazy('index'))

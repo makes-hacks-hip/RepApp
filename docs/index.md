@@ -290,3 +290,32 @@ Als bekannter Gast der ein defekten Geräte anmelden möchte,
 - Die nächste Seite (S2) enthält ein Formular mit den Feldern `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung` une ein Kontrollkästchen `Datenschutz`. Nachdem ich die Felder ausgefüllt habe klicke auf auf `Absenden`. Dieser Klick bringt mich auf die nächste Seite.
 - Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
 - In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
+
+## Konfigurationsparameter
+
+- DJANGO_SECRET_KEY
+- DJANGO_DEBUG
+- DJANGO_EMAIL_HOST
+- DJANGO_EMAIL_PORT
+- DJANGO_EMAIL_HOST_USER
+- DJANGO_EMAIL_HOST_PASSWORD
+- DJANGO_EMAIL_USE_TLS
+- OIDC_RP_CLIENT_SECRET
+
+### Feste Konfiguration
+
+- ALLOWED_HOSTS
+- LANGUAGE_CODE
+- TIME_ZONE
+- CSRF_TRUSTED_ORIGINS
+- AUTH_USER_MODEL
+- AUTHENTICATION_BACKENDS
+- LOGIN_REDIRECT_URL
+- OIDC_RP_CLIENT_ID
+- OIDC_RP_SIGN_ALGO
+- OIDC_OP_JWKS_ENDPOINT
+- OIDC_OP_AUTHORIZATION_ENDPOINT
+- OIDC_OP_TOKEN_ENDPOINT
+- OIDC_OP_USER_ENDPOINT
+- LOGIN_REDIRECT_URL
+- LOGOUT_REDIRECT_URL

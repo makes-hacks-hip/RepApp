@@ -2,7 +2,6 @@
 Urls of RepApp.
 """
 from django.urls import path
-
 from . import views
 
 urlpatterns = [
@@ -25,4 +24,8 @@ urlpatterns = [
          views.profile, name="guest_profile"),
     path("member/login/",
          views.member_login, name="member_login"),
+    path("cron", views.cron, name="cron"),
+    path("process_mails", views.process_mails, name="process_mails"),
+    path("onetimelogin/<str:secret>/",
+         views.one_time_login, name="one_time_login"),
 ]

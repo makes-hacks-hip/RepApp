@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="Repair-Café Hilpoltstein Geräteanmeldung" />
+        <meta name="keywords" content="Geräteanmeldung" />
+        <title>Repair-Café Hilpoltstein Geräteanmeldung</title>
+    </head>
     <body>
         <p>Guten Tag,</p>
         <p>
@@ -7,6 +13,9 @@
         </p>
         <p>
             Vielen Dank für die Anmeldung des Geräts {{ device.device }} - {{ device.manufacturer }} zur Reparatur im Repair-Café am {{ cafe.event_date|date }}.
+        </p>
+        <p>
+            Sie können die Daten zu ihrer Geräteanmeldung <a href="{{ login_url }}">hier</a> einsehen.
         </p>
         <p>
             Die Organisation unserer Repair-Cafés beginnt i.a. einige Tage vor dem jeweiligen Termin. Dann erstellen wir anhand der angemeldeten Geräte und der Spezialgebiete der anwesenden Reparateure einen Zeitplan.
