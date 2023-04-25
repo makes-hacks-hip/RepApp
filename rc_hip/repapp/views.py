@@ -144,6 +144,9 @@ class RegisterGuestFormView(generic.edit.FormView):
             user.set_password(password)
             user.save()
 
+            guest.user = user
+            guest.save()
+
             send_guest_account_mail(guest, password, self.request)
 
         send_confirmation_mails(device, guest, cafe, self.request)
@@ -161,12 +164,21 @@ class RegisterGuestFormView(generic.edit.FormView):
         device_identifier = self.kwargs['device_identifier']
         device = get_object_or_404(Device, identifier=device_identifier)
 
+        mail = self.kwargs['mail']
+        guest = Guest.objects.filter(mail=mail).first()
+        if guest:
+            return HttpResponseRedirect(
+                reverse_lazy('register_device_final', kwargs={
+                    'cafe': cafe.pk,
+                    'device_identifier': device.identifier})
+            )
+
         context = super(RegisterGuestFormView, self).get_context_data(
             **kwargs
         )
         context["cafe"] = cafe
         context["device"] = device
-        context["mail"] = self.kwargs['mail']
+        context["mail"] = mail
 
         return context
 

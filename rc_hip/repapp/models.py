@@ -7,6 +7,20 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
 
 
+class CustomUser(AbstractUser):
+    """
+    Custom user object with unique email.
+    """
+    email = models.EmailField(unique=True, verbose_name=_("eMail Adresse"))
+
+    class Meta:
+        verbose_name = _('Benutzer')
+        verbose_name_plural = _('Benutzer')
+
+    def __str__(self):
+        return f'{self.email}'
+
+
 class Cafe(models.Model):
     """
     A Cafe is a "Repair-Café event.
@@ -64,6 +78,8 @@ class Guest(models.Model):
     phone = models.CharField(max_length=200, verbose_name=_("Telefonnummer"))
     residence = models.CharField(max_length=200, verbose_name=_("Wohnort"))
     mail = models.CharField(max_length=200, verbose_name=_("eMail"))
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=True, verbose_name=_("Benutzer"))
 
     class Meta:
         verbose_name = _('Gast')
@@ -172,20 +188,6 @@ class Candidate(models.Model):
 
     def __str__(self):
         return f'Kandidat {self.cafe.event_date} für Gerät {self.device.device}'
-
-
-class CustomUser(AbstractUser):
-    """
-    Custom user object with unique email.
-    """
-    email = models.EmailField(unique=True, verbose_name=_("eMail Adresse"))
-
-    class Meta:
-        verbose_name = _('Benutzer')
-        verbose_name_plural = _('Benutzer')
-
-    def __str__(self):
-        return f'{self.email}'
 
 
 class OneTimeLogin(models.Model):
