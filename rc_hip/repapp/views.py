@@ -271,8 +271,15 @@ class RegisterGuestFormView(generic.edit.FormView):
         if not CustomUser.objects.filter(email=mail).exists():
             password = ''.join(random.choice(string.ascii_letters)
                                for i in range(10))
+
+            username = name
+            i = 1
+            while CustomUser.objects.filter(username=username).first():
+                username = f'{name}{i}'
+                i = i + 1
+
             user = CustomUser.objects.create_user(
-                username=name,
+                username=username,
                 email=mail,
             )
             user.set_password(password)

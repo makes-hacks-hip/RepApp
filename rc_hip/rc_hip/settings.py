@@ -185,3 +185,22 @@ if DEBUG:
 else:
     LOGIN_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
     LOGOUT_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
+
+
+LOG_LEVEL = "INFO"
+if DEBUG:
+    LOG_LEVEL = "DEBUG"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,
+    },
+}

@@ -2,10 +2,13 @@
 Authentication backends for RepApp.
 """
 import unicodedata
+import logging
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
 from .models import OneTimeLogin, Organisator, Reparateur
+
+logger = logging.getLogger(__name__)
 
 
 def generate_username(email):
@@ -71,19 +74,31 @@ class KeycloakOIDCAB(OIDCAuthenticationBackend):
 
     def create_user(self, claims):
         user = super(KeycloakOIDCAB, self).create_user(claims)
+        logger.debug(f'Create user {user.email}')
 
-        user.username = claims.get(
-            'preferred_username', generate_username(user.email))
-        user.save()
+        try:
+            user.username = claims.get(
+                'preferred_username', generate_username(user.email))
+            user.save()
+        except Exception as exception:
+            logger.error(exception)
+            user.username = generate_username(user.email)
+            user.save()
+
+        logger.debug(f'Updated username {user.username}')
 
         create_repapp_user(user)
 
         return user
 
     def update_user(self, user, claims):
-        user.username = claims.get(
-            'preferred_username', generate_username(user.email))
-        user.save()
+        logger.debug(f'Update user {user.email} ({user.username})')
+        try:
+            user.username = claims.get(
+                'preferred_username', generate_username(user.email))
+            user.save()
+        except Exception as exception:
+            logger.error(exception)
 
         create_repapp_user(user)
 
