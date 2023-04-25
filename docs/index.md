@@ -251,12 +251,10 @@ URL: /
 
 Name: index
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt eine Liste der zukünftigen Repair-Café Termine. 
-Sie enthält pro Repair-Café einen Knopf um ein Gerät für dieses Repair-Café anzumelden.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Sie enthält pro Repair-Café einen Link um ein Gerät für dieses Repair-Café anzumelden.
 
 ### Gerät anmelden (S2)
 
@@ -264,16 +262,14 @@ URL: cafe/int:cafe/
 
 Name: register_device
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt das Formular zum anmelden der Geräte.
 Das Formular hat die Felder `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung`, ein Kontrollkästchen `Datenschutz` und einen Knopf `Absenden` zum senden des Formulars.
 
 Das Repair-Café zu dem die Anmeldung gehört ist über eine ID in der URL der Seite festgelegt.
 
-Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet, falls die eMail Adresse zu einem bekannten Gast gehört.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Falls die eMail Adresse zu einem bekannten Gast gehört, wird beim absenden des Formulars eine eMail-Benachrichtigung and die Organisatoren und  Bestätigung an den Gast gesendet.
 
 ### Gast anmelden (S3)
 
@@ -281,16 +277,14 @@ URL: cafe/int:cafe/device/str:device_identifier/mail/str:mail/
 
 Name: register_guest
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt das Formular zum anmelden eines neuen Gastes.
 Das Formular hat die Felder `Name`, `Telefon`, `Wohnort` und einen Knopf `Absenden` zum senden des Formulars.
 
 Die eMail-Adresse und das Gerät zu dem die Gast-Kontaktdaten gehören ist über IDs in der URL der Seite festgelegt.
 
-Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Beim absenden des Formulars eine eMail-Benachrichtigung and die Organisatoren und  Bestätigung an den Gast gesendet.
 
 ### Anmeldung bestätigt (S7)
 
@@ -298,13 +292,11 @@ URL: cafe/int:cafe/device/str:device_identifier/confirm/
 
 Name: register_device_final
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Die Seite Anmeldung bestätigt zeigt einen Hinweis dass die Anmeldung des Gerätes erfolgreich abgeschlossen wurde.
 
 Die Geräte ID ist in der URL der Seite festgelegt.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Geräte Detailseite (S5)
 
@@ -312,25 +304,25 @@ URL: device/str:device_identifier/
 
 Name: view_device
 
+Sicherheit: Diese Seite ist für alle Mitarbeiter und den Gast der das Gerät angemeldet hat erreichbar.
+
 Die Geräte Detailseite zeigt die Informationen `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild` und `Folgetermin` an.
 
 Das Gerät ist über IDs in der URL der Seite festgelegt.
 
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
-
 ### Gast Detailseite (S6)
+
+URL: guest/profile/
+
+Name: guest_profile
+
+Sicherheit: Die Seite enthält persönliche Daten und ist nur für den Gast zu dem sie gehört erreichbar.
 
 Die Gast Detailseite hat die Felder `Name`, `eMail`, `Telefon` und `Wohnort` die mit den Angaben des Gastes ausgefüllt sind.
 Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet.
 Die Ansicht enthält auch eine Liste mit Links zu allen Geräten die der Gast angemeldet hat.
 
-Der Gast ist über IDs in der URL der Seite festgelegt.
-
-#### Sicherheit
-
-Die Seite enthält persönliche Daten und ist nur nach Anmeldung erreichbar.
+Der Gast ist über den angemeldeten Benutzer festgelegt.
 
 ## Abläufe
 
@@ -357,29 +349,32 @@ Als bekannter Gast der ein defekten Geräte anmelden möchte,
 
 ## Konfigurationsparameter
 
-- DJANGO_SECRET_KEY
-- DJANGO_DEBUG
-- DJANGO_EMAIL_HOST
-- DJANGO_EMAIL_PORT
-- DJANGO_EMAIL_HOST_USER
-- DJANGO_EMAIL_HOST_PASSWORD
-- DJANGO_EMAIL_USE_TLS
-- OIDC_RP_CLIENT_SECRET
+- DJANGO_SECRET_KEY: Secret Key für das Django Framework.
+- DJANGO_DEBUG: Debug-Modus verwenden? Standard ist True.
+
+- DJANGO_EMAIL_HOST: eMail Server
+- DJANGO_EMAIL_PORT: eMail Server Port
+- DJANGO_EMAIL_HOST_USER: Benutzername für den eMail Server
+- DJANGO_EMAIL_HOST_PASSWORD: Passwort für den eMail Server
+- DJANGO_EMAIL_USE_TLS: TLS verwenden? Standard ist True.
+
+- OIDC_RP_CLIENT_SECRET: Secret für den OIDC Prozess. Ist auch im Keycloak konfiguriert.
 
 ### Feste Konfiguration
 
-- ALLOWED_HOSTS
-- LANGUAGE_CODE
-- TIME_ZONE
-- CSRF_TRUSTED_ORIGINS
-- AUTH_USER_MODEL
-- AUTHENTICATION_BACKENDS
-- LOGIN_REDIRECT_URL
-- OIDC_RP_CLIENT_ID
-- OIDC_RP_SIGN_ALGO
-- OIDC_OP_JWKS_ENDPOINT
-- OIDC_OP_AUTHORIZATION_ENDPOINT
-- OIDC_OP_TOKEN_ENDPOINT
-- OIDC_OP_USER_ENDPOINT
-- LOGIN_REDIRECT_URL
-- LOGOUT_REDIRECT_URL
+- ALLOWED_HOSTS: Erlaubte Domainnamen. ("127.0.0.1", "localhost", "repapp.rc-hip.de", "anmeldung.repaircafe-hilpoltstein.de")
+- LANGUAGE_CODE: de
+- TIME_ZONE: Europe/Berlin
+- CSRF_TRUSTED_ORIGINS: Siehe ALLOWED_HOSTS.
+- AUTH_USER_MODEL: CustomUser in RepApp Models definiert.
+- AUTHENTICATION_BACKENDS: Standard + Backends aus RepApp Backends.
+
+- OIDC_RP_CLIENT_ID: OIDC Client ID, im Keycloak konfiguriert.
+- OIDC_RP_SIGN_ALGO: RS256
+- OIDC_OP_JWKS_ENDPOINT: Keycloak URL
+- OIDC_OP_AUTHORIZATION_ENDPOINT: Keycloak URL
+- OIDC_OP_TOKEN_ENDPOINT: Keycloak URL
+- OIDC_OP_USER_ENDPOINT: Keycloak URL
+
+- LOGIN_REDIRECT_URL: Debug: 127.0.0.1:8000, sonst https://anmeldung.repaircafe-hilpoltstein.de/
+- LOGOUT_REDIRECT_URL: Siehe LOGIN_REDIRECT_URL

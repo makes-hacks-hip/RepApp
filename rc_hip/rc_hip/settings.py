@@ -183,5 +183,5 @@ if DEBUG:
     LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/"
     LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/"
 else:
-    LOGIN_REDIRECT_URL = "https://repapp.rc-hip.de/"
-    LOGOUT_REDIRECT_URL = "https://repapp.rc-hip.de/"
+    LOGIN_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
+    LOGOUT_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
