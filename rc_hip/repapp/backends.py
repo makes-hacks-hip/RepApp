@@ -1,11 +1,39 @@
 """
 Authentication backends for RepApp.
 """
+import unicodedata
+import logging
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from .utils import generate_username, create_repapp_user
-from .models import OneTimeLogin
+from .models import OneTimeLogin, Organisator, Reparateur
+
+logger = logging.getLogger(__name__)
+
+
+def generate_username(email):
+    # Using Python 3 and Django 1.11+, usernames can contain alphanumeric
+    # (ascii and unicode), _, @, +, . and - characters. So we normalize
+    # it and slice at 150 characters.
+    return unicodedata.normalize('NFKC', email)[:150]
+
+
+def create_repapp_user(user):
+    organisator = Organisator.objects.filter(mail=user.email).first()
+    if not organisator:
+        reparateur = Reparateur.objects.filter(mail=user.email).first()
+        if not reparateur:
+            reparateur = Reparateur(
+                name=user.username,
+                mail=user.email,
+            )
+            reparateur.save()
+        else:
+            reparateur.name = user.username
+            reparateur.save()
+    else:
+        organisator.name = user.username
+        organisator.save()
 
 
 class OneTimeLoginBackend(ModelBackend):
@@ -14,7 +42,6 @@ class OneTimeLoginBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        print(f'authenticate {username}')
         login = OneTimeLogin.objects.filter(secret=username).first()
         if login:
             return login.user
@@ -28,10 +55,10 @@ class EmailBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        userModel = get_user_model()
+        user_model = get_user_model()
         try:
-            user = userModel.objects.get(email=username)
-        except userModel.DoesNotExist:
+            user = user_model.objects.get(email=username)
+        except user_model.DoesNotExist:
             return None
         else:
             if user.check_password(password):
@@ -41,24 +68,37 @@ class EmailBackend(ModelBackend):
 
 class KeycloakOIDCAB(OIDCAuthenticationBackend):
     """
-    KeycloakOIDCAB allows a login using Open ID Connect (with the Repair-Café Keycloak Single Sign On server)
+    KeycloakOIDCAB allows a login using Open ID Connect
+    (with the Repair-Café Keycloak Single Sign On server)
     """
 
     def create_user(self, claims):
         user = super(KeycloakOIDCAB, self).create_user(claims)
+        logger.debug(f'Create user {user.email}')
 
-        user.username = claims.get(
-            'preferred_username', generate_username(user.email))
-        user.save()
+        try:
+            user.username = claims.get(
+                'preferred_username', generate_username(user.email))
+            user.save()
+        except Exception as exception:
+            logger.error(exception)
+            user.username = generate_username(user.email)
+            user.save()
+
+        logger.debug(f'Updated username {user.username}')
 
         create_repapp_user(user)
 
         return user
 
     def update_user(self, user, claims):
-        user.username = claims.get(
-            'preferred_username', generate_username(user.email))
-        user.save()
+        logger.debug(f'Update user {user.email} ({user.username})')
+        try:
+            user.username = claims.get(
+                'preferred_username', generate_username(user.email))
+            user.save()
+        except Exception as exception:
+            logger.error(exception)
 
         create_repapp_user(user)
 

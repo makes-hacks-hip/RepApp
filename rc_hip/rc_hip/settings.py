@@ -163,7 +163,6 @@ AUTH_USER_MODEL = "repapp.CustomUser"
 AUTHENTICATION_BACKENDS = [
     "repapp.backends.EmailBackend",
     "django.contrib.auth.backends.ModelBackend",
-    # "mozilla_django_oidc.auth.OIDCAuthenticationBackend",
     "repapp.backends.KeycloakOIDCAB",
     "repapp.backends.OneTimeLoginBackend",
 ]
@@ -184,5 +183,24 @@ if DEBUG:
     LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/"
     LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/"
 else:
-    LOGIN_REDIRECT_URL = "https://repapp.rc-hip.de/"
-    LOGOUT_REDIRECT_URL = "https://repapp.rc-hip.de/"
+    LOGIN_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
+    LOGOUT_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
+
+
+LOG_LEVEL = "INFO"
+if DEBUG:
+    LOG_LEVEL = "DEBUG"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": LOG_LEVEL,
+    },
+}

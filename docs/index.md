@@ -4,6 +4,8 @@ RepApp ist eine Web App um Reparaturen im Rahmen eines Repair-Cafés zu organisi
 
 ## Benutzer
 
+RepApp unterscheidet zwischen den folgenden Benutzer-Typen:
+
 ### Gast
 
 Ein Gast ist ein Gerätebesitzer der ein oder mehrere Geräte zur Reparatur anmelden möchte.
@@ -18,30 +20,38 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 
 ## Anwendungsfälle
 
+Die Anwendungsfälle sind in Meilensteine unterteilt.
+Zu Meilenstein 1 (M1) gehören alle Anwendungsfälle die notwendig sind um RepApp "produktiv" für die Anmeldung von Geräten zu verwenden.
+
 ### Gast
 
 - [x] M1: Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. (A1)
 - [x] M1: Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen. (A2)
 - [ ] M1: Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen. (A3)
-- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)
 - [ ] M1: Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können. (A5)
 - [ ] M1: Als Gast möchte ich Fragen ans Repair-Café stellen können. (A26)
+- [ ] M1: Als Gast möchte ich ausschließlich per eMail mit dem System interagieren können. (A30)
+- [ ] M1: Als Gast möchte per eMail Fragen ans Team stellen können. (A33)
+- [ ] M1: Als Gast möchte ich per eMail auf Rückfragen antworten können. (A34)
+- [ ] M1: Als Gast möchte ich eine Termineinladung per eMail bestätigen können. (A35)
+
+- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)
 - [ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können. (A6)
 - [ ] Als Gast möchte ich meine Daten ansehen können. (A21)
 - [ ] Als Gast möchte ich meine Daten löschen können. (A22)
 - [ ] Als Gast möchte ich eine Geräteanmeldung löschen können. (A23)
-- [ ] M1: Als Gast möchte ausschließlich per eMail mit dem System interagieren können. (A30)
 
 ### Reparateur
 
 - [ ] M1: Als Reparateur möchte ich die angemeldeten Geräte ansehen können. (A7)
 - [ ] M1: Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können. (A8)
-- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)
 - [ ] M1: Als Reparateur möchte ich Rückfragen zum Gerät stellen können. (A10)
 - [ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird. (A11)
 - [ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird. (A12)
 - [ ] M1: Als Reparateur möchte ich mich für ein Repair-Café anmelden können. (A13)
 - [ ] M1: Als Reparateur möchte ich mich für ein Repair-Café abmelden können. (A14)
+
+- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)
 - [ ] Als Reparateur möchte ich benachrichtigt werden wenn ein Gast eine mir zugeordnete Geräteanmeldung löscht. (A25)
 
 ### Organisator
@@ -55,11 +65,17 @@ Ein Organisator ist Mitglied des Repair-Cafés das die Termine mit den Gästen o
 - [ ] M1: Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können. (A20)
 - [ ] M1: Als Organisator möchte ich ein Gerät bearbeiten können. (A28)
 - [ ] M1: Als Organisator möchte ich ein Gerät absagen können, wenn der Gast mich informiert hat dass er nicht kommt. (A29)
+
 - [ ] Als Organisator möchte ich benachrichtigt werden wenn ein Gast eine Geräteanmeldung löscht. (A24)
 - [ ] Als Organisator möchte ich alle Daten exportieren können. (A31)
 - [ ] Als Organisator möchte ich Geräte auf ein späteres Repair-Café verschieben können. (A32)
 
 ## Daten
+
+
+### Benutzer
+
+Ein Repapp-Benutzer erweitert den Standard-Benutzer um eine eindeutige eMail-Adresse, um diese als Identifikationsmerkmal verwenden zu können.
 
 ### Cafe
 
@@ -67,9 +83,9 @@ Ein Cafe ist ein Repair-Café Termin.
 
 Attribute:
 
-- Datum: Datum der Veranstaltung
 - Ort: Beschreibung wo das Repair-Café stattfindet
 - Adresse: Adresse an der das Repair-Café stattfindet
+- Datum: Datum der Veranstaltung
 
 Annahmen:
 
@@ -113,6 +129,7 @@ Attribute:
 Technische Attribute:
 
 - Identifier: SHA256 Hash aus Name + Wohnort + Timestamp
+- Benutzer: Referenz zum Benutzer der für diesen Gast erstellt wurde.
 
 ### Gerät
 
@@ -120,6 +137,7 @@ Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés reparie
 
 Attribute:
 
+- Erstellungsdatum: Datum an dem diese Gerät angemeldet wurde.
 - Gerät: Bezeichnung des Geräts
 - Hersteller: Hersteller des Geräts
 - Fehler: Beschreibung des Defekts
@@ -158,7 +176,7 @@ Attribute:
 
 - Frage: Frage zum Gerät oder Defekt
 - Antwort: Antwort des Gastes
-- Datum: Datum der Erstellung der Rückfrage
+- Erstellungsdatum: Datum der Erstellung der Rückfrage
 
 Technische Attribute:
 
@@ -179,6 +197,52 @@ Technische Attribute:
 - Cafe: Referenz zum Cafe
 - Gerät: Referenz zum Gerät
 
+### Einmal-Login
+
+Ein Einmal-Login ist ein Geheimnis das es einem Gast erlaubt sich einmalig damit anzumelden.
+
+- Geheimnis: Geheimnis um den Gast zu identifizieren.
+- URL: URL die nach der Anmeldung angezeigt werden soll.
+- Erstellungsdatum: Datum an dem der Einmal-Login angelegt wurde.
+- Login benutzt?: Boolesches Flag. True wenn der Einmal-Login bereits benutzt wurde.
+- Login Datum: Datum an dem der Einmal-Login benutzt wurde, oder Datum der Erstellung, da das Feld aus technischen Gründen nicht leer sein kann.
+
+Technische Attribute:
+
+- Benutzer: Referenz zum Benutzer
+
+### Nachricht
+
+Eine Nachricht ist eine Anfrage von einem Gast.
+
+- Nachricht: Anfrage des Gastes.
+- Antwort: Antwort an den Gast.
+- Erstellungsdatum: Datum an dem die Anfrage erstellt wurde.
+
+Technische Attribute:
+
+- Gast: Referenz zum Gast
+
+## Anmelde Konzept
+
+RepApp unterstützt pro Benutzer-Gruppe verschiedenen Anmelde-Konzepte.
+
+## Gäste
+
+Für Gäste wird automatsch ein Benutzerkonto angelegt, mit einem generierten, sicheren Passwort. Mit der eMail Adresse und dem Passwort kann ein Gast sich in der RepApp anmelden um seine Daten sehen und bearbeiten zu können.
+
+### Einmal-Login
+
+Für Gäste gibt es Einmal-Logins als Alternative. Ein Einmal-Login ist ein Geheimnis und eine Ziel-URL, das dem Gast in From eines Anmelde-Links in einer eMail mitgeteilt wird. Mit diesem Link kann der Gast sich einmalig anmelden, da das Geheimnis danach potentiell Dritten bekannt ist, z.B. über die Browser History.
+
+Nach dem erfolgreichen Login wird der Gast automatisch zu der hinterlegten URL weitergeleitet. Dieser Mechanismus erlaubt es einem Gast "per Klick" Zugriff auf geschützte Daten zu geben.
+
+Wenn ein Gast versucht den Einmal-Link nochmals zu verwenden, schlägt dies Fehl, und dem Gast wird automatisch ein neuer Einmal-Link per eMail mitgeteilt. Dies wird dem Gast auch über entsprechende Nachrichten mitgeteilt.
+
+## Mitarbeiter
+
+Der Login für Mitarbeiter ist nur über das Single-Sign-On der Repair-Cafés erlaubt (Keycloak), das mittels OIDC angebunden ist. Alle Mitarbeiter im Repair-Café haben dort bereits einen Benutzer, was zum einen sicherstellt dass es sich um einen Mitarbeiter handelt, und zum anderen auch die Veraltung der Benutzer in RepApp vereinfacht.
+
 ## Ansichten
 
 ### Landing Page: Repair-Cafés (S1)
@@ -187,12 +251,10 @@ URL: /
 
 Name: index
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt eine Liste der zukünftigen Repair-Café Termine. 
-Sie enthält pro Repair-Café einen Knopf um ein Gerät für dieses Repair-Café anzumelden.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Sie enthält pro Repair-Café einen Link um ein Gerät für dieses Repair-Café anzumelden.
 
 ### Gerät anmelden (S2)
 
@@ -200,16 +262,14 @@ URL: cafe/int:cafe/
 
 Name: register_device
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt das Formular zum anmelden der Geräte.
 Das Formular hat die Felder `eMail-Adresse`, `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild`, ein Kontrollkästchen `Folgetermin`, ein Kontrollkästchen `Informationen zur Reparaturabwicklung`, ein Kontrollkästchen `Datenschutz` und einen Knopf `Absenden` zum senden des Formulars.
 
 Das Repair-Café zu dem die Anmeldung gehört ist über eine ID in der URL der Seite festgelegt.
 
-Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet, falls die eMail Adresse zu einem bekannten Gast gehört.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Falls die eMail Adresse zu einem bekannten Gast gehört, wird beim absenden des Formulars eine eMail-Benachrichtigung and die Organisatoren und  Bestätigung an den Gast gesendet.
 
 ### Gast anmelden (S3)
 
@@ -217,16 +277,14 @@ URL: cafe/int:cafe/device/str:device_identifier/mail/str:mail/
 
 Name: register_guest
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Diese Seite zeigt das Formular zum anmelden eines neuen Gastes.
 Das Formular hat die Felder `Name`, `Telefon`, `Wohnort` und einen Knopf `Absenden` zum senden des Formulars.
 
 Die eMail-Adresse und das Gerät zu dem die Gast-Kontaktdaten gehören ist über IDs in der URL der Seite festgelegt.
 
-Die eMail-Benachrichtigung and die Organisatoren und die Bestätigung an den Gast wird beim absenden des Formulars gesendet.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+Beim absenden des Formulars eine eMail-Benachrichtigung and die Organisatoren und  Bestätigung an den Gast gesendet.
 
 ### Anmeldung bestätigt (S7)
 
@@ -234,13 +292,11 @@ URL: cafe/int:cafe/device/str:device_identifier/confirm/
 
 Name: register_device_final
 
+Sicherheit: Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
+
 Die Seite Anmeldung bestätigt zeigt einen Hinweis dass die Anmeldung des Gerätes erfolgreich abgeschlossen wurde.
 
 Die Geräte ID ist in der URL der Seite festgelegt.
-
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
 
 ### Geräte Detailseite (S5)
 
@@ -248,31 +304,31 @@ URL: device/str:device_identifier/
 
 Name: view_device
 
+Sicherheit: Diese Seite ist für alle Mitarbeiter und den Gast der das Gerät angemeldet hat erreichbar.
+
 Die Geräte Detailseite zeigt die Informationen `Art des Geräts`, `Hersteller & Modell/Typ`, `Fehlerbeschreibung`, `Foto vom Gerät`, `Foto vom Typenschild` und `Folgetermin` an.
 
 Das Gerät ist über IDs in der URL der Seite festgelegt.
 
-#### Sicherheit
-
-Die Seite ist ohne Zugangsbeschränkung oder Anmeldung erreichbar.
-
 ### Gast Detailseite (S6)
+
+URL: guest/profile/
+
+Name: guest_profile
+
+Sicherheit: Die Seite enthält persönliche Daten und ist nur für den Gast zu dem sie gehört erreichbar.
 
 Die Gast Detailseite hat die Felder `Name`, `eMail`, `Telefon` und `Wohnort` die mit den Angaben des Gastes ausgefüllt sind.
 Weiter enthält die Seite einen Knopf `Aktualisieren` der das Formular absendet.
 Die Ansicht enthält auch eine Liste mit Links zu allen Geräten die der Gast angemeldet hat.
 
-Der Gast ist über IDs in der URL der Seite festgelegt.
-
-#### Sicherheit
-
-Die Seite enthält persönliche Daten und ist nur nach Anmeldung erreichbar.
+Der Gast ist über den angemeldeten Benutzer festgelegt.
 
 ## Abläufe
 
 ### Anmeldung eines defekten Gerätes
 
-#### Variante: Neuer Gast
+#### Variante: Neuer Gast (F1)
 
 Als neuer Gast der ein defekten Geräte anmelden möchte,
 
@@ -282,7 +338,7 @@ Als neuer Gast der ein defekten Geräte anmelden möchte,
 - Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
 - In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
 
-#### Variante: Bekannter Gast (existierende eMail Adresse)
+#### Variante: Bekannter Gast (existierende eMail Adresse) (F2)
 
 Als bekannter Gast der ein defekten Geräte anmelden möchte,
 
@@ -293,29 +349,32 @@ Als bekannter Gast der ein defekten Geräte anmelden möchte,
 
 ## Konfigurationsparameter
 
-- DJANGO_SECRET_KEY
-- DJANGO_DEBUG
-- DJANGO_EMAIL_HOST
-- DJANGO_EMAIL_PORT
-- DJANGO_EMAIL_HOST_USER
-- DJANGO_EMAIL_HOST_PASSWORD
-- DJANGO_EMAIL_USE_TLS
-- OIDC_RP_CLIENT_SECRET
+- DJANGO_SECRET_KEY: Secret Key für das Django Framework.
+- DJANGO_DEBUG: Debug-Modus verwenden? Standard ist True.
+
+- DJANGO_EMAIL_HOST: eMail Server
+- DJANGO_EMAIL_PORT: eMail Server Port
+- DJANGO_EMAIL_HOST_USER: Benutzername für den eMail Server
+- DJANGO_EMAIL_HOST_PASSWORD: Passwort für den eMail Server
+- DJANGO_EMAIL_USE_TLS: TLS verwenden? Standard ist True.
+
+- OIDC_RP_CLIENT_SECRET: Secret für den OIDC Prozess. Ist auch im Keycloak konfiguriert.
 
 ### Feste Konfiguration
 
-- ALLOWED_HOSTS
-- LANGUAGE_CODE
-- TIME_ZONE
-- CSRF_TRUSTED_ORIGINS
-- AUTH_USER_MODEL
-- AUTHENTICATION_BACKENDS
-- LOGIN_REDIRECT_URL
-- OIDC_RP_CLIENT_ID
-- OIDC_RP_SIGN_ALGO
-- OIDC_OP_JWKS_ENDPOINT
-- OIDC_OP_AUTHORIZATION_ENDPOINT
-- OIDC_OP_TOKEN_ENDPOINT
-- OIDC_OP_USER_ENDPOINT
-- LOGIN_REDIRECT_URL
-- LOGOUT_REDIRECT_URL
+- ALLOWED_HOSTS: Erlaubte Domainnamen. ("127.0.0.1", "localhost", "repapp.rc-hip.de", "anmeldung.repaircafe-hilpoltstein.de")
+- LANGUAGE_CODE: de
+- TIME_ZONE: Europe/Berlin
+- CSRF_TRUSTED_ORIGINS: Siehe ALLOWED_HOSTS.
+- AUTH_USER_MODEL: CustomUser in RepApp Models definiert.
+- AUTHENTICATION_BACKENDS: Standard + Backends aus RepApp Backends.
+
+- OIDC_RP_CLIENT_ID: OIDC Client ID, im Keycloak konfiguriert.
+- OIDC_RP_SIGN_ALGO: RS256
+- OIDC_OP_JWKS_ENDPOINT: Keycloak URL
+- OIDC_OP_AUTHORIZATION_ENDPOINT: Keycloak URL
+- OIDC_OP_TOKEN_ENDPOINT: Keycloak URL
+- OIDC_OP_USER_ENDPOINT: Keycloak URL
+
+- LOGIN_REDIRECT_URL: Debug: 127.0.0.1:8000, sonst https://anmeldung.repaircafe-hilpoltstein.de/
+- LOGOUT_REDIRECT_URL: Siehe LOGIN_REDIRECT_URL

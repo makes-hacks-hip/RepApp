@@ -1,0 +1,11 @@
+[
+    {
+        "model": "repapp.cafe",
+        "pk": 1,
+        "fields": {
+            "location": "Haus Einstein' (beim Gymnasium)",
+            "address": "Patersholzer Weg 19, Hilpoltstein",
+            "event_date": "2023-05-13"
+        }
+    }
+]

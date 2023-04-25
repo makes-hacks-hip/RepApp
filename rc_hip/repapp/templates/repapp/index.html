@@ -1,9 +1,9 @@
 {% extends "repapp/base.html" %}
 {% block title %}
-    - Repair-Cafés
+  - Repair-Cafés
 {% endblock title %}
 {% block head %}
-    <style>
+  <style>
     @font-face { 
       font-family:'Source Sans Pro';
       font-style:normal;
@@ -280,45 +280,45 @@
         color:  #ffffff!important;
       } 
     }      
-    </style>
+  </style>
 {% endblock head %}
 {% block content %}
-    <h1 class="mt-2">Repair-Cafés</h1>
-    <hr class="mt-0 mb-4">
-    <ul class="list-group">
-        {% for cafe in object_list %}
-            <li class="list-group-item">
-                <div class="news-list-view eventhome snipcss-aSNzE" id="news-container-82">
-                    <div class="rc-date">
-                        <div class="article event rc-date "
-                             itemscope="itemscope"
-                             itemtype="http://schema.org/Article">
-                            <div class="dtdate">
-                                <time itemprop="datePublished" datetime="13.05.2023">
-                                    {{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}, 14.00 - 17.00 Uhr
-                                </time>
-                            </div>
-                            <div class="ort">
-                                {{ cafe.location }}
-                                <br>
-                                {{ cafe.address }}
-                            </div>
-                            <div class="teaser-text">
-                                <div itemprop="description">
-                                    <p>
-                                        <strong>
-                                            Nur per Voranmeldung.
-                                            <a href="{% url 'register_device' cafe.id %}">Zum Anmeldeformular</a>
-                                        </strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <h1 class="mt-2">Repair-Cafés</h1>
+  <hr class="mt-0 mb-4">
+  <ul class="list-group">
+    {% for cafe in object_list %}
+      <li class="list-group-item">
+        <div class="news-list-view eventhome snipcss-aSNzE" id="news-container-82">
+          <div class="rc-date">
+            <div class="article event rc-date "
+                 itemscope="itemscope"
+                 itemtype="http://schema.org/Article">
+              <div class="dtdate">
+                <time itemprop="datePublished" datetime="13.05.2023">
+                  {{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}, 14.00 - 17.00 Uhr
+                </time>
+              </div>
+              <div class="ort">
+                {{ cafe.location }}
+                <br>
+                {{ cafe.address }}
+              </div>
+              <div class="teaser-text">
+                <div itemprop="description">
+                  <p>
+                    <strong>
+                      Nur per Voranmeldung.
+                      <a class="register_link" href="{% url 'register_device' cafe.id %}">Zum Anmeldeformular</a>
+                    </strong>
+                  </p>
                 </div>
-            </li>
-        {% empty %}
-            <li class="list-group-item">Es gibt keine geplanten Repair-Cafés.</li>
-        {% endfor %}
-    </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    {% empty %}
+      <li class="list-group-item">Es gibt keine geplanten Repair-Cafés.</li>
+    {% endfor %}
+  </ul>
 {% endblock content %}

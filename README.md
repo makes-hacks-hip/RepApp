@@ -7,13 +7,13 @@ For documentation see https://makes-hacks-hip.github.io/RepApp/.
 ## Setup for development
 
 - Clone repo
-- python -m venv venv 
-- source venv/bin/activate
-- cd rc_hip
-- python manage.py makemigrations
-- python manage.py migrate
-- python manage.py createsuperuser 
-- python manage.py runserver
+- `python -m venv venv`
+- `source venv/bin/activate`
+- `cd rc_hip`
+- `python manage.py makemigrations`
+- `python manage.py migrate`
+- `python manage.py createsuperuser`
+- `python manage.py runserver`
 
 ## Build Docker image
 
@@ -30,3 +30,13 @@ docker run --rm -d \
   repapp`
 ```
 - Open `http://127.0.0.1:8020/` in your browser
+
+## Run tests
+
+### Unit tests
+
+Run `python manage.py test`
+
+### LiveServer Tests
+
+Run `python manage.py test repapp.live_tests.WorkflowTests`
