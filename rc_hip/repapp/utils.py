@@ -169,3 +169,10 @@ def is_member(user):
     organisator = Organisator.objects.filter(mail=user.email).first()
     reparateur = Reparateur.objects.filter(mail=user.email).first()
     return organisator or reparateur
+
+
+def device_directory_path(instance, filename):
+    """
+    device_directory_path generates a device-specific storage path for file uploads.
+    """
+    return f'device_{instance.identifier}/{filename}'

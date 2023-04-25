@@ -5,6 +5,7 @@ import django.utils.timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
+from .utils import device_directory_path
 
 
 class CustomUser(AbstractUser):
@@ -89,18 +90,13 @@ class Guest(models.Model):
         return f'Gast {self.name} (eMail: {self.mail})'
 
 
-def device_directory_path(instance, filename):
-    """
-    device_directory_path generates a device-specific storage path for file uploads.
-    """
-    return f'device_{instance.identifier}/{filename}'
-
-
 class Device(models.Model):
     """
     A Device is a broken device owned by a guest which shall be repaired during a Repair-Café.
     """
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
+    date = models.DateField(verbose_name=_(
+        "Erstellungsdatum"), default=django.utils.timezone.now)
     device = models.CharField(max_length=200, verbose_name=_("Art des Geräts"))
     manufacturer = models.CharField(
         max_length=200, verbose_name=_("Hersteller & Modell/Typ"))
@@ -110,13 +106,11 @@ class Device(models.Model):
         upload_to=device_directory_path, null=True, verbose_name=_("Foto vom Gerät"))
     type_plate_picture = models.FileField(
         upload_to=device_directory_path, null=True, verbose_name=_("Foto vom Typenschild"))
+    confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
     guest = models.ForeignKey(
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
-    confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
-    date = models.DateField(verbose_name=_(
-        "Erstellungsdatum"), default=django.utils.timezone.now)
 
     class Meta:
         verbose_name = _('Gerät')
@@ -195,9 +189,7 @@ class OneTimeLogin(models.Model):
     A OneTimeLogin is a secret which can be used once to login a user.
     """
     secret = models.CharField(max_length=200, verbose_name=_(
-        "secret"), unique=True, null=False)
-    user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=False, verbose_name=_("Benutzer"))
+        "Geheimnis"), unique=True, null=False)
     url = models.CharField(max_length=200, verbose_name=_("URL"))
     created = models.DateField(verbose_name=_(
         "Erstellungsdatum"), default=django.utils.timezone.now)
@@ -205,6 +197,8 @@ class OneTimeLogin(models.Model):
         verbose_name=_("Login benutzt?"), default=False)
     login_date = models.DateField(verbose_name=_(
         "Login Datum"), null=True)
+    user = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE, null=False, verbose_name=_("Benutzer"))
 
     class Meta:
         verbose_name = _('Einmal-Login')

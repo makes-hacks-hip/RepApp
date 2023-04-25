@@ -28,27 +28,30 @@ Zu Meilenstein 1 (M1) gehören alle Anwendungsfälle die notwendig sind um RepAp
 - [x] M1: Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. (A1)
 - [x] M1: Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen. (A2)
 - [ ] M1: Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen. (A3)
-- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)
 - [ ] M1: Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können. (A5)
 - [ ] M1: Als Gast möchte ich Fragen ans Repair-Café stellen können. (A26)
+- [ ] M1: Als Gast möchte ich ausschließlich per eMail mit dem System interagieren können. (A30)
+- [ ] M1: Als Gast möchte per eMail Fragen ans Team stellen können. (A33)
+- [ ] M1: Als Gast möchte ich per eMail auf Rückfragen antworten können. (A34)
+- [ ] M1: Als Gast möchte ich eine Termineinladung per eMail bestätigen können. (A35)
+
+- [ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)
 - [ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können. (A6)
 - [ ] Als Gast möchte ich meine Daten ansehen können. (A21)
 - [ ] Als Gast möchte ich meine Daten löschen können. (A22)
 - [ ] Als Gast möchte ich eine Geräteanmeldung löschen können. (A23)
-- [ ] M1: Als Gast möchte ich ausschließlich per eMail mit dem System interagieren können. (A30)
-- [ ] M1: Als Gast möchte per eMail Fragen ans Team stellen können. (A33)
-- [ ] M1: Als Gast möchte ich per eMail auf Rückfragen antworten können. (A34)
 
 ### Reparateur
 
 - [ ] M1: Als Reparateur möchte ich die angemeldeten Geräte ansehen können. (A7)
 - [ ] M1: Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können. (A8)
-- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)
 - [ ] M1: Als Reparateur möchte ich Rückfragen zum Gerät stellen können. (A10)
 - [ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird. (A11)
 - [ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird. (A12)
 - [ ] M1: Als Reparateur möchte ich mich für ein Repair-Café anmelden können. (A13)
 - [ ] M1: Als Reparateur möchte ich mich für ein Repair-Café abmelden können. (A14)
+
+- [ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)
 - [ ] Als Reparateur möchte ich benachrichtigt werden wenn ein Gast eine mir zugeordnete Geräteanmeldung löscht. (A25)
 
 ### Organisator
@@ -62,11 +65,17 @@ Zu Meilenstein 1 (M1) gehören alle Anwendungsfälle die notwendig sind um RepAp
 - [ ] M1: Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können. (A20)
 - [ ] M1: Als Organisator möchte ich ein Gerät bearbeiten können. (A28)
 - [ ] M1: Als Organisator möchte ich ein Gerät absagen können, wenn der Gast mich informiert hat dass er nicht kommt. (A29)
+
 - [ ] Als Organisator möchte ich benachrichtigt werden wenn ein Gast eine Geräteanmeldung löscht. (A24)
 - [ ] Als Organisator möchte ich alle Daten exportieren können. (A31)
 - [ ] Als Organisator möchte ich Geräte auf ein späteres Repair-Café verschieben können. (A32)
 
 ## Daten
+
+
+### Benutzer
+
+Ein Repapp-Benutzer erweitert den Standard-Benutzer um eine eindeutige eMail-Adresse, um diese als Identifikationsmerkmal verwenden zu können.
 
 ### Cafe
 
@@ -74,9 +83,9 @@ Ein Cafe ist ein Repair-Café Termin.
 
 Attribute:
 
-- Datum: Datum der Veranstaltung
 - Ort: Beschreibung wo das Repair-Café stattfindet
 - Adresse: Adresse an der das Repair-Café stattfindet
+- Datum: Datum der Veranstaltung
 
 Annahmen:
 
@@ -120,6 +129,7 @@ Attribute:
 Technische Attribute:
 
 - Identifier: SHA256 Hash aus Name + Wohnort + Timestamp
+- Benutzer: Referenz zum Benutzer der für diesen Gast erstellt wurde.
 
 ### Gerät
 
@@ -127,6 +137,7 @@ Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés reparie
 
 Attribute:
 
+- Erstellungsdatum: Datum an dem diese Gerät angemeldet wurde.
 - Gerät: Bezeichnung des Geräts
 - Hersteller: Hersteller des Geräts
 - Fehler: Beschreibung des Defekts
@@ -165,7 +176,7 @@ Attribute:
 
 - Frage: Frage zum Gerät oder Defekt
 - Antwort: Antwort des Gastes
-- Datum: Datum der Erstellung der Rückfrage
+- Erstellungsdatum: Datum der Erstellung der Rückfrage
 
 Technische Attribute:
 
@@ -185,6 +196,52 @@ Technische Attribute:
 
 - Cafe: Referenz zum Cafe
 - Gerät: Referenz zum Gerät
+
+### Einmal-Login
+
+Ein Einmal-Login ist ein Geheimnis das es einem Gast erlaubt sich einmalig damit anzumelden.
+
+- Geheimnis: Geheimnis um den Gast zu identifizieren.
+- URL: URL die nach der Anmeldung angezeigt werden soll.
+- Erstellungsdatum: Datum an dem der Einmal-Login angelegt wurde.
+- Login benutzt?: Boolesches Flag. True wenn der Einmal-Login bereits benutzt wurde.
+- Login Datum: Datum an dem der Einmal-Login benutzt wurde, oder Datum der Erstellung, da das Feld aus technischen Gründen nicht leer sein kann.
+
+Technische Attribute:
+
+- Benutzer: Referenz zum Benutzer
+
+### Nachricht
+
+Eine Nachricht ist eine Anfrage von einem Gast.
+
+- Nachricht: Anfrage des Gastes.
+- Antwort: Antwort an den Gast.
+- Erstellungsdatum: Datum an dem die Anfrage erstellt wurde.
+
+Technische Attribute:
+
+- Gast: Referenz zum Gast
+
+## Anmelde Konzept
+
+RepApp unterstützt pro Benutzer-Gruppe verschiedenen Anmelde-Konzepte.
+
+## Gäste
+
+Für Gäste wird automatsch ein Benutzerkonto angelegt, mit einem generierten, sicheren Passwort. Mit der eMail Adresse und dem Passwort kann ein Gast sich in der RepApp anmelden um seine Daten sehen und bearbeiten zu können.
+
+### Einmal-Login
+
+Für Gäste gibt es Einmal-Logins als Alternative. Ein Einmal-Login ist ein Geheimnis und eine Ziel-URL, das dem Gast in From eines Anmelde-Links in einer eMail mitgeteilt wird. Mit diesem Link kann der Gast sich einmalig anmelden, da das Geheimnis danach potentiell Dritten bekannt ist, z.B. über die Browser History.
+
+Nach dem erfolgreichen Login wird der Gast automatisch zu der hinterlegten URL weitergeleitet. Dieser Mechanismus erlaubt es einem Gast "per Klick" Zugriff auf geschützte Daten zu geben.
+
+Wenn ein Gast versucht den Einmal-Link nochmals zu verwenden, schlägt dies Fehl, und dem Gast wird automatisch ein neuer Einmal-Link per eMail mitgeteilt. Dies wird dem Gast auch über entsprechende Nachrichten mitgeteilt.
+
+## Mitarbeiter
+
+Der Login für Mitarbeiter ist nur über das Single-Sign-On der Repair-Cafés erlaubt (Keycloak), das mittels OIDC angebunden ist. Alle Mitarbeiter im Repair-Café haben dort bereits einen Benutzer, was zum einen sicherstellt dass es sich um einen Mitarbeiter handelt, und zum anderen auch die Veraltung der Benutzer in RepApp vereinfacht.
 
 ## Ansichten
 
