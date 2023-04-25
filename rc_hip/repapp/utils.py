@@ -10,7 +10,7 @@ from django.contrib import messages
 from repapp.models import Organisator, Reparateur, OneTimeLogin
 
 
-def create_one_time_login(user, url):
+def create_one_time_login(user, url) -> str:
     """
     create_one_time_login create a one time login object for user logins.
     """
@@ -18,18 +18,19 @@ def create_one_time_login(user, url):
         f'{user.email}{url}{datetime.datetime.now()}{random.randint(0,9999999)}'.encode(
             'utf-8')
     ).hexdigest()
+    hash = sha256(secret.encode('utf-8')).hexdigest()
     otl = OneTimeLogin(
-        secret=secret,
+        secret=hash,
         user=user,
         url=url,
     )
     otl.save()
-    return otl
+    return secret
 
 
-def send_one_time_login_mail(one_time_login, request):
+def send_one_time_login_mail(secret, mail, request):
     url = request.build_absolute_uri(
-        f'/onetimelogin/{one_time_login.secret}/')
+        f'/onetimelogin/{secret}/')
     subject = render_to_string(
         'repapp/mail/mail_one_time_login_subject.html').replace('\n', '')
     text = render_to_string('repapp/mail/mail_one_time_login_text.html', {
@@ -43,7 +44,7 @@ def send_one_time_login_mail(one_time_login, request):
         subject=subject,
         message=text,
         from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
-        recipient_list=[f"{one_time_login.user.email}"],
+        recipient_list=[mail],
         fail_silently=True,
         html_message=html
     )
@@ -100,8 +101,8 @@ def send_confirmation_mails(device, guest, cafe, request):
     path = reverse('view_device', kwargs={
                    'device_identifier': device.identifier})
     url = request.build_absolute_uri(path)
-    otl = create_one_time_login(guest.user, url)
-    login_url = request.build_absolute_uri(f'/onetimelogin/{otl.secret}/')
+    secret = create_one_time_login(guest.user, url)
+    login_url = request.build_absolute_uri(f'/onetimelogin/{secret}/')
 
     subject = render_to_string('repapp/mail/mail_register_device_subject.html', {
         'cafe': cafe,

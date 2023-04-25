@@ -258,20 +258,21 @@ def process_mails(request):
     pass
 
 
-def one_time_login(request, secret):
+def one_time_login(request, secret: str):
     """
     View for one time login.
     """
     # waste a little time as brute force protection
     time.sleep(1)
 
-    otl = get_object_or_404(OneTimeLogin, secret=secret)
+    hash = sha256(secret.encode('utf-8')).hexdigest()
+    otl = get_object_or_404(OneTimeLogin, secret=hash)
 
     if otl.login_used:
         messages.add_message(request, messages.ERROR,
                              'Der Einmal-Login wurde schon verwendet und ist nichtmehr gültig.')
-        new_otl = create_one_time_login(otl.user, otl.url)
-        send_one_time_login_mail(new_otl, request)
+        secret = create_one_time_login(otl.user, otl.url)
+        send_one_time_login_mail(secret, otl.user.email, request)
         return HttpResponseRedirect(reverse_lazy('index'))
     else:
         otl.login_used = True
