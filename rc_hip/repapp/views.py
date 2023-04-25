@@ -152,9 +152,9 @@ def create_one_time_login(user, url) -> str:
         f'{user.email}{url}{datetime.datetime.now()}{random.randint(0,9999999)}'.encode(
             'utf-8')
     ).hexdigest()
-    hash = sha256(secret.encode('utf-8')).hexdigest()
+    secret_hash = sha256(secret.encode('utf-8')).hexdigest()
     otl = OneTimeLogin(
-        secret=hash,
+        secret=secret_hash,
         user=user,
         url=url,
     )
@@ -412,21 +412,21 @@ def one_time_login(request, secret: str):
     # waste a little time as brute force protection
     time.sleep(1)
 
-    hash = sha256(secret.encode('utf-8')).hexdigest()
-    otl = get_object_or_404(OneTimeLogin, secret=hash)
+    secret_hash = sha256(secret.encode('utf-8')).hexdigest()
+    otl = get_object_or_404(OneTimeLogin, secret=secret_hash)
 
     if otl.login_used:
         messages.add_message(request, messages.ERROR,
                              'Der Einmal-Login wurde schon verwendet und ist nichtmehr gültig.')
-        secret = create_one_time_login(otl.user, otl.url)
-        send_one_time_login_mail(secret, otl.user.email, request)
+        new_secret = create_one_time_login(otl.user, otl.url)
+        send_one_time_login_mail(new_secret, otl.user.email, request)
         return HttpResponseRedirect(reverse_lazy('index'))
     else:
         otl.login_used = True
         otl.login_date = now()
         otl.save()
 
-    user = authenticate(request, username=secret, password=None)
+    user = authenticate(request, username=secret_hash, password=None)
 
     if user is not None:
         login(request, user)
