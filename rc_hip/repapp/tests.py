@@ -3,9 +3,11 @@ Tests for RepApp.
 """
 from datetime import datetime, timedelta
 import django.utils.timezone
+
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
+
 from .backends import OneTimeLoginBackend, EmailBackend
 from .models import OneTimeLogin, CustomUser, Cafe
 

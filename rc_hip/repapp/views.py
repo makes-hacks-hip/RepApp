@@ -65,23 +65,17 @@ class RegisterDeviceFormView(generic.edit.FormView):
 
         guest = Guest.objects.filter(mail=mail).first()
 
-        print(f'Register: Dev: {device}, Guest: {guest}')
-
         if guest:
-            print('Guest already known')
             device.guest = guest
             device.save()
 
             send_confirmation_mails(device, guest, cafe, self.request)
-
-            print('Mails sent')
 
             resp = HttpResponseRedirect(
                 reverse_lazy('register_device_final', kwargs={
                     'cafe': cafe.pk,
                     'device_identifier': device.identifier})
             )
-            print(resp)
             return resp
         else:
             return HttpResponseRedirect(

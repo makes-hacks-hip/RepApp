@@ -8,6 +8,21 @@ from .models import (Organisator, Cafe, Question, Device, CustomUser,
                      Reparateur, Appointment, Guest, Candidate, OneTimeLogin, Message)
 
 
+class CafeResource(resources.ModelResource):
+    """
+    Resource wrapper for Cafe model.
+    """
+    class Meta:
+        """
+        Meta data for resource model.
+        """
+        model = Cafe
+
+    @staticmethod
+    def get_display_name():
+        return "Repair-Café"
+
+
 class GuestResource(resources.ModelResource):
     """
     Resource wrapper for Guest model.
@@ -93,17 +108,18 @@ class ExportAdmin(ImportExportModelAdmin, ExportActionMixin):
         QuestionResource,
         AppointmentResource,
         CandidateResource,
+        CafeResource,
     ]
 
 
 # Register all models of RepApp for the admin interface.
 admin.site.register(Organisator)
-admin.site.register(Cafe)
 admin.site.register(Reparateur)
 admin.site.register(CustomUser)
 admin.site.register(OneTimeLogin)
 admin.site.register(Message)
 # Make the "data" models exportable.
+admin.site.register(Cafe, ExportAdmin)
 admin.site.register(Question, ExportAdmin)
 admin.site.register(Guest, ExportAdmin)
 admin.site.register(Device, ExportAdmin)

@@ -14,7 +14,6 @@ class OneTimeLoginBackend(ModelBackend):
     """
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        print(f'authenticate {username}')
         login = OneTimeLogin.objects.filter(secret=username).first()
         if login:
             return login.user
