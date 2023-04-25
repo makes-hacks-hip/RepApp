@@ -1,7 +1,9 @@
 """
 Tests for RepApp.
 """
+from hashlib import sha256
 from datetime import datetime, timedelta
+
 import django.utils.timezone
 
 from django.test import TestCase
@@ -24,8 +26,9 @@ class OneTimeLoginTest(TestCase):
         user.save()
         self.user = user
 
+        secret_hash = sha256("LetMeIn".encode('utf-8')).hexdigest()
         otl = OneTimeLogin(
-            secret="LetMeIn",
+            secret=secret_hash,
             user=user,
             url="/test/url",
         )
