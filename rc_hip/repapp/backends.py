@@ -1,11 +1,36 @@
 """
 Authentication backends for RepApp.
 """
+import unicodedata
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from mozilla_django_oidc.auth import OIDCAuthenticationBackend
-from .utils import generate_username, create_repapp_user
-from .models import OneTimeLogin
+from .models import OneTimeLogin, Organisator, Reparateur
+
+
+def generate_username(email):
+    # Using Python 3 and Django 1.11+, usernames can contain alphanumeric
+    # (ascii and unicode), _, @, +, . and - characters. So we normalize
+    # it and slice at 150 characters.
+    return unicodedata.normalize('NFKC', email)[:150]
+
+
+def create_repapp_user(user):
+    organisator = Organisator.objects.filter(mail=user.email).first()
+    if not organisator:
+        reparateur = Reparateur.objects.filter(mail=user.email).first()
+        if not reparateur:
+            reparateur = Reparateur(
+                name=user.username,
+                mail=user.email,
+            )
+            reparateur.save()
+        else:
+            reparateur.name = user.username
+            reparateur.save()
+    else:
+        organisator.name = user.username
+        organisator.save()
 
 
 class OneTimeLoginBackend(ModelBackend):

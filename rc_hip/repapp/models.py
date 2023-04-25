@@ -5,7 +5,13 @@ import django.utils.timezone
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser
-from .utils import device_directory_path
+
+
+def device_directory_path(instance, filename):
+    """
+    device_directory_path generates a device-specific storage path for file uploads.
+    """
+    return f'device_{instance.identifier}/{filename}'
 
 
 class CustomUser(AbstractUser):
