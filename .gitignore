@@ -1,5 +1,6 @@
 
 .env
+**/data.json
 
 rc_hip/static
 rc_hip/static/**

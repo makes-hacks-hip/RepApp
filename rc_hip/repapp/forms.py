@@ -3,25 +3,42 @@ Django forms for RepApp.
 """
 from django import forms
 from django.core.exceptions import ValidationError
+from crispy_forms.layout import Field
 
 
-class HoneypotField(forms.BooleanField):
+EMPTY_VALUES = (None, '')
+
+
+class HoneypotWidget(forms.TextInput):
     """
-    Simple honeypot field.
+    This widget shows a by CSS hidden input field. If this form gets manipulated
+    by a bot the form is rejected.
     """
-    default_widget = forms.CheckboxInput(
-        {'style': 'display:none !important;', 'tabindex': '-1', 'autocomplete': 'off'})
+    is_hidden = True
 
-    def __init__(self, *args, **kwargs):
-        kwargs.setdefault('widget', HoneypotField.default_widget)
-        kwargs['required'] = False
-        super().__init__(*args, **kwargs)
+    def __init__(self, attrs=None, html_comment=False, *args, **kwargs):
+        self.html_comment = html_comment
+        super(HoneypotWidget, self).__init__(attrs, *args, **kwargs)
+        if not 'class' in self.attrs:
+            self.attrs['style'] = 'display:none'
+
+    def render(self, *args, **kwargs):
+        value = super(HoneypotWidget, self).render(*args, **kwargs)
+        if self.html_comment:
+            value = '<!-- %s -->' % value
+        return value
+
+
+class HoneypotField(forms.Field):
+    """
+    This widget implements a simple honey pot field as spam protection.
+    """
+    widget = HoneypotWidget
 
     def clean(self, value):
-        if cleaned_value := super().clean(value):
-            raise ValidationError('')
-        else:
-            return cleaned_value
+        if self.initial in EMPTY_VALUES and value in EMPTY_VALUES or value == self.initial:
+            return value
+        raise ValidationError('Anti-spam field changed in value.')
 
 
 class RegisterDevice(forms.Form):

@@ -20,7 +20,7 @@
                 <button type="submit" class="btn btn-primary">Abmelden</button>
             </form>
         {% else %}
-            <a href="{% url 'oidc_authentication_init' %}">Anmelden mit Makes-Hacks-Hip</a>
+            <a class="login_link" href="{% url 'oidc_authentication_init' %}">Anmelden mit Makes-Hacks-Hip</a>
         {% endif %}
     </div>
 {% endblock content %}

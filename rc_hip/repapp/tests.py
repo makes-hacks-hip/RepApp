@@ -10,8 +10,8 @@ from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
 
-from .backends import OneTimeLoginBackend, EmailBackend
-from .models import OneTimeLogin, CustomUser, Cafe
+from .backends import OneTimeLoginBackend, EmailBackend, create_repapp_user
+from .models import (OneTimeLogin, CustomUser, Cafe, Organisator, Reparateur)
 
 
 class OneTimeLoginTest(TestCase):
@@ -100,11 +100,89 @@ class EmailLoginTest(TestCase):
         self.assertEqual(result, None)
 
 
-class UtilsTest(TestCase):
+class BackendsTest(TestCase):
     """
-    Test for utility functions.
+    Test for backend utility functions.
     """
-    pass
+
+    def setUp(self):
+        organisator = Organisator(
+            name="Organisator Name",
+            mail="orga@example.com",
+        )
+        organisator.save()
+        self.organisator = organisator
+
+        reparateur = Reparateur(
+            name="Reparateur Name",
+            mail="repa@example.com",
+        )
+        reparateur.save()
+        self.reparateur = reparateur
+
+    def test_create_reparateur(self):
+        """
+        Ensure that a new reparateur is created.
+        """
+        user = CustomUser(
+            username="Other Reparateur",
+            email="repa2@example.com",
+        )
+        user.save()
+        create_repapp_user(user)
+
+        reparateur = Reparateur.objects.filter(mail=user.email).first()
+        self.assertIsNotNone(reparateur)
+        self.assertEqual(reparateur.name, user.username)
+
+    def test_update_reparateur(self):
+        """
+        Ensure that the reparateur name gets updated.
+        """
+        user = CustomUser(
+            username="First Reparateur",
+            email="repa@example.com",
+        )
+        user.save()
+        create_repapp_user(user)
+
+        reparateur = Reparateur.objects.filter(mail=user.email).first()
+        self.assertIsNotNone(reparateur)
+        self.assertEqual(reparateur.name, user.username)
+
+    def test_update_organisator(self):
+        """
+        Ensure that the organisator name gets updated.
+        """
+        user = CustomUser(
+            username="The Organisator",
+            email="orga@example.com",
+        )
+        user.save()
+        create_repapp_user(user)
+
+        organisator = Organisator.objects.filter(mail=user.email).first()
+        self.assertIsNotNone(organisator)
+        self.assertEqual(organisator.name, user.username)
+
+
+class FormsTest(TestCase):
+    """
+    Test for RepApp form features.
+    """
+
+    fixtures = ["cafe-data.json"]
+
+    def test_from_protection(self):
+        client = Client(enforce_csrf_checks=True)
+        response = client.get(reverse('register_device', kwargs={
+            'cafe': 1,
+        }))
+        # ensure honeypot field is available
+        self.assertContains(
+            response, 'type="text" name="accept_agb" style="display:none"')
+        # ensure csrf is available
+        self.assertContains(response, 'csrfmiddlewaretoken')
 
 
 class ViewsTest(TestCase):

@@ -22,10 +22,11 @@ urlpatterns = [
          views.device_view, name="view_device"),
     path("guest/profile/",
          views.profile, name="guest_profile"),
+    path("onetimelogin/<str:secret>/",
+         views.one_time_login, name="one_time_login"),
     path("member/login/",
          views.member_login, name="member_login"),
     path("cron", views.cron, name="cron"),
     path("process_mails", views.process_mails, name="process_mails"),
-    path("onetimelogin/<str:secret>/",
-         views.one_time_login, name="one_time_login"),
+
 ]
