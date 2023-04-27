@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="de">
   <head>
@@ -8,8 +9,8 @@
           content="{% block keywords %} {% endblock keywords %}" />
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="stylesheet" href="/static/repapp/css/bootstrap.min.css" />
-    <script src="/static/repapp/css/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'repapp/css/bootstrap.min.css' %}" />
+    <script src="{% static 'repapp/css/bootstrap.min.js' %}"></script>
     <title>RepApp
       {% block title %}
       {% endblock title %}
