@@ -189,6 +189,7 @@ class ViewsTest(TestCase):
     """
     Test for RepApp views.
     """
+    fixtures = ["cafe-data.json"]
 
     def setUp(self):
         cafe = Cafe(location="neuer Ort", address="neue Adresse",
@@ -201,6 +202,21 @@ class ViewsTest(TestCase):
                         event_date=date)
         old_cafe.save()
         self.old_cafe = old_cafe
+
+        user = CustomUser(
+            username="ATestUser",
+            email="testuser@example.com",
+        )
+        user.set_password("aTestPassword")
+        user.save()
+        self.user = user
+
+        reparateur = Reparateur(
+            name="ATestUser",
+            mail="testuser@example.com"
+        )
+        reparateur.save()
+        self.reparateur = reparateur
 
     def test_index(self):
         """
@@ -218,3 +234,50 @@ class ViewsTest(TestCase):
         # ensure old cafe is not displayed
         self.assertNotContains(response, self.old_cafe.location)
         self.assertNotContains(response, self.old_cafe.address)
+
+    def test_register_device(self):
+        """
+        Test register device view
+        """
+        client = Client(enforce_csrf_checks=True)
+        response = client.get(reverse('register_device', kwargs={
+            'cafe': 1,
+        }))
+
+        self.assertEqual(response.status_code, 200)
+
+        # ensure all required fields are displayed
+        self.assertContains(response, "eMail Adresse")
+        self.assertContains(response, "Art des Geräts")
+        self.assertContains(response, "Hersteller")
+        self.assertContains(response, "Fehlerbeschreibung")
+        self.assertContains(response, "Foto vom Gerät")
+        self.assertContains(response, "Foto vom Typenschild")
+        self.assertContains(response, "Folgetermin")
+        self.assertContains(response, "Informationen zur Reparaturabwicklung")
+        self.assertContains(response, "Datenschutz")
+        # ensure security fields are contained
+        self.assertContains(
+            response, 'type="text" name="accept_agb" style="display:none"')
+        self.assertContains(response, 'csrfmiddlewaretoken')
+
+    def test_member_login(self):
+        """
+        Test member login view
+        """
+        client = Client(enforce_csrf_checks=True)
+        response = client.get(reverse('member_login'))
+
+        self.assertEqual(response.status_code, 200)
+
+        # ensure OIDC link is displayed
+        self.assertContains(response, "Anmelden mit Makes-Hacks-Hip")
+
+        client.login(username="testuser@example.com", password="aTestPassword")
+        response = client.get(reverse('member_login'))
+        self.assertEqual(response.status_code, 200)
+
+        # ensure logout button is displayed
+        self.assertContains(response, "Abmelden")
+        # ensure user is displayed
+        self.assertContains(response, "testuser@example.com")

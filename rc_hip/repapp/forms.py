@@ -65,10 +65,10 @@ class RegisterDevice(forms.Form):
         widget=forms.Textarea
     )
     device_picture = forms.FileField(
-        label="Foto vom Gerät ", required=False
+        label="Foto vom Gerät", required=False
     )
     type_plate_picture = forms.FileField(
-        label="Foto vom Typenschild ", required=False
+        label="Foto vom Typenschild", required=False
     )
     follow_up = forms.BooleanField(
         label="Folgetermin",
