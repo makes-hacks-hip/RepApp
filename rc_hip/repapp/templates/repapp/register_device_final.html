@@ -1,9 +1,10 @@
 {% extends "repapp/base.html" %}
 {% block title %}
 {% endblock title %}
+{% block page_title %}
+    Anmeldung erfolgreich!
+{% endblock page_title %}
 {% block content %}
-    <h1 class="mt-2">Anmeldung erfolgreich!</h1>
-    <hr class="mt-0 mb-4">
     <p>
         Vielen Dank für die Anmeldung des Geräts {{ device.device }} - {{ device.manufacturer }} zur Reparatur im Repair-Café am {{ cafe.event_date|date }}.
     </p>

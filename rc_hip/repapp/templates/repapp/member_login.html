@@ -1,17 +1,16 @@
 {% extends "repapp/base.html" %}
 {% block title %}
-    - Mitarbeiter Login
+    Mitarbeiter Anmeldung
 {% endblock title %}
+{% block page_title %}
+    Mitarbeiter
+    {% if user.is_authenticated %}
+        Anmelden
+    {% else %}
+        Abmelden
+    {% endif %}
+{% endblock page_title %}
 {% block content %}
-    <h1 class="mt-2">
-        Mitarbeiter
-        {% if user.is_authenticated %}
-            Logout
-        {% else %}
-            Login
-        {% endif %}
-    </h1>
-    <hr class="mt-0 mb-4">
     <div>
         {% if user.is_authenticated %}
             <p>Angemeldeter Benutzer: {{ user.email }}</p>

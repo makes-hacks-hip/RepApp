@@ -88,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "rc_hip.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

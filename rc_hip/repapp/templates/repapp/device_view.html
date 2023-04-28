@@ -2,9 +2,10 @@
 {% block title %}
     - {{ device.device }}
 {% endblock title %}
+{% block page_title %}
+    Gerät: {{ device.device }}
+{% endblock page_title %}
 {% block content %}
-    <h1 class="mt-2">Gerät: {{ device.device }}</h1>
-    <hr class="mt-0 mb-4">
     <table class="table">
         <tbody>
             <tr>

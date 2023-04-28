@@ -7,9 +7,9 @@ from hashlib import sha256
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.contrib.auth import get_user_model
 from selenium.webdriver.common.by import By
-# from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.firefox.webdriver import WebDriver
-from .models import CustomUser, Guest, OneTimeLogin
+from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver import ActionChains, Keys
+from .models import CustomUser, OneTimeLogin
 
 
 class WorkflowTests(StaticLiveServerTestCase):
@@ -22,7 +22,8 @@ class WorkflowTests(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = WebDriver()
-        cls.selenium.implicitly_wait(10)
+        cls.selenium.implicitly_wait(50)
+        cls.selenium.maximize_window()
 
     @classmethod
     def tearDownClass(cls):
@@ -31,6 +32,8 @@ class WorkflowTests(StaticLiveServerTestCase):
 
     def setUp(self):
         super().setUp()
+
+        self.action_chains = ActionChains(self.selenium)
 
         self.password = "ATestPassword"
         user = CustomUser.objects.get(pk=3)
@@ -62,7 +65,7 @@ class WorkflowTests(StaticLiveServerTestCase):
         self.selenium.get(f"{self.live_server_url}/")
         # Click on a register link
         self.selenium.find_element(By.CLASS_NAME, "register_link").click()
-        time.sleep(1)
+        time.sleep(2)
         # Enter new device
         # Enter guest mail address
         mail = self.selenium.find_element(By.NAME, "mail")
@@ -76,6 +79,10 @@ class WorkflowTests(StaticLiveServerTestCase):
         # Enter a error description
         error = self.selenium.find_element(By.NAME, "error")
         error.send_keys("A description of the issue\nof the device.")
+        # Scroll to the bottom of the page
+        self.selenium.find_element(
+            By.TAG_NAME, "body").send_keys(Keys.CONTROL, Keys.END)
+        time.sleep(1)
         # Skip device picture and device type plate
         # No follow up repair
         # Accept repair conditions
@@ -121,6 +128,10 @@ class WorkflowTests(StaticLiveServerTestCase):
         # Enter a error description
         error = self.selenium.find_element(By.NAME, "error")
         error.send_keys("Another issue description.")
+        # Scroll to the bottom of the page
+        self.selenium.find_element(
+            By.TAG_NAME, "body").send_keys(Keys.CONTROL, Keys.END)
+        time.sleep(1)
         # Add device picture
         test_script_folder = Path(__file__).resolve().parent
         fixtures_folder = os.path.join(test_script_folder, "fixtures")
