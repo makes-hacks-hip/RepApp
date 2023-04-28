@@ -17,7 +17,8 @@
         "KeycloakOIDCAB",
         "Keycloak",
         "tabindex",
-        "onetimelogin"
+        "onetimelogin",
+        "Ammeldelink"
     ],
     "ignoreWords": [],
     "import": []

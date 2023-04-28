@@ -7,5 +7,52 @@
             "address": "Patersholzer Weg 19, Hilpoltstein",
             "event_date": "2023-05-13"
         }
+    },
+    {
+        "model": "repapp.customuser",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$600000$O70jrsL2vmSssirJPvWBMw$lbvFy/OI7mUfz26Qvh+bxnsp19v+xsETJydvsgLxE4E=",
+            "last_login": "2023-04-25T18:47:07.685Z",
+            "is_superuser": false,
+            "username": "tom",
+            "first_name": "",
+            "last_name": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-04-25T07:10:40.972Z",
+            "email": "thomas@irgang.eu",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "repapp.guest",
+        "pk": 4,
+        "fields": {
+            "identifier": "272623d8b634cef82ba1c8981593cd827a373226c492b328671d31418a19bcc1",
+            "name": "Thomas",
+            "phone": "012345678",
+            "residence": "Allersberg",
+            "mail": "thomas@irgang.eu",
+            "user": 3
+        }
+    },
+    {
+        "model": "repapp.device",
+        "pk": 2,
+        "fields": {
+            "identifier": "5f3d413409ca9c90c99540fd5677cc1147156f100d7bd29d3a1c1940e5f2c6ac",
+            "date": "2023-04-25",
+            "device": "Test Gerät",
+            "manufacturer": "Test Hersteller",
+            "error": "Fehler",
+            "follow_up": false,
+            "device_picture": "",
+            "type_plate_picture": "",
+            "confirmed": true,
+            "guest": 4,
+            "cafe": 1
+        }
     }
 ]

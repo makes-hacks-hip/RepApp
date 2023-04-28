@@ -26,6 +26,9 @@ from .forms import RegisterDevice, RegisterGuest
 
 
 def send_one_time_login_mail(secret, mail, request):
+    """
+    Send a mail with a one time login link.
+    """
     url = request.build_absolute_uri(
         f'/onetimelogin/{secret}/')
     subject = render_to_string(
@@ -52,6 +55,9 @@ def send_one_time_login_mail(secret, mail, request):
 
 
 def send_confirmation_mails(device, guest, cafe, request):
+    """
+    Send confirmation mails for device registration.
+    """
     organizers = []
     for organizer in Organisator.objects.all():
         organizers.append(organizer.mail)
@@ -110,6 +116,9 @@ def send_confirmation_mails(device, guest, cafe, request):
 
 
 def send_guest_account_mail(guest, password, request):
+    """
+    Send guest user account created mail.
+    """
     url = request.build_absolute_uri('/guest/profile/')
     subject = render_to_string(
         'repapp/mail/mail_new_guest_subject.html').replace('\n', '')
@@ -139,6 +148,9 @@ def send_guest_account_mail(guest, password, request):
 
 
 def is_member(user):
+    """
+    Test is a user is a Repair-Café member.
+    """
     organisator = Organisator.objects.filter(mail=user.email).first()
     reparateur = Reparateur.objects.filter(mail=user.email).first()
     return organisator or reparateur
@@ -146,7 +158,7 @@ def is_member(user):
 
 def create_one_time_login(user, url) -> str:
     """
-    create_one_time_login create a one time login object for user logins.
+    create_one_time_login creates a one time login object for guest user logins.
     """
     secret = sha256(
         f'{user.email}{url}{datetime.datetime.now()}{random.randint(0,9999999)}'.encode(
@@ -435,3 +447,13 @@ def one_time_login(request, secret: str):
     else:
         messages.add_message(request, messages.ERROR, 'Login fehlgeschlagen.')
         return HttpResponseRedirect(reverse_lazy('index'))
+
+
+def bootstrap(request):
+    """
+    Bootstrap design test page.
+    """
+    return render(
+        request,
+        "repapp/bootstrap.html"
+    )

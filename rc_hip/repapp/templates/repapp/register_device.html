@@ -3,9 +3,10 @@
 {% block title %}
     - Gerät anmelden
 {% endblock title %}
+{% block page_title %}
+    Gerät anmelden
+{% endblock page_title %}
 {% block content %}
-    <h1 class="mt-2">Gerät anmelden</h1>
-    <hr class="mt-0 mb-4">
     <form action="{% url 'register_device' cafe.id %}"
           method="post"
           enctype="multipart/form-data">

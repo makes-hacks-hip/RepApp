@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{% static 'repapp/css/bootstrap.min.css' %}" />
     <title>RepApp -
       {% block title %}
+        Bootstrap
       {% endblock title %}
     </title>
     <link rel="stylesheet" href="{% static 'repapp/css/bootstrap.min.css' %}" />
@@ -60,15 +61,12 @@
             style="font-size: 60px;
                    font-weight: 700;
                    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
-                   color: white">
-          {% block page_title %}
-          {% endblock page_title %}
-        </h1>
+                   color: white">Anmeldung</h1>
       </div>
     </div>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-12">
+        <div class="col-8">
           {% if messages %}
             {% for message in messages %}<div class="alert alert-primary" role="alert">{{ message }}</div>{% endfor %}
           {% endif %}
@@ -76,17 +74,6 @@
           {% endblock content %}
         </div>
       </div>
-    </div>
-    <div class="container">
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-muted">© 2023 Repair-Café Hilpoltstein</p>
-        <ul class="nav col-md-4 justify-content-end">
-          <li class="nav-item">
-            <a href="https://www.repaircafe-hilpoltstein.de/impressum"
-               class="nav-link px-2 text-muted">Impressum & Datenschutz</a>
-          </li>
-        </ul>
-      </footer>
     </div>
     <script src="{% static 'repapp/js/jquery-3.6.4.min.js' %}"></script>
     <script src="{% static 'repapp/js/bootstrap.min.js' %}"></script>

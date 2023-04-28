@@ -282,8 +282,11 @@
     }      
   </style>
 {% endblock head %}
+{% block page_title %}
+  Anmeldung
+{% endblock page_title %}
 {% block content %}
-  <h1 class="mt-2">Repair-Cafés</h1>
+  <h1 class="mt-2">Repair-Café auswählen</h1>
   <hr class="mt-0 mb-4">
   <ul class="list-group">
     {% for cafe in object_list %}
