@@ -14,15 +14,15 @@ from django.contrib import messages
 from django.views import generic
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import PermissionDenied
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.utils.timezone import now
-from repapp.models import CustomUser, Organisator, Reparateur
-from .models import Cafe, Device, Guest, OneTimeLogin
 from .forms import RegisterDevice, RegisterGuest
+from .models import (Cafe, Device, Guest, OneTimeLogin,
+                     CustomUser, Organisator, Reparateur)
+from . import mail_interface
 
 
 def send_one_time_login_mail(secret, mail, request):
@@ -216,10 +216,14 @@ class RegisterDeviceFormView(generic.edit.FormView):
         device.save()
 
         guest = Guest.objects.filter(mail=mail).first()
+        user = CustomUser.objects.filter(email=mail).first()
 
-        if guest:
+        if guest and user:
             device.guest = guest
             device.save()
+
+            guest.user = user
+            guest.save()
 
             send_confirmation_mails(device, guest, cafe, self.request)
 
@@ -407,14 +411,15 @@ def cron(request):
     """
     View to trigger automated regular tasks.
     """
-    pass
+    return HttpResponse('done.')
 
 
 def process_mails(request):
     """
     View to trigger processing of email in inbox.
     """
-    pass
+    count = mail_interface.process_mails()
+    return HttpResponse(f'Done. Processed {count} messages.')
 
 
 def one_time_login(request, secret: str):
