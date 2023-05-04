@@ -20,6 +20,7 @@ def send_message_notification(message: Message, guest: Guest):
     text = f'Hallo,\n'
     f'der Gast {guest.name} ({guest.mail}) hat folgende Nachricht gesendet:\n\n'
     f'{message.message}'
+    # TODO: HTML message
     # TODO: add attachments
     # TODO: add link to message
 
@@ -50,17 +51,20 @@ def process_message(message: MailMessage, guest: Guest):
                 question.save()
                 # TODO: save attachments and add to message
                 logger.info(
-                    f'Valid answer for Question {question_pk} from {message.from_} received.')
+                    'Valid answer for Question %s from %s received.'
+                    % (question_pk, message.from_))
                 # TODO: send notifications
             else:
                 logger.warning(
-                    f'Answer for Question {question_pk} from {message.from_} received,'
-                    ' but the question was not for this guest. Message was ignored.')
+                    'Answer for Question %s from %s received,'
+                    ' but the question was not for this guest. Message was ignored.'
+                    % (question_pk, message.from_))
                 # TODO: send reply that mail address was wrong
         else:
             logger.warning(
-                f'Answer for Question {question_pk} from {message.from_} received,'
-                ' but there is no such question. Message was ignored.')
+                'Answer for Question %s from %s received,'
+                ' but there is no such question. Message was ignored.'
+                % (question_pk, message.from_))
     else:
         db_message = Message(
             message=content,
