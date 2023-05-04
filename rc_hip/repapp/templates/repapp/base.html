@@ -33,7 +33,7 @@
             <a href="https://www.repaircafe-hilpoltstein.de/" class="nav-link">Repair-Café</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'index' %}" class="nav-link">Anmeldung</a>
+            <a href="{% url 'index' %}" class="nav-link">Geräteanmeldung</a>
           </li>
           {% if user.is_authenticated %}
             <li class="nav-item">
@@ -41,10 +41,10 @@
             </li>
           {% else %}
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="nav-link">Gast Anmeldung</a>
+              <a href="{% url 'login' %}" class="nav-link">Gast Login</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'member_login' %}" class="nav-link">Mitglieder Anmeldung</a>
+              <a href="{% url 'member_login' %}" class="nav-link">Mitglieder Login</a>
             </li>
           {% endif %}
         </ul>
