@@ -26,6 +26,7 @@ urlpatterns = [
          views.one_time_login, name="one_time_login"),
     path("member/login/",
          views.member_login, name="member_login"),
+    path("orga/cafe/create", views.CreateCafeView.as_view(), name="create_cafe"),
     path("cron", views.cron, name="cron"),
     path("bootstrap", views.bootstrap, name="bootstrap"),
     path("process_mails", views.process_mails, name="process_mails"),

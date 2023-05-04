@@ -6,6 +6,7 @@ import random
 import string
 import time
 import os
+import logging
 from hashlib import sha256
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -17,12 +18,16 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 from django.utils.timezone import now
-from .forms import RegisterDevice, RegisterGuest
+from .forms import RegisterDevice, RegisterGuest, CreateCafe
 from .models import (Cafe, Device, Guest, OneTimeLogin,
                      CustomUser, Organisator, Reparateur)
 from . import mail_interface
+
+
+logger = logging.getLogger(__name__)
 
 
 def send_one_time_login_mail(secret, mail, request):
@@ -154,6 +159,14 @@ def is_member(user):
     organisator = Organisator.objects.filter(mail=user.email).first()
     reparateur = Reparateur.objects.filter(mail=user.email).first()
     return organisator or reparateur
+
+
+def is_organisator(user):
+    """
+    Test is a user is a Repair-Café organisator.
+    """
+    organisator = Organisator.objects.filter(mail=user.email).first()
+    return organisator is not None
 
 
 def create_one_time_login(user, url) -> str:
@@ -401,6 +414,7 @@ def member_login(request):
     """
     Login page for repair cafe members, using OIDC.
     """
+    # TODO: create member login landing page
     return render(
         request,
         "repapp/member_login.html"
@@ -462,3 +476,45 @@ def bootstrap(request):
         request,
         "repapp/bootstrap.html"
     )
+
+
+class CreateCafeView(LoginRequiredMixin, generic.edit.FormView):
+    """
+    Organisator view for registering a new guest.
+    """
+    # TODO: create test
+    login_url = reverse_lazy('member_login')
+    template_name = "repapp/orga/create_cafe.html"
+    form_class = CreateCafe
+
+    def form_valid(self, form):
+        if not is_organisator(self.request.user):
+            raise PermissionDenied('Only accessible for organisator.')
+
+        location = form.cleaned_data['location']
+        address = form.cleaned_data['address']
+        event_date = form.cleaned_data['event_date']
+
+        cafe = Cafe(
+            location=location,
+            address=address,
+            event_date=event_date,
+        )
+        cafe.save()
+
+        messages.add_message(self.request, messages.INFO,
+                             'Es wurde ein neues Repair-Café '
+                             f'am {cafe.event_date} angelegt')
+
+        # TODO: redirect to orga main view
+        return HttpResponseRedirect(
+            reverse_lazy('index')
+        )
+
+    def get_context_data(self, **kwargs):
+        if not is_organisator(self.request.user):
+            logger.warning('Access violation: %s is no organisator!' %
+                           self.request.user)
+            raise PermissionDenied('Only accessible for organisator.')
+
+        return super(CreateCafeView, self).get_context_data(**kwargs)

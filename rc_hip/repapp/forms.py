@@ -113,3 +113,22 @@ class RegisterGuest(forms.Form):
         max_length=200
     )
     accept_agb = HoneypotField(label="")
+
+
+class CreateCafe(forms.Form):
+    """
+    Form for creating new Repair-Cafés.
+    """
+    location = forms.CharField(
+        label="Ort",
+        max_length=200,
+        help_text="Name des Orts, z.B. AWO."
+    )
+    address = forms.CharField(
+        label="Adresse",
+        max_length=200,
+        help_text="Straße, Hausnummer und Ortsname."
+    )
+    event_date = forms.DateField(
+        label="Veranstaltungsdatum"
+    )
