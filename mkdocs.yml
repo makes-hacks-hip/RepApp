@@ -1,6 +1,12 @@
 site_name: RepApp - Makespace Repair-Café Hilpoltstein
 site_url: https://makes-hacks-hip.github.io/RepApp/
 nav:
+    - RepApp:
+        - Beschreibung: 'index.md'
+        - Anforderungen: 'use_cases.md'
+        - Abläufe: 'workflows.md'
+        - Ansichten: 'views.md'
+        - Daten-Modell: 'models.md'
     - 'Repair-Café & Makespace':
         - Repair-Café: https://www.repaircafe-hilpoltstein.de
         - Makespace: https://makes-hacks-hip.de
