@@ -1,0 +1,16 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Organisation
+{% endblock title %}
+{% block page_title %}
+    Organisation
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a href="{% url 'orga' %}" class="btn btn-primary">Weiter als Organisator</a>
+    </p>
+    <p>
+        <a href="{% url 'repa' %}" class="btn btn-primary">Weiter als Reparateur</a>
+    </p>
+{% endblock content %}

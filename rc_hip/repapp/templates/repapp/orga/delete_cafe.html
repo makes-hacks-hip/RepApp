@@ -1,0 +1,16 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Repair-Café anlegen
+{% endblock title %}
+{% block page_title %}
+    Repair-Café anlegen
+{% endblock page_title %}
+{% block content %}
+    <form action="{% url 'delete_cafe' cafe.id %}" method="post">
+        {% csrf_token %}
+        <p>Soll das Repair-Café am {{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }} wirklich gelöscht werden?</p>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary submit_button">Löschen</button>
+    </form>
+{% endblock content %}

@@ -19,7 +19,9 @@
         "tabindex",
         "onetimelogin",
         "Ammeldelink",
-        "orga"
+        "orga",
+        "repa",
+        "organisators"
     ],
     "ignoreWords": [],
     "import": []

@@ -18,10 +18,10 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import authenticate, login
 from django.utils.timezone import now
-from .forms import RegisterDevice, RegisterGuest, CreateCafe
+from .forms import RegisterDevice, RegisterGuest
 from .models import (Cafe, Device, Guest, OneTimeLogin,
                      CustomUser, Organisator, Reparateur)
 from . import mail_interface
@@ -45,7 +45,7 @@ def send_one_time_login_mail(secret, mail, request):
         'link': url,
     })
 
-    ok = send_mail(
+    send_ok = send_mail(
         subject=subject,
         message=text,
         from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
@@ -54,7 +54,7 @@ def send_one_time_login_mail(secret, mail, request):
         html_message=html
     )
 
-    if ok > 0:
+    if send_ok > 0:
         messages.add_message(request, messages.INFO,
                              'Sie haben einen neuen Login per eMail erhalten.')
 
@@ -138,7 +138,7 @@ def send_guest_account_mail(guest, password, request):
         'password': password,
     })
 
-    ok = send_mail(
+    send_ok = send_mail(
         subject=subject,
         message=text,
         from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
@@ -147,7 +147,7 @@ def send_guest_account_mail(guest, password, request):
         html_message=html
     )
 
-    if ok > 0:
+    if send_ok > 0:
         messages.add_message(request, messages.INFO,
                              'Sie haben ihre Benutzerdaten per eMail erhalten.')
 
@@ -167,6 +167,14 @@ def is_organisator(user):
     """
     organisator = Organisator.objects.filter(mail=user.email).first()
     return organisator is not None
+
+
+def is_reparateur(user):
+    """
+    Test is a user is a Repair-Café reparateur.
+    """
+    reparateur = Reparateur.objects.filter(mail=user.email).first()
+    return reparateur is not None
 
 
 def create_one_time_login(user, url) -> str:
@@ -410,15 +418,90 @@ def profile(request):
     )
 
 
-def member_login(request):
+def member(request):
     """
     Login page for repair cafe members, using OIDC.
     """
-    # TODO: create member login landing page
+    # TODO: test
+    logger.debug('Member-View: User: %s', str(request.user))
+    if request.user.is_anonymous or not is_member(request.user):
+        return HttpResponseRedirect(reverse_lazy('oidc_authentication_init'))
+
+    if is_organisator(request.user) and is_reparateur(request.user):
+        return HttpResponseRedirect(reverse_lazy('select_role'))
+
+    if is_organisator(request.user):
+        return HttpResponseRedirect(reverse_lazy('orga'))
+
+    if is_reparateur(request.user):
+        return HttpResponseRedirect(reverse_lazy('repa'))
+
+    logger.warning('User %s is no member!', str(request.user))
+    raise PermissionDenied('No member!')
+
+
+@login_required(login_url=reverse_lazy('member'))
+def orga(request):
+    """
+    Landing page for organisators.
+    """
+    # TODO: test
+    if not is_organisator(request.user):
+        logger.warning('The user %s is no organisator!', str(request.user))
+        raise PermissionDenied('Not organisator!')
+
     return render(
         request,
-        "repapp/member_login.html"
+        "repapp/orga/main.html"
     )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def select_role(request):
+    """
+    Landing page for organisators.
+    """
+    # TODO: test
+    if not is_organisator(request.user):
+        logger.warning('The user %s is no organisator!', str(request.user))
+        raise PermissionDenied('Not organisator!')
+
+    if not is_reparateur(request.user):
+        logger.warning('The user %s is no reparateur!', str(request.user))
+        raise PermissionDenied('Not reparateur!')
+
+    return render(
+        request,
+        "repapp/orga/select_role.html"
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa(request):
+    """
+    Organisator main menu.
+    """
+    # TODO: test
+    if not is_reparateur(request.user):
+        logger.warning('The user %s is no reparateur!', str(request.user))
+        raise PermissionDenied('Not reparateur!')
+
+    return render(
+        request,
+        "repapp/repa/main.html"
+    )
+
+
+class CafeView(LoginRequiredMixin, generic.ListView):
+    """
+    List of all Repair-Cafés.
+    """
+    # TODO: test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/cafe.html"
+
+    def get_queryset(self):
+        return Cafe.objects.all()
 
 
 def cron(request):
@@ -478,43 +561,75 @@ def bootstrap(request):
     )
 
 
-class CreateCafeView(LoginRequiredMixin, generic.edit.FormView):
+class CafeCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.CreateView):
     """
-    Organisator view for registering a new guest.
+    Organisator view for creating a new Repair-Café.
     """
     # TODO: create test
-    login_url = reverse_lazy('member_login')
+    login_url = reverse_lazy('member')
     template_name = "repapp/orga/create_cafe.html"
-    form_class = CreateCafe
+    model = Cafe
+    fields = ['event_date', 'location', 'address']
+    success_url = reverse_lazy('cafe')
 
-    def form_valid(self, form):
-        if not is_organisator(self.request.user):
-            raise PermissionDenied('Only accessible for organisator.')
+    def test_func(self):
+        return is_organisator(self.request.user)
 
-        location = form.cleaned_data['location']
-        address = form.cleaned_data['address']
-        event_date = form.cleaned_data['event_date']
 
-        cafe = Cafe(
-            location=location,
-            address=address,
-            event_date=event_date,
-        )
-        cafe.save()
+class CafeUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.UpdateView):
+    """
+    Organisator view for edit a Repair-Café.
+    """
+    # TODO: create test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/edit_cafe.html"
+    model = Cafe
+    fields = ['event_date', 'location', 'address']
+    success_url = reverse_lazy('cafe')
 
-        messages.add_message(self.request, messages.INFO,
-                             'Es wurde ein neues Repair-Café '
-                             f'am {cafe.event_date} angelegt')
+    def test_func(self):
+        logger.debug('User passes test: user: %s, result: %s.',
+                     self.request.user, is_organisator(self.request.user))
+        return is_organisator(self.request.user)
 
-        # TODO: redirect to orga main view
-        return HttpResponseRedirect(
-            reverse_lazy('index')
-        )
 
-    def get_context_data(self, **kwargs):
-        if not is_organisator(self.request.user):
-            logger.warning('Access violation: %s is no organisator!' %
-                           self.request.user)
-            raise PermissionDenied('Only accessible for organisator.')
+class CafeDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.DeleteView):
+    """
+    Organisator view for edit a Repair-Café.
+    """
+    # TODO: create test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/delete_cafe.html"
+    model = Cafe
+    success_url = reverse_lazy('cafe')
 
-        return super(CreateCafeView, self).get_context_data(**kwargs)
+    def test_func(self):
+        logger.debug('User passes test: user: %s, result: %s.',
+                     self.request.user, is_organisator(self.request.user))
+        return is_organisator(self.request.user)
+
+
+class GuestView(LoginRequiredMixin, generic.ListView):
+    """
+    List of all Repair-Cafés.
+    """
+    # TODO: test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/guest.html"
+
+    def get_queryset(self):
+        return Guest.objects.all()
+
+
+class GuestUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.UpdateView):
+    """
+    Organisator view for edit a guest.
+    """
+    # TODO: create test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/edit_guest.html"
+    model = Guest
+    success_url = reverse_lazy('guest')
+
+    def test_func(self):
+        return is_organisator(self.request.user)
