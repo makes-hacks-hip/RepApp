@@ -1,0 +1,45 @@
+{% extends "repapp/base.html" %}
+{% block title %}
+    - Repair-Cafés
+{% endblock title %}
+{% block page_title %}
+    Repair-Cafés
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Cafés anlegen</a>
+        <a href="javascript:history.back()" class="btn btn-primary">Zurück</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Ort</th>
+                <th scope="col">Adresse</th>
+                <th scope="col">Bearbeiten</th>
+                <th scope="col">Löschen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cafe in object_list %}
+                <tr>
+                    <th scope="row">{{ cafe.pk }}</th>
+                    <td>{{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}</td>
+                    <td>{{ cafe.location }}</td>
+                    <td>{{ cafe.address }}</td>
+                    <td>
+                        <a href="{% url 'edit_cafe' cafe.pk %}" class="btn btn-primary">Bearbeiten</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_cafe' cafe.pk %}" class="btn btn-danger">Löschen</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es sind keine Repair-Cafés angelegt.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

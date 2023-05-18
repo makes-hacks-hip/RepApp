@@ -18,7 +18,10 @@
         "Keycloak",
         "tabindex",
         "onetimelogin",
-        "Ammeldelink"
+        "Ammeldelink",
+        "orga",
+        "repa",
+        "organisators"
     ],
     "ignoreWords": [],
     "import": []

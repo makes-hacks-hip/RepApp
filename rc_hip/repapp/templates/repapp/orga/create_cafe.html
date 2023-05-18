@@ -1,0 +1,15 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Repair-Café anlegen
+{% endblock title %}
+{% block page_title %}
+    Repair-Café anlegen
+{% endblock page_title %}
+{% block content %}
+    <form action="{% url 'create_cafe' %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary submit_button">Absenden</button>
+    </form>
+{% endblock content %}

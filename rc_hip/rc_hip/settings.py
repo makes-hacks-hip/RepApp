@@ -179,10 +179,10 @@ OIDC_OP_TOKEN_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/
 OIDC_OP_USER_ENDPOINT = "https://sso.makes-hacks-hip.de/realms/Makes-Hacks-Hip/protocol/openid-connect/userinfo"
 
 if DEBUG:
-    LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/"
+    LOGIN_REDIRECT_URL = "http://127.0.0.1:8000/member"
     LOGOUT_REDIRECT_URL = "http://127.0.0.1:8000/"
 else:
-    LOGIN_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
+    LOGIN_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/member"
     LOGOUT_REDIRECT_URL = "https://anmeldung.repaircafe-hilpoltstein.de/"
 
 

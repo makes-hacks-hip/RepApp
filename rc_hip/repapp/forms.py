@@ -19,13 +19,13 @@ class HoneypotWidget(forms.TextInput):
     def __init__(self, attrs=None, html_comment=False, *args, **kwargs):
         self.html_comment = html_comment
         super(HoneypotWidget, self).__init__(attrs, *args, **kwargs)
-        if not 'class' in self.attrs:
+        if 'class' not in self.attrs:
             self.attrs['style'] = 'display:none'
 
     def render(self, *args, **kwargs):
         value = super(HoneypotWidget, self).render(*args, **kwargs)
         if self.html_comment:
-            value = '<!-- %s -->' % value
+            value = f'<!-- {value} -->'
         return value
 
 

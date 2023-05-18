@@ -1,0 +1,27 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Organisation
+{% endblock title %}
+{% block page_title %}
+    Organisation
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a href="{% url 'cafe' %}" class="btn btn-primary">Repair-Cafés</a>
+        <a href="{% url 'guest' %}" class="btn btn-primary">Gäste</a>
+    </p>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Repair-Cafés</h1>
+    <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Café anlegen</a>
+    // TODO: Button nächstes Repair-Café
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Geräte</h1>
+    // TODO: Liste mit neuen Geräten
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Rückfragen</h1>
+    // TODO: Liste mit Antworten auf Rückfragen
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Nachrichten</h1>
+    // TODO: Liste mit neuen Nachrichten
+{% endblock content %}

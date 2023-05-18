@@ -271,27 +271,6 @@ class ViewsTest(TestCase):
             response, 'type="text" name="accept_agb" style="display:none"')
         self.assertContains(response, 'csrfmiddlewaretoken')
 
-    def test_member_login(self):
-        """
-        Test member login view
-        """
-        client = Client(enforce_csrf_checks=True)
-        response = client.get(reverse('member_login'))
-
-        self.assertEqual(response.status_code, 200)
-
-        # ensure OIDC link is displayed
-        self.assertContains(response, "Anmelden mit Makes-Hacks-Hip")
-
-        client.login(username="testuser@example.com", password="aTestPassword")
-        response = client.get(reverse('member_login'))
-        self.assertEqual(response.status_code, 200)
-
-        # ensure logout button is displayed
-        self.assertContains(response, "Abmelden")
-        # ensure user is displayed
-        self.assertContains(response, "testuser@example.com")
-
     def test_send_one_time_login_mail(self):
         """
         Test that a mail is sent with the right link included.

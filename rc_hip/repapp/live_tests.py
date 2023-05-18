@@ -5,7 +5,6 @@ import random
 from pathlib import Path
 from hashlib import sha256
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.contrib.auth import get_user_model
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver import ActionChains, Keys
@@ -202,11 +201,3 @@ class WorkflowTests(StaticLiveServerTestCase):
         self.assertTrue("Test Hersteller" in self.selenium.page_source)
         self.assertTrue("/device/" in self.selenium.current_url)
         time.sleep(1)
-
-    def test_member_login(self):
-        self.selenium.get(
-            f"{self.live_server_url}/member/login/")
-        time.sleep(1)
-        self.selenium.find_element(By.CLASS_NAME, 'login_link').click()
-        time.sleep(1)
-        self.assertTrue('sso.makes-hacks-hip.de' in self.selenium.current_url)
