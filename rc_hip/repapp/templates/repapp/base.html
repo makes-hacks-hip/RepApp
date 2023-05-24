@@ -19,8 +19,8 @@
     {% endblock head %}
   </head>
   <body>
-    <div class="container pet">
-      <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <div class="container">
+      <header class="d-flex flex-wrap justify-content-center py-3">
         <a href="{% url 'index' %}"
            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
           <img src="{% static 'repapp/images/logo.jpg' %}"
@@ -28,7 +28,7 @@
                width="405px"
                alt="Repair-Café Logo">
         </a>
-        <ul class="nav nav-pills">
+        <ul class="nav nav-pills align-items-center">
           <li class="nav-item">
             <a href="https://www.repaircafe-hilpoltstein.de/" class="nav-link">Repair-Café</a>
           </li>
@@ -50,11 +50,12 @@
         </ul>
       </header>
     </div>
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center"
+    <div class="position-relative overflow-hidden p-3 mx-auto p-md-5 text-center"
          style="background-image: url({% static 'repapp/images/header_background.jpg' %});
                 background-repeat: no-repeat;
-                background-size: auto 100%;
-                background-position: center">
+                background-size: cover;
+                background-position: center;
+                max-width:1920px;>
       <div class="col-md-5 p-lg-5 mx-auto my-5">
         <h1 class="display-4 font-weight-normal"
             style="font-size: 60px;
