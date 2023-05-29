@@ -3,7 +3,8 @@ Django forms for RepApp.
 """
 from django import forms
 from django.core.exceptions import ValidationError
-from crispy_forms.layout import Field
+from ckeditor.widgets import CKEditorWidget
+from .models import Question, Device
 
 
 EMPTY_VALUES = (None, '')
@@ -16,7 +17,7 @@ class HoneypotWidget(forms.TextInput):
     """
     is_hidden = True
 
-    def __init__(self, attrs=None, html_comment=False, *args, **kwargs):
+    def __init__(self, *args, attrs=None, html_comment=False, **kwargs):
         self.html_comment = html_comment
         super(HoneypotWidget, self).__init__(attrs, *args, **kwargs)
         if 'class' not in self.attrs:
@@ -113,3 +114,18 @@ class RegisterGuest(forms.Form):
         max_length=200
     )
     accept_agb = HoneypotField(label="")
+
+
+class Mail(forms.Form):
+    """
+    Form for rejecting a device.
+    """
+    message = forms.CharField(widget=CKEditorWidget(), label="")
+
+
+class UpdateDeviceForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['question']
+    question = forms.CharField(widget=CKEditorWidget(
+        attrs={'style': 'width:100%;'}), label="Frage")

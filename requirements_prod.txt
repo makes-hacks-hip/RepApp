@@ -6,3 +6,5 @@ crispy-bootstrap5==0.7
 mozilla-django-oidc==3.0.0
 django-import-export==3.2.0
 imap-tools==1.0.0
+django-ckeditor==6.5.1
+beautifulsoup4==4.12.2

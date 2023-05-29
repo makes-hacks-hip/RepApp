@@ -15,6 +15,11 @@
       {% endblock title %}
     </title>
     <link rel="stylesheet" href="{% static 'repapp/css/bootstrap.min.css' %}" />
+    <style>
+      .django-ckeditor-widget{
+        display: block !important
+      }
+    </style>
     {% block head %}
     {% endblock head %}
   </head>
@@ -38,10 +43,6 @@
           {% if user.is_authenticated %}
             <li class="nav-item">
               <a href="{% url 'logout' %}" class="nav-link">Abmelden</a>
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a href="{% url 'login' %}" class="nav-link">Gast Login</a>
             </li>
           {% endif %}
           <li class="nav-item">
