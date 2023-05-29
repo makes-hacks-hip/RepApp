@@ -39,6 +39,8 @@ urlpatterns = [
          views.QuestionUpdateView.as_view(), name="edit_device_question"),
     path("member/question/<int:question>/",
          views.question, name="view_device_question"),
+    path("member/question/",
+         views.questions, name="device_questions"),
     path("repa/", views.repa, name="repa"),
     path("cafe/", views.CafeView.as_view(), name="cafe"),
     path("cafe/create", views.CafeCreateView.as_view(), name="create_cafe"),

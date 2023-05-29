@@ -10,11 +10,14 @@
     <p>
         <a href="{% url 'cafe' %}" class="btn btn-primary">Repair-Cafés</a>
         <a href="{% url 'guest' %}" class="btn btn-primary">Gäste</a>
+        <a href="{% url 'device_questions' %}" class="btn btn-primary">Rückfragen</a>
     </p>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Repair-Cafés</h1>
-    <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Café anlegen</a>
-    // TODO: Button nächstes Repair-Café
+    <p>
+        <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Café anlegen</a>
+        <a href="{% url 'edit_cafe' next_cafe.pk %}" class="btn btn-primary">Nächstes Repair-Café</a>
+    </p>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Geräte</h1>
     <table class="table">

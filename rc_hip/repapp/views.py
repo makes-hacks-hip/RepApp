@@ -505,6 +505,9 @@ def orga(request):
     questions_open_and_answered = Question.objects.filter(
         open=True, answered=True).order_by('-date')
 
+    next_cafe = Cafe.objects.filter(
+        event_date__gte=datetime.datetime.today()).order_by('event_date').first()
+
     return render(
         request,
         "repapp/orga/main.html",
@@ -512,6 +515,7 @@ def orga(request):
             'devices': devices,
             'questions_not_sent': questions_not_sent,
             'questions_open_and_answered': questions_open_and_answered,
+            'next_cafe': next_cafe,
         }
     )
 
@@ -724,6 +728,26 @@ def question(request, question):
         {
             'question': question,
             'show_guest': show_guest
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def questions(request):
+    """
+    List of all questions.
+    """
+    # TODO: test
+    if not is_member(request.user):
+        raise PermissionDenied('Not organisator!')
+
+    questions = Question.objects.order_by('-date')
+
+    return render(
+        request,
+        "repapp/orga/questions.html",
+        {
+            'questions': questions,
         }
     )
 
