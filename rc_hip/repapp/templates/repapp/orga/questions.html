@@ -1,0 +1,63 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Rückfragen
+{% endblock title %}
+{% block page_title %}
+    Rückfragen
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a onclick="history.back()" class="btn btn-primary">Zurück</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Geräts</th>
+                <th scope="col">Hersteller</th>
+                <th scope="col">Gast</th>
+                <th scope="col">Organisator</th>
+                <th scope="col">Reparateur</th>
+                <th scope="col">gesendet</th>
+                <th scope="col">beantwortet</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions %}
+                <tr>
+                    <td>{{ question.device.device }}</td>
+                    <td>{{ question.device.manufacturer }}</td>
+                    <td>{{ question.device.guest.name }}</td>
+                    <td>{{ question.organisator.mail }}</td>
+                    <td>{{ question.reparateur.mail }}</td>
+                    <td>
+                        {% if question.sent %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if question.answered %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'view_device_question' question.pk %}"
+                           class="btn btn-primary">ansehen</a>
+                    </td>
+                    <td>
+                        {% if not question.sent %}
+                            <a href="{% url 'edit_device_question' question.pk %}"
+                               class="btn btn-primary">senden</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

@@ -8,6 +8,7 @@ import time
 import os
 import logging
 from hashlib import sha256
+from bs4 import BeautifulSoup
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.core.mail import send_mail
@@ -19,10 +20,10 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import now
-from .forms import RegisterDevice, RegisterGuest
-from .models import (Cafe, Device, Guest, OneTimeLogin,
+from .forms import RegisterDevice, RegisterGuest, Mail, UpdateDeviceForm
+from .models import (Cafe, Device, Guest, OneTimeLogin, Question,
                      CustomUser, Organisator, Reparateur)
 from . import mail_interface
 
@@ -38,12 +39,11 @@ def send_one_time_login_mail(secret, mail, request):
         f'/onetimelogin/{secret}/')
     subject = render_to_string(
         'repapp/mail/mail_one_time_login_subject.html').replace('\n', '')
-    text = render_to_string('repapp/mail/mail_one_time_login_text.html', {
-        'link': url,
-    })
     html = render_to_string('repapp/mail/mail_one_time_login_html.html', {
         'link': url,
     })
+    soup = BeautifulSoup(html)
+    text = soup.get_text('\n')
 
     send_ok = send_mail(
         subject=subject,
@@ -90,18 +90,14 @@ def send_confirmation_mails(device, guest, cafe, request):
     subject = render_to_string('repapp/mail/mail_register_device_subject.html', {
         'cafe': cafe,
     }).replace('\n', '')
-    text = render_to_string('repapp/mail/mail_register_device_text.html', {
-        'guest': guest,
-        'device': device,
-        'cafe': cafe,
-        'login_url': login_url,
-    })
     html = render_to_string('repapp/mail/mail_register_device_html.html', {
         'guest': guest,
         'device': device,
         'cafe': cafe,
         'login_url': login_url,
     })
+    soup = BeautifulSoup(html)
+    text = soup.get_text('\n')
 
     mail_count = send_mail(
         subject=subject,
@@ -127,16 +123,13 @@ def send_guest_account_mail(guest, password, request):
     url = request.build_absolute_uri('/guest/profile/')
     subject = render_to_string(
         'repapp/mail/mail_new_guest_subject.html').replace('\n', '')
-    text = render_to_string('repapp/mail/mail_new_guest_text.html', {
-        'link': url,
-        'username': guest.user.email,
-        'password': password,
-    })
     html = render_to_string('repapp/mail/mail_new_guest_html.html', {
         'link': url,
         'username': guest.user.email,
         'password': password,
     })
+    soup = BeautifulSoup(html)
+    text = soup.get_text('\n')
 
     send_ok = send_mail(
         subject=subject,
@@ -150,6 +143,62 @@ def send_guest_account_mail(guest, password, request):
     if send_ok > 0:
         messages.add_message(request, messages.INFO,
                              'Sie haben ihre Benutzerdaten per eMail erhalten.')
+
+
+def send_device_reject_mail(device, reply, request):
+    """
+    Send a mail to reject the given device.
+    """
+    subject = render_to_string(
+        'repapp/mail/mail_reject_device_subject.html', {
+            'device': device
+        }).replace('\n', '')
+
+    soup = BeautifulSoup(reply)
+    text = soup.get_text('\n')
+
+    send_ok = send_mail(
+        subject=subject,
+        message=text,
+        from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
+        recipient_list=[device.guest.mail],
+        fail_silently=True,
+        html_message=reply
+    )
+
+    if send_ok > 0:
+        messages.add_message(request, messages.INFO,
+                             f'Das Gerät {device.device} wurde abgelehnt.')
+
+
+def send_device_question_mail(question, request):
+    """
+    Send a mail to ask more details about an device.
+    """
+    subject = render_to_string(
+        'repapp/mail/mail_question_device_subject.html', {
+            'device': question.device,
+            'question': question,
+        }).replace('\n', '')
+
+    soup = BeautifulSoup(question.question)
+    text = soup.get_text('\n')
+
+    send_ok = send_mail(
+        subject=subject,
+        message=text,
+        from_email=os.getenv("DJANGO_SENDER_ADDRESS", ""),
+        recipient_list=[question.device.guest.mail],
+        fail_silently=True,
+        html_message=question.question
+    )
+
+    if send_ok > 0:
+        question.sent = True
+        question.save()
+
+        messages.add_message(request, messages.INFO,
+                             f'Die Rückfrage zum Gerät {question.device.device} wurde gesendet.')
 
 
 def is_member(user):
@@ -325,7 +374,8 @@ class RegisterGuestFormView(generic.edit.FormView):
             guest.user = user
             guest.save()
 
-            send_guest_account_mail(guest, password, self.request)
+            # Simplify flow for guests, hide account and use only one-time-login
+            # send_guest_account_mail(guest, password, self.request)
 
         send_confirmation_mails(device, guest, cafe, self.request)
 
@@ -450,9 +500,255 @@ def orga(request):
         logger.warning('The user %s is no organisator!', str(request.user))
         raise PermissionDenied('Not organisator!')
 
+    devices = Device.objects.filter(status=0).order_by('-date')
+    questions_not_sent = Question.objects.filter(sent=False).order_by('-date')
+    questions_open_and_answered = Question.objects.filter(
+        open=True, answered=True).order_by('-date')
+
+    next_cafe = Cafe.objects.filter(
+        event_date__gte=datetime.datetime.today()).order_by('event_date').first()
+
     return render(
         request,
-        "repapp/orga/main.html"
+        "repapp/orga/main.html",
+        {
+            'devices': devices,
+            'questions_not_sent': questions_not_sent,
+            'questions_open_and_answered': questions_open_and_answered,
+            'next_cafe': next_cafe,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def review_device(request, device):
+    """
+    Review new device registration.
+    """
+    # TODO: test
+    if not is_organisator(request.user):
+        logger.warning('The user %s is no organisator!', str(request.user))
+        raise PermissionDenied('Not organisator!')
+
+    device = get_object_or_404(Device, pk=device)
+
+    return render(
+        request,
+        "repapp/orga/review_device.html",
+        {
+            'device': device
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def review_device_accept(request, device):
+    """
+    Review new device registration.
+    """
+    # TODO: test
+    if not is_organisator(request.user):
+        logger.warning('The user %s is no organisator!', str(request.user))
+        raise PermissionDenied('Not organisator!')
+
+    device = get_object_or_404(Device, pk=device)
+    device.status = 3
+    device.save()
+
+    return HttpResponseRedirect(reverse_lazy('orga'))
+
+
+class RejectDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.FormView):
+    """
+    View for rejecting a device.
+    """
+    template_name = "repapp/orga/review_device_reject.html"
+    form_class = Mail
+    login_url = reverse_lazy('member')
+
+    def test_func(self):
+        return is_organisator(self.request.user)
+
+    def form_valid(self, form):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        message = form.cleaned_data['message']
+
+        send_device_reject_mail(device, message, self.request)
+
+        device.status = -1
+        device.save()
+
+        return HttpResponseRedirect(
+            reverse_lazy('orga')
+        )
+
+    def get_initial(self, **kwargs):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        text = render_to_string('repapp/mail/mail_reject_device_html.html', {
+            'device': device,
+        })
+
+        initial = super(RejectDeviceFormView, self).get_initial()
+        initial['message'] = text
+
+        return initial
+
+    def get_context_data(self, **kwargs):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        context = super(RejectDeviceFormView, self).get_context_data(
+            **kwargs
+        )
+        context["device"] = device
+
+        return context
+
+
+class QuestionDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.FormView):
+    """
+    View for rejecting a device.
+    """
+    template_name = "repapp/orga/device_question.html"
+    form_class = Mail
+    login_url = reverse_lazy('member')
+
+    def test_func(self):
+        return is_organisator(self.request.user)
+
+    def form_valid(self, form):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        question = None
+        message = form.cleaned_data['message']
+        mail = self.request.user.email
+        organisator = Organisator.objects.filter(mail=mail).first()
+        if organisator:
+            question = Question(
+                question=message,
+                organisator=organisator,
+                device=device
+            )
+        else:
+            raise PermissionDenied('Not valid member found!')
+        question.save()
+
+        send_device_question_mail(question, self.request)
+
+        device.status = 1
+        device.save()
+
+        return HttpResponseRedirect(
+            reverse_lazy('orga')
+        )
+
+    def get_initial(self, **kwargs):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        text = render_to_string('repapp/mail/mail_question_device_html.html', {
+            'device': device,
+        })
+
+        initial = super(QuestionDeviceFormView, self).get_initial()
+        initial['message'] = text
+
+        return initial
+
+    def get_context_data(self, **kwargs):
+        device = self.kwargs['device']
+        device = get_object_or_404(Device, pk=device)
+
+        context = super(QuestionDeviceFormView, self).get_context_data(
+            **kwargs
+        )
+        context["device"] = device
+
+        return context
+
+
+class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.UpdateView):
+    """
+    Organisator view for edit a Repair-Café.
+    """
+    # TODO: create test
+    login_url = reverse_lazy('member')
+    template_name = "repapp/orga/edit_question.html"
+    model = Question
+    form_class = UpdateDeviceForm
+    success_url = reverse_lazy('orga')
+
+    def test_func(self):
+        return is_organisator(self.request.user)
+
+    def form_valid(self, form):
+        response = super(QuestionUpdateView, self).form_valid(form)
+
+        question = self.kwargs['pk']
+        question = get_object_or_404(Question, pk=question)
+        send_device_question_mail(question, self.request)
+
+        return response
+
+    def get_context_data(self, **kwargs):
+        question = self.kwargs['pk']
+        question = get_object_or_404(Question, pk=question)
+
+        context = super(QuestionUpdateView, self).get_context_data(
+            **kwargs
+        )
+        context["question"] = question
+        context["show_guest"] = True
+
+        return context
+
+
+@login_required(login_url=reverse_lazy('member'))
+def question(request, question):
+    """
+    Review new device registration.
+    """
+    # TODO: test
+    if not is_member(request.user):
+        raise PermissionDenied('Not member!')
+
+    question = get_object_or_404(Question, pk=question)
+    show_guest = False
+    if is_organisator(request.user):
+        show_guest = True
+
+    return render(
+        request,
+        "repapp/orga/question.html",
+        {
+            'question': question,
+            'show_guest': show_guest
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def questions(request):
+    """
+    List of all questions.
+    """
+    # TODO: test
+    if not is_member(request.user):
+        raise PermissionDenied('Not organisator!')
+
+    questions = Question.objects.order_by('-date')
+
+    return render(
+        request,
+        "repapp/orga/questions.html",
+        {
+            'questions': questions,
+        }
     )
 
 
@@ -633,3 +929,11 @@ class GuestUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.Upda
 
     def test_func(self):
         return is_organisator(self.request.user)
+
+
+def user_logout(request):
+    """
+    Log current user out.
+    """
+    logout(request)
+    return HttpResponseRedirect(reverse_lazy('index'))

@@ -113,6 +113,7 @@ class Device(models.Model):
     type_plate_picture = models.FileField(
         upload_to=device_directory_path, null=True, verbose_name=_("Foto vom Typenschild"))
     confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
+    status = models.IntegerField(verbose_name=_("Status"), default=0)
     guest = models.ForeignKey(
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
     cafe = models.ForeignKey(
@@ -123,7 +124,7 @@ class Device(models.Model):
         verbose_name_plural = _('Geräte')
 
     def __str__(self):
-        return f'Gerät {self.device}'
+        return f'Gerät {self.device} - {self.manufacturer}'
 
 
 class Appointment(models.Model):
@@ -153,7 +154,7 @@ class Question(models.Model):
     A Question is a request for information form a Organisator or a Reparateur for a Device.
     """
     question = models.TextField(verbose_name=_("Frage"))
-    answer = models.TextField(verbose_name=_("Antwort"))
+    answer = models.TextField(verbose_name=_("Antwort"), null=True)
     date = models.DateField(verbose_name=_(
         "Erstellungsdatum"), default=django.utils.timezone.now)
     organisator = models.ForeignKey(
@@ -162,6 +163,10 @@ class Question(models.Model):
         Reparateur, on_delete=models.CASCADE, null=True, verbose_name=_("Reparateur"))
     device = models.ForeignKey(
         Device, on_delete=models.CASCADE, verbose_name=_("Gerät"))
+    open = models.BooleanField(verbose_name=_("offen"), default=True)
+    sent = models.BooleanField(verbose_name=_("gesendet"), default=False)
+    answered = models.BooleanField(
+        verbose_name=_("beantwortet"), default=False)
 
     class Meta:
         verbose_name = _('Frage')

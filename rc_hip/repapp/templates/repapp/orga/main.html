@@ -10,17 +10,129 @@
     <p>
         <a href="{% url 'cafe' %}" class="btn btn-primary">Repair-Cafés</a>
         <a href="{% url 'guest' %}" class="btn btn-primary">Gäste</a>
+        <a href="{% url 'device_questions' %}" class="btn btn-primary">Rückfragen</a>
     </p>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Repair-Cafés</h1>
-    <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Café anlegen</a>
-    // TODO: Button nächstes Repair-Café
+    <p>
+        <a href="{% url 'create_cafe' %}" class="btn btn-primary">Neues Repair-Café anlegen</a>
+        <a href="{% url 'edit_cafe' next_cafe.pk %}" class="btn btn-primary">Nächstes Repair-Café</a>
+    </p>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Geräte</h1>
-    // TODO: Liste mit neuen Geräten
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Art des Geräts</th>
+                <th scope="col">Hersteller & Modell/Typ</th>
+                <th scope="col">Name des Gastes</th>
+                <th scope="col">eMail des Gastes</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <td>{{ device.device }}</td>
+                    <td>{{ device.manufacturer }}</td>
+                    <td>{{ device.guest.name }}</td>
+                    <td>{{ device.guest.mail }}</td>
+                    <td>
+                        <a href="{% url 'review_device' device.pk %}" class="btn btn-primary">überpüfen</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es gibt keine neuen Geräte.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Rückfragen</h1>
-    // TODO: Liste mit Antworten auf Rückfragen
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Geräts</th>
+                <th scope="col">Hersteller</th>
+                <th scope="col">Gast</th>
+                <th scope="col">Organisator</th>
+                <th scope="col">Reparateur</th>
+                <th scope="col">gesendet</th>
+                <th scope="col">beantwortet</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for question in questions_not_sent %}
+                <tr>
+                    <td>{{ question.device.device }}</td>
+                    <td>{{ question.device.manufacturer }}</td>
+                    <td>{{ question.device.guest.name }}</td>
+                    <td>{{ question.organisator.mail }}</td>
+                    <td>{{ question.reparateur.mail }}</td>
+                    <td>
+                        {% if question.sent %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if question.answered %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'view_device_question' question.pk %}"
+                           class="btn btn-primary">ansehen</a>
+                    </td>
+                    <td>
+                        {% if not question.sent %}
+                            <a href="{% url 'edit_device_question' question.pk %}"
+                               class="btn btn-primary">senden</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            {% for question in questions_open_and_answered %}
+                <tr>
+                    <td>{{ question.device.device }}</td>
+                    <td>{{ question.device.manufacturer }}</td>
+                    <td>{{ question.device.guest.name }}</td>
+                    <td>{{ question.organisator.mail }}</td>
+                    <td>{{ question.reparateur.mail }}</td>
+                    <td>
+                        {% if question.sent %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if question.answered %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'view_device_question' question.pk %}"
+                           class="btn btn-primary">ansehen</a>
+                    </td>
+                    <td>
+                        {% if not question.sent %}
+                            <a href="{% url 'edit_device_question' question.pk %}"
+                               class="btn btn-primary">senden</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <hr class="mt-0 mb-4">
     <h1 class="mt-2">Nachrichten</h1>
     // TODO: Liste mit neuen Nachrichten

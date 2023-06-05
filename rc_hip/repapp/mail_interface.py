@@ -48,6 +48,7 @@ def process_message(message: MailMessage, guest: Guest):
         if question:
             if question.device.guest.mail == message.from_:
                 question.answer = content
+                question.answered = True
                 question.save()
                 # TODO: save attachments and add to message
                 logger.info(

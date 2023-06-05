@@ -53,10 +53,13 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "import_export",
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -166,7 +169,7 @@ AUTHENTICATION_BACKENDS = [
     "repapp.backends.OneTimeLoginBackend",
 ]
 
-LOGIN_REDIRECT_URL = "/guest/profile/"
+LOGIN_REDIRECT_URL = "/guest/"
 
 OIDC_RP_CLIENT_ID = "repapp"
 OIDC_RP_CLIENT_SECRET = os.getenv("DJANGO_OIDC_RP_CLIENT_SECRET", None)

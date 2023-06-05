@@ -21,7 +21,9 @@ Als bekannter Gast der ein defekten Geräte anmelden möchte,
 - Die nächste Seite (S5) bestätigt mir die Anmeldung meines Gerätes.
 - In meinem eMail Posteingang finde ich ebenfalls eine Bestätigung der Geräteanmeldung.
 
-## Organisator: Neues Gerät - akzeptieren für ausgewähltes Repair-Café
+## Organisator: Neues Gerät
+
+### Variante: Akzeptieren für ausgewähltes Repair-Café
 
 Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wurde. Ich möchte dieses Gerät nun ansehen un die Eingangsüberprüfung durchführen.
 - Ich öffne die RepApp im Browser
@@ -31,7 +33,7 @@ Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wu
 - Ich klicke auf den Knopf "Details" für das neue Gerät, und mein Browser öffnet eine Seite in der ich die Details zu dem Gerät sehe. Auf der Seite sind Knöpfe: `Annehmen für gewähltes Repair-Café`, `Annehmen für anderes Repair-Café`, `Ablehnen` und `Rückfrage`. Alle notwendigen Informationen sind vorhanden und ich entscheide mich das Gerät für das ausgewählte Repair-Café zu akzeptieren. Der Klick auf `Annehmen für gewähltes Repair-Café` bringt mich zurück zum Hauptmenü.
 - In der Liste der neuen Geräte ist das gerade bearbeitete Gerät nicht mehr sichtbar.
 
-## Organisator: Neues Gerät - akzeptieren für späteres Repair-Café
+### Variante: Akzeptieren für späteres Repair-Café
 
 Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wurde. Ich möchte dieses Gerät nun ansehen un die Eingangsüberprüfung durchführen.
 - Ich öffne die RepApp im Browser
@@ -41,7 +43,7 @@ Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wu
 - Ich klicke auf den Knopf "Details" für das neue Gerät, und mein Browser öffnet eine Seite in der ich die Details zu dem Gerät sehe. Auf der Seite sind Knöpfe: `Annehmen für gewähltes Repair-Café`, `Annehmen für anderes Repair-Café`, `Ablehnen` und `Rückfrage`. Alle notwendigen Informationen sind vorhanden, aber da ich weiß dass im nächsten Repair-Café kein geeigneter Reparateur verfügbar ist entscheide ich mich das Gerät für ein späteres Repair-Café zu akzeptieren. Der Klick auf `Annehmen für anderes Repair-Café` bringt mich zurück zum Hauptmenü.
 - In der Liste der neuen Geräte ist das gerade bearbeitete Gerät nicht mehr sichtbar.
 
-## Organisator: Neues Gerät - ablehnen
+### Variante: Ablehnen
 
 Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wurde. Ich möchte dieses Gerät nun ansehen un die Eingangsüberprüfung durchführen.
 - Ich öffne die RepApp im Browser
@@ -52,7 +54,7 @@ Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wu
 - Auf der neuen Seite sehe ich ein Formular mit einem Textbereich der die Überschrift "Antwort an den Gast" trägt. Im Formular ist bereits ein Standard-Text zur Ablehnung eines Geräts. Ich passe den Text an um dem Gast mitzuteilen dass wir leider keinen geeigneten Reparateur haben und klicke auf den Knopf `Absenden`. Der Klick bringt mich zurück zum Hauptmenü.
 - In der Liste der neuen Geräte ist das gerade bearbeitete Gerät nicht mehr sichtbar.
 
-## Organisator: Neues Gerät - Rückfrage
+### Variante: Rückfrage
 
 Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wurde. Ich möchte dieses Gerät nun ansehen un die Eingangsüberprüfung durchführen.
 - Ich öffne die RepApp im Browser
