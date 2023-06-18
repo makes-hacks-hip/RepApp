@@ -54,6 +54,7 @@ class Reparateur(models.Model):
     """
     name = models.CharField(max_length=200, verbose_name=_("Name"))
     mail = models.CharField(max_length=200, verbose_name=_("eMail"))
+    cafe = models.ManyToManyField(Cafe)
 
     class Meta:
         verbose_name = _('Reparateur')
@@ -102,6 +103,19 @@ class Device(models.Model):
     """
     A Device is a broken device owned by a guest which shall be repaired during a Repair-Café.
     """
+    STATUS_REJECTED = -1
+    STATUS_NEW = 0
+    STATUS_ORGA_QUESTION = 1
+    STATUS_ORGA_QUESTION_ANSWERED = 2
+    STATUS_WAITING_LIST = 3
+    STATUS = (
+        (STATUS_REJECTED, 'abgelehnt'),
+        (STATUS_NEW, 'neu'),
+        (STATUS_ORGA_QUESTION, 'in Orga Rückfrage'),
+        (STATUS_ORGA_QUESTION_ANSWERED, 'in Orga Rückfrage beantwortet'),
+        (STATUS_WAITING_LIST, 'in der Warteliste'),
+    )
+
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
     date = models.DateField(verbose_name=_(
         "Erstellungsdatum"), default=django.utils.timezone.now)
@@ -117,7 +131,7 @@ class Device(models.Model):
     confirmed = models.BooleanField(verbose_name=_("Bestätigung gesendet?"))
     status = models.IntegerField(verbose_name=_("Status"), default=0)
     guest = models.ForeignKey(
-        Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"))
+        Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"), choices=STATUS)
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
 

@@ -552,7 +552,7 @@ def review_device_accept(request, device):
         raise PermissionDenied('Not organisator!')
 
     device = get_object_or_404(Device, pk=device)
-    device.status = 3
+    device.status = Device.STATUS_WAITING_LIST
     device.save()
 
     return HttpResponseRedirect(reverse_lazy('orga'))
@@ -577,7 +577,7 @@ class RejectDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.edit
 
         send_device_reject_mail(device, message, self.request)
 
-        device.status = -1
+        device.status = Device.STATUS_REJECTED
         device.save()
 
         return HttpResponseRedirect(
@@ -640,7 +640,7 @@ class QuestionDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.ed
 
         send_device_question_mail(question, self.request)
 
-        device.status = 1
+        device.status = Device.STATUS_ORGA_QUESTION
         device.save()
 
         return HttpResponseRedirect(
@@ -783,7 +783,7 @@ def repa(request):
         raise PermissionDenied('Not reparateur!')
 
     cafes = Cafe.objects.filter(event_date__gte=datetime.date.today())
-    devices = Device.objects.filter(status=3)
+    devices = Device.objects.filter(status=Device.STATUS_WAITING_LIST)
 
     return render(
         request,
