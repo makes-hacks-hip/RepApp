@@ -782,9 +782,16 @@ def repa(request):
         logger.warning('The user %s is no reparateur!', str(request.user))
         raise PermissionDenied('Not reparateur!')
 
+    cafes = Cafe.objects.filter(event_date__gte=datetime.date.today())
+    devices = Device.objects.filter(status=3)
+
     return render(
         request,
-        "repapp/repa/main.html"
+        "repapp/repa/main.html",
+        {
+            'cafes': cafes,
+            'devices': devices,
+        }
     )
 
 

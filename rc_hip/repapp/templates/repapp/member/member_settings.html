@@ -1,12 +1,16 @@
 {% extends "repapp/base.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-    - Eintellungen
+    - Einstellungen
 {% endblock title %}
 {% block page_title %}
-    Eintellungen
+    Einstellungen
 {% endblock page_title %}
 {% block content %}
+    <p>
+        <a onclick="history.back()" class="btn btn-primary">Zurück</a>
+    </p>
+    <p>User: {{ user.email }}</p>
     <form action="{% url 'member_settings' %}"
           method="post"
           enctype="multipart/form-data">

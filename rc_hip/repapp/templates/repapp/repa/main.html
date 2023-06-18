@@ -7,4 +7,65 @@
     Reparateur
 {% endblock page_title %}
 {% block content %}
+    <p>
+        <a href="{% url 'member_settings' %}" class="btn btn-primary">Einstellungen</a>
+    </p>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Repair-Cafés</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Datum</th>
+                <th scope="col">Ort</th>
+                <th scope="col">Teilnahmen zugesagt?</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cafe in cafes %}
+                <tr>
+                    <td>{{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}</td>
+                    <td>{{ cafe.location }}</td>
+                    <td>Nein</td>
+                    <td>
+                        <a href="" class="btn btn-primary">teilnehmen</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es gibt keine Repair-Cafés.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Geräte</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Art des Geräts</th>
+                <th scope="col">Hersteller & Modell/Typ</th>
+                <th scope="col">Repair-Café</th>
+                <th scope="col">Ort</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <td>{{ device.device }}</td>
+                    <td>{{ device.manufacturer }}</td>
+                    <td>{{ device.cafe.event_date|date:"l" }}, {{ device.cafe.event_date|date }}</td>
+                    <td>{{ device.cafe.location }}</td>
+                    <td>
+                        <a href="" class="btn btn-primary">Details</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es gibt kein Geräte.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock content %}
