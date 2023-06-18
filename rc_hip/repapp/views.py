@@ -635,21 +635,24 @@ class QuestionDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.ed
                 organisator=organisator,
                 device=device
             )
+            question.save()
 
             send_device_question_mail(question, self.request)
+
             device.status = Device.STATUS_ORGA_QUESTION
+            device.save()
         elif reparateur:
             question = Question(
                 question=message,
                 reparateur=reparateur,
                 device=device
             )
+            question.save()
 
             device.status = Device.STATUS_REPA_QUESTION
+            device.save()
         else:
             raise PermissionDenied('Not valid member found!')
-        question.save()
-        device.save()
 
         return HttpResponseRedirect(
             reverse_lazy('member')
