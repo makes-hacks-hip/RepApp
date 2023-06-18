@@ -618,7 +618,7 @@ class QuestionDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.ed
     login_url = reverse_lazy('member')
 
     def test_func(self):
-        return is_organisator(self.request.user)
+        return is_member(self.request.user)
 
     def form_valid(self, form):
         device = self.kwargs['device']
@@ -628,23 +628,31 @@ class QuestionDeviceFormView(LoginRequiredMixin, UserPassesTestMixin, generic.ed
         message = form.cleaned_data['message']
         mail = self.request.user.email
         organisator = Organisator.objects.filter(mail=mail).first()
+        reparateur = Reparateur.objects.filter(mail=mail).first()
         if organisator:
             question = Question(
                 question=message,
                 organisator=organisator,
                 device=device
             )
+
+            send_device_question_mail(question, self.request)
+            device.status = Device.STATUS_ORGA_QUESTION
+        elif reparateur:
+            question = Question(
+                question=message,
+                reparateur=reparateur,
+                device=device
+            )
+
+            device.status = Device.STATUS_REPA_QUESTION
         else:
             raise PermissionDenied('Not valid member found!')
         question.save()
-
-        send_device_question_mail(question, self.request)
-
-        device.status = Device.STATUS_ORGA_QUESTION
         device.save()
 
         return HttpResponseRedirect(
-            reverse_lazy('orga')
+            reverse_lazy('member')
         )
 
     def get_initial(self, **kwargs):
@@ -782,8 +790,21 @@ def repa(request):
         logger.warning('The user %s is no reparateur!', str(request.user))
         raise PermissionDenied('Not reparateur!')
 
-    cafes = Cafe.objects.filter(event_date__gte=datetime.date.today())
-    devices = Device.objects.filter(status=Device.STATUS_WAITING_LIST)
+    devices = []
+    for device in Device.objects.filter(status__gte=Device.STATUS_WAITING_LIST):
+        if device.reparateur.filter(mail=request.user.email).count() > 0:
+            device.assigned = True
+        else:
+            device.assigned = False
+        devices.append(device)
+
+    cafes = []
+    for cafe in Cafe.objects.filter(event_date__gte=datetime.date.today()):
+        if cafe.reparateur.filter(mail=request.user.email).count() > 0:
+            cafe.accepted = True
+        else:
+            cafe.accepted = False
+        cafes.append(cafe)
 
     return render(
         request,
@@ -977,3 +998,81 @@ class MemberSettingsFormView(LoginRequiredMixin, UserPassesTestMixin, generic.ed
 
     def test_func(self):
         return is_member(self.request.user)
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa_cafe_accept(request, cafe):
+    if not is_reparateur(request.user):
+        raise PermissionDenied('Not a reparateur!')
+
+    cafe = get_object_or_404(Cafe, pk=cafe)
+    reparateur = get_object_or_404(Reparateur, mail=request.user.email)
+    cafe.reparateur.add(reparateur)
+    cafe.save()
+
+    return HttpResponseRedirect(reverse_lazy('repa'))
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa_cafe_decline(request, cafe):
+    if not is_reparateur(request.user):
+        raise PermissionDenied('Not a reparateur!')
+
+    cafe = get_object_or_404(Cafe, pk=cafe)
+    reparateur = get_object_or_404(Reparateur, mail=request.user.email)
+    cafe.reparateur.remove(reparateur)
+    cafe.save()
+
+    return HttpResponseRedirect(reverse_lazy('repa'))
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa_view_device(request, device):
+    """
+    View device details.
+    """
+    # TODO: test
+    if not is_reparateur(request.user):
+        raise PermissionDenied('Not reparateur!')
+
+    device = get_object_or_404(Device, pk=device)
+    assigned = device.reparateur.filter(mail=request.user.email).count() > 0
+
+    return render(
+        request,
+        "repapp/repa/view_device.html",
+        {
+            'device': device,
+            'assigned': assigned,
+        }
+    )
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa_device_assign(request, device):
+    if not is_reparateur(request.user):
+        raise PermissionDenied('Not a reparateur!')
+
+    device = get_object_or_404(Device, pk=device)
+    reparateur = get_object_or_404(Reparateur, mail=request.user.email)
+    device.reparateur.add(reparateur)
+    device.save()
+
+    return HttpResponseRedirect(reverse_lazy('repa_view_device', kwargs={
+        'device': device.id
+    }))
+
+
+@login_required(login_url=reverse_lazy('member'))
+def repa_device_unassign(request, device):
+    if not is_reparateur(request.user):
+        raise PermissionDenied('Not a reparateur!')
+
+    device = get_object_or_404(Device, pk=device)
+    reparateur = get_object_or_404(Reparateur, mail=request.user.email)
+    device.reparateur.remove(reparateur)
+    device.save()
+
+    return HttpResponseRedirect(reverse_lazy('repa_view_device', kwargs={
+        'device': device.id
+    }))

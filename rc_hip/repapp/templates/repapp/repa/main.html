@@ -26,9 +26,19 @@
                 <tr>
                     <td>{{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}</td>
                     <td>{{ cafe.location }}</td>
-                    <td>Nein</td>
                     <td>
-                        <a href="" class="btn btn-primary">teilnehmen</a>
+                        {% if cafe.accepted %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if cafe.accepted %}
+                            <a href="{% url 'repa_cafe_decline' cafe.pk %}" class="btn btn-primary">absagen</a>
+                        {% else %}
+                            <a href="{% url 'repa_cafe_accept' cafe.pk %}" class="btn btn-primary">teilnehmen</a>
+                        {% endif %}
                     </td>
                 </tr>
             {% empty %}
@@ -47,6 +57,7 @@
                 <th scope="col">Hersteller & Modell/Typ</th>
                 <th scope="col">Repair-Café</th>
                 <th scope="col">Ort</th>
+                <th scope="col">mir zugeordnet?</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -58,7 +69,14 @@
                     <td>{{ device.cafe.event_date|date:"l" }}, {{ device.cafe.event_date|date }}</td>
                     <td>{{ device.cafe.location }}</td>
                     <td>
-                        <a href="" class="btn btn-primary">Details</a>
+                        {% if device.assigned %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'repa_view_device' device.pk %}" class="btn btn-primary">Details</a>
                     </td>
                 </tr>
             {% empty %}

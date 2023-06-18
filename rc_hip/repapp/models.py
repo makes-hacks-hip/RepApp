@@ -30,6 +30,21 @@ class CustomUser(AbstractUser):
         return f'{self.email}'
 
 
+class Reparateur(models.Model):
+    """
+    A Reparateur is a member of the Repair-Café who supports guests with fixing their devices.
+    """
+    name = models.CharField(max_length=200, verbose_name=_("Name"))
+    mail = models.CharField(max_length=200, verbose_name=_("eMail"))
+
+    class Meta:
+        verbose_name = _('Reparateur')
+        verbose_name_plural = _('Reparateure')
+
+    def __str__(self):
+        return f'Reparateur {self.name} (eMail: {self.mail})'
+
+
 class Cafe(models.Model):
     """
     A Cafe is a "Repair-Café event.
@@ -39,6 +54,7 @@ class Cafe(models.Model):
     address = models.CharField(
         max_length=200, verbose_name=_("Adresse"))
     event_date = models.DateField(verbose_name=_("Datum"))
+    reparateur = models.ManyToManyField(Reparateur)
 
     class Meta:
         verbose_name = _('Repair-Café')
@@ -46,22 +62,6 @@ class Cafe(models.Model):
 
     def __str__(self):
         return f'Repair-Café am {self.event_date} (Ort: {self.location})'
-
-
-class Reparateur(models.Model):
-    """
-    A Reparateur is a member of the Repair-Café who supports guests with fixing their devices.
-    """
-    name = models.CharField(max_length=200, verbose_name=_("Name"))
-    mail = models.CharField(max_length=200, verbose_name=_("eMail"))
-    cafe = models.ManyToManyField(Cafe)
-
-    class Meta:
-        verbose_name = _('Reparateur')
-        verbose_name_plural = _('Reparateure')
-
-    def __str__(self):
-        return f'Reparateur {self.name} (eMail: {self.mail})'
 
 
 class Organisator(models.Model):
@@ -108,12 +108,16 @@ class Device(models.Model):
     STATUS_ORGA_QUESTION = 1
     STATUS_ORGA_QUESTION_ANSWERED = 2
     STATUS_WAITING_LIST = 3
+    STATUS_REPA_QUESTION = 4
+    STATUS_REPA_QUESTION_ANSWERED = 5
     STATUS = (
         (STATUS_REJECTED, 'abgelehnt'),
         (STATUS_NEW, 'neu'),
         (STATUS_ORGA_QUESTION, 'in Orga Rückfrage'),
         (STATUS_ORGA_QUESTION_ANSWERED, 'in Orga Rückfrage beantwortet'),
         (STATUS_WAITING_LIST, 'in der Warteliste'),
+        (STATUS_REPA_QUESTION, 'in Repa Rückfrage'),
+        (STATUS_REPA_QUESTION_ANSWERED, 'in Repa Rückfrage beantwortet'),
     )
 
     identifier = models.CharField(max_length=200, verbose_name=_("ID"))
@@ -134,6 +138,7 @@ class Device(models.Model):
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"), choices=STATUS)
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
+    reparateur = models.ManyToManyField(Reparateur)
 
     class Meta:
         verbose_name = _('Gerät')

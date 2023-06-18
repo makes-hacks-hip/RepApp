@@ -1,0 +1,75 @@
+{% extends "repapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+    - Gerät
+{% endblock title %}
+{% block page_title %}
+    Gerät
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a href="{% url 'repa' %}" class="btn btn-primary">Zurück</a>
+        {% if assigned %}
+            <a href="{% url 'repa_device_unassign' device.pk %}"
+               class="btn btn-primary">Gerät ablehnen</a>
+            <a href="{% url 'device_question' device.pk %}" class="btn btn-primary">Rückfrage</a>
+        {% else %}
+            <a href="{% url 'repa_device_assign' device.pk %}"
+               class="btn btn-primary">Gerät mir zuordnen</a>
+        {% endif %}
+    </p>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Gerät</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Art des Geräts</th>
+                <td>{{ device.device }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Hersteller & Modell/Typ</th>
+                <td>{{ device.manufacturer }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Fehlerbeschreibung</th>
+                <td>{{ device.error }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Folgetermin</th>
+                <td>
+                    {% if device.follow_up %}
+                        Ja
+                    {% else %}
+                        Nein
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Foto vom Gerät</th>
+                <td>
+                    {% if device.device_picture %}
+                        <img alt="Foto vom Gerät"
+                             height="100%"
+                             width="50%"
+                             src="/media/{{ device.device_picture }}" />
+                    {% else %}
+                        kein Bild
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">Foto vom Typenschild</th>
+                <td>
+                    {% if device.device_picture %}
+                        <img alt="Foto vom Typenschild"
+                             height="100%"
+                             width="50%"
+                             src="/media/{{ device.type_plate_picture }}" />
+                    {% else %}
+                        kein Bild
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock content %}
