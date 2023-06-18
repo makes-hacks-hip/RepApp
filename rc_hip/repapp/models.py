@@ -54,7 +54,7 @@ class Cafe(models.Model):
     address = models.CharField(
         max_length=200, verbose_name=_("Adresse"))
     event_date = models.DateField(verbose_name=_("Datum"))
-    reparateur = models.ManyToManyField(Reparateur)
+    reparateur = models.ManyToManyField(Reparateur, null=True)
 
     class Meta:
         verbose_name = _('Repair-Café')
@@ -138,7 +138,7 @@ class Device(models.Model):
         Guest, on_delete=models.CASCADE, null=True, verbose_name=_("Gast"), choices=STATUS)
     cafe = models.ForeignKey(
         Cafe, on_delete=models.CASCADE, null=False, verbose_name=_("Repair-Café"))
-    reparateur = models.ManyToManyField(Reparateur)
+    reparateur = models.ManyToManyField(Reparateur, null=True)
 
     class Meta:
         verbose_name = _('Gerät')
