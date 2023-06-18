@@ -1076,3 +1076,35 @@ def repa_device_unassign(request, device):
     return HttpResponseRedirect(reverse_lazy('repa_view_device', kwargs={
         'device': device.id
     }))
+
+
+@login_required(login_url=reverse_lazy('member'))
+def orga_plan_cafe(request, cafe):
+    """
+    View device details.
+    """
+    # TODO: test
+    if not is_organisator(request.user):
+        raise PermissionDenied('Not organisator!')
+
+    cafe = get_object_or_404(Cafe, pk=cafe)
+    reparateurs = []
+    for reparateur in Reparateur.objects.all():
+        if cafe.reparateur.filter(pk=reparateur.pk).count() > 0:
+            reparateur.accepted = True
+        else:
+            reparateur.accepted = False
+        reparateurs.append(reparateur)
+
+    devices = Device.objects.filter(
+        status__gte=Device.STATUS_WAITING_LIST).all()
+
+    return render(
+        request,
+        "repapp/orga/plan_cafe.html",
+        {
+            'cafe': cafe,
+            'devices': devices,
+            'reparateurs': reparateurs,
+        }
+    )

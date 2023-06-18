@@ -35,6 +35,7 @@ urlpatterns = [
          views.review_device_accept, name="review_device_accept"),
     path("orga/review/<int:device>/reject/",
          views.RejectDeviceFormView.as_view(), name="review_device_reject"),
+    path("orga/<int:cafe>/", views.orga_plan_cafe, name="orga_plan_cafe"),
     path("member/device/<int:device>/question/",
          views.QuestionDeviceFormView.as_view(), name="device_question"),
     path("member/device/<int:pk>/question/edit",

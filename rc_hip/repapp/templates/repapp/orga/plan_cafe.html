@@ -1,0 +1,86 @@
+{% extends "repapp/base.html" %}
+{% block title %}
+    - Repair-Café planen
+{% endblock title %}
+{% block page_title %}
+    Repair-Café planen
+{% endblock page_title %}
+{% block content %}
+    <p>
+        <a href="{% url 'orga' %}" class="btn btn-primary">Zurück</a>
+    </p>
+    <h1 class="mt-2">Repair-Café am {{ cafe.event_date|date:"l" }}, {{ cafe.event_date|date }}</h1>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Reparateure</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">eMail</th>
+                <th scope="col">Teilnahmen zugesagt?</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reparateur in reparateurs %}
+                <tr>
+                    <td>{{ reparateur.name }}</td>
+                    <td>{{ reparateur.mail }}</td>
+                    <td>
+                        {% if reparateur.accepted %}
+                            Ja
+                        {% else %}
+                            Nein
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not reparateur.accepted %}
+                            <a href="" class="btn btn-primary">einplanen</a>
+                        {% else %}
+                            <a href="" class="btn btn-primary">ausplanen</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es gibt keine Reparateure.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <hr class="mt-0 mb-4">
+    <h1 class="mt-2">Geräte</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Art des Geräts</th>
+                <th scope="col">Hersteller & Modell/Typ</th>
+                <th scope="col">Interessenten</th>
+                <th scope="col">Reparateur</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <td>{{ device.device }}</td>
+                    <td>{{ device.manufacturer }}</td>
+                    <td>
+                        {% for reparateur in device.reparateur.all %}
+                            {{ reparateur.name }}
+                            <br>
+                        {% endfor %}
+                    </td>
+                    <td>//TODO: dropdown</td>
+                    <td>
+                        <a href="" class="btn btn-primary">aktualisieren</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Es gibt kein Geräte.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
