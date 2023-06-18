@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/use_cases/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Anforderungen - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Anforderungen";
+        var mkdocs_page_input_path = "use_cases.md";
+        var mkdocs_page_url = "/RepApp/use_cases/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="..">Beschreibung</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Anforderungen</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#gast">Gast</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reparateur">Reparateur</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organisator">Organisator</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../workflows/">Abläufe</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../views/">Ansichten</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../models/">Daten-Modell</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>RepApp &raquo;</li>
+      <li>Anforderungen</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/use_cases.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="anwendungsfalle">Anwendungsfälle</h1>
+<p>Die Anwendungsfälle sind in Meilensteine unterteilt.
+Zu Meilenstein 1 (M1) gehören alle Anwendungsfälle die notwendig sind um RepApp "produktiv" für die Anmeldung von Geräten zu verwenden.</p>
+<h2 id="gast">Gast</h2>
+<ul>
+<li>[x] M1: Als Gast möchte ich einen Termin für eine Reparatur vereinbaren. (A1)</li>
+<li>[x] M1: Als Gast möchte ich eine Bestätigung für eine Reparaturanfrage bekommen. (A2)</li>
+<li>[ ] M1: Als Gast möchte ich eine Terminbenachrichtigung oder eine Absage bekommen. (A3)</li>
+<li>[ ] M1: Als Gast möchte ich Rückfragen zum Gerät empfangen und diese beantworten können. (A5)</li>
+<li>[ ] M1: Als Gast möchte ich Fragen ans Repair-Café stellen können. (A26)</li>
+<li>[ ] M1: Als Gast möchte ich ausschließlich per eMail mit dem System interagieren können. (A30)</li>
+<li>[ ] M1: Als Gast möchte per eMail Fragen ans Team stellen können. (A33)</li>
+<li>[ ] M1: Als Gast möchte ich per eMail auf Rückfragen antworten können. (A34)</li>
+<li>
+<p>[ ] M1: Als Gast möchte ich eine Termineinladung per eMail bestätigen können. (A35)</p>
+</li>
+<li>
+<p>[ ] Als Gast möchte ich mein angemeldetes Gerät und dessen Status einsehen können. (A4)</p>
+</li>
+<li>[ ] Als Gast möchte ich ein Gerät für eine Folgereparatur anmelden können. (A6)</li>
+<li>[ ] Als Gast möchte ich meine Daten ansehen können. (A21)</li>
+<li>[ ] Als Gast möchte ich meine Daten löschen können. (A22)</li>
+<li>[ ] Als Gast möchte ich eine Geräteanmeldung löschen können. (A23)</li>
+</ul>
+<h2 id="reparateur">Reparateur</h2>
+<ul>
+<li>[ ] M1: Als Reparateur möchte ich die angemeldeten Geräte ansehen können. (A7)</li>
+<li>[ ] M1: Als Reparateur möchte ich mir ein angemeldetes Gerät zuordnen können. (A8)</li>
+<li>[ ] M1: Als Reparateur möchte ich Rückfragen zum Gerät stellen können. (A10)</li>
+<li>[ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn eine Rückfrage beantwortet wird. (A11)</li>
+<li>[ ] M1: Als Reparateur möchte ich eine Benachrichtigung bekommen wenn mir ein Gerät zugeordnet wird. (A12)</li>
+<li>[ ] M1: Als Reparateur möchte ich mich für ein Repair-Café anmelden können. (A13)</li>
+<li>
+<p>[ ] M1: Als Reparateur möchte ich mich für ein Repair-Café abmelden können. (A14)</p>
+</li>
+<li>
+<p>[ ] Als Reparateur möchte ich ein angemeldetes Gerät ablehnen können. (A9)</p>
+</li>
+<li>[ ] Als Reparateur möchte ich benachrichtigt werden wenn ein Gast eine mir zugeordnete Geräteanmeldung löscht. (A25)</li>
+</ul>
+<h2 id="organisator">Organisator</h2>
+<ul>
+<li>[x] M1: Als Organisator möchte ich benachrichtigt werden wenn ein Gast ein Gerät anmeldet. (A25)</li>
+<li>[ ] M1: Als Organisator möchte ich ein Repair-Café anlegen können. (A15)</li>
+<li>[ ] M1: Als Organisator möchte ich die Geräte einsehen können. (A16)</li>
+<li>[ ] M1: Als Organisator möchte ich eine Rückfrage zu einem Geräte stellen können. (A17)</li>
+<li>[ ] M1: Als Organisator möchte ich ein Geräte ablehnen können. (A18)</li>
+<li>[ ] M1: Als Organisator möchte ich ein Geräte zu einem Termin zuordnen können. (A19)</li>
+<li>[ ] M1: Als Organisator möchte ich einen Reparateur zu einem Termin zuordnen können. (A20)</li>
+<li>[ ] M1: Als Organisator möchte ich ein Gerät bearbeiten können. (A28)</li>
+<li>
+<p>[ ] M1: Als Organisator möchte ich ein Gerät absagen können, wenn der Gast mich informiert hat dass er nicht kommt. (A29)</p>
+</li>
+<li>
+<p>[ ] Als Organisator möchte ich benachrichtigt werden wenn ein Gast eine Geräteanmeldung löscht. (A24)</p>
+</li>
+<li>[ ] Als Organisator möchte ich alle Daten exportieren können. (A31)</li>
+<li>[ ] Als Organisator möchte ich Geräte auf ein späteres Repair-Café verschieben können. (A32)</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Beschreibung"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../workflows/" class="btn btn-neutral float-right" title="Abläufe">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../workflows/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

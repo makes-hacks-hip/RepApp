@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/models/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Daten-Modell - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Daten-Modell";
+        var mkdocs_page_input_path = "models.md";
+        var mkdocs_page_url = "/RepApp/models/";
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="..">Beschreibung</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../use_cases/">Anforderungen</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../workflows/">Abläufe</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../views/">Ansichten</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Daten-Modell</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#benutzer">Benutzer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cafe">Cafe</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reparateur">Reparateur</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organisator">Organisator</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gast">Gast</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#gerat">Gerät</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#termin">Termin</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#frage">Frage</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#kandidat">Kandidat</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#einmal-login">Einmal-Login</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nachricht">Nachricht</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>RepApp &raquo;</li>
+      <li>Daten-Modell</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/models.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="daten">Daten</h1>
+<h2 id="benutzer">Benutzer</h2>
+<p>Ein Repapp-Benutzer erweitert den Standard-Benutzer um eine eindeutige eMail-Adresse, um diese als Identifikationsmerkmal verwenden zu können.</p>
+<h2 id="cafe">Cafe</h2>
+<p>Ein Cafe ist ein Repair-Café Termin.</p>
+<p>Attribute:</p>
+<ul>
+<li>Ort: Beschreibung wo das Repair-Café stattfindet</li>
+<li>Adresse: Adresse an der das Repair-Café stattfindet</li>
+<li>Datum: Datum der Veranstaltung</li>
+</ul>
+<p>Annahmen:</p>
+<ul>
+<li>Ein Repair-Café beginnt um 13:00 Uhr.</li>
+<li>Ein Repair-Café hat drei aufeinanderfolgende Zeitslots pro Reparateur mit je einer Stunde</li>
+</ul>
+<h2 id="reparateur">Reparateur</h2>
+<p>Ein Reparateur ist ein Mitglied des Repair-Cafés das Gäste bei der Reparatur ihrer Geräte unterstützt.</p>
+<p>Attribute:</p>
+<ul>
+<li>Name: Name des Reparateurs</li>
+<li>Mail: eMail-Adresse für Benachrichtigungen</li>
+</ul>
+<p>Annahmen:</p>
+<ul>
+<li>Reparateure sind immer verfügbar, d.h. Zeitslots für jeden Reparateur werden zu einem neuen Repair-Café Termin automatisch hinzugefügt.</li>
+<li>Reparateure können alles reparieren. Geräte Kategorien, Skills, ... werden im Moment nicht berücksichtigt. </li>
+</ul>
+<h2 id="organisator">Organisator</h2>
+<p>Ein Organisator ist ein Mitglied des Repair-Cafés das Reparaturtermine mit den Gästen vereinbart.</p>
+<p>Attribute:</p>
+<ul>
+<li>Name: Name des Organisators</li>
+<li>Mail: eMail-Adresse für Benachrichtigungen</li>
+</ul>
+<h2 id="gast">Gast</h2>
+<p>Ein Gast ist ein Gerätebesitzer, der ein Gerät zur Reparatur anmeldet.</p>
+<p>Attribute:</p>
+<ul>
+<li>Name: Name des Gastes</li>
+<li>Telefon: Festnetz oder Mobilnummer des Gastes</li>
+<li>Wohnort: Wohnort des Gastes</li>
+<li>Mail: eMail-Adresse des Gastes für Benachrichtigungen</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Identifier: SHA256 Hash aus Name + Wohnort + Timestamp</li>
+<li>Benutzer: Referenz zum Benutzer der für diesen Gast erstellt wurde.</li>
+</ul>
+<h2 id="gerat">Gerät</h2>
+<p>Ein Gerät ist ein defekter Gegenstand der im Rahmen eines Repair-Cafés repariert werden soll.</p>
+<p>Attribute:</p>
+<ul>
+<li>Erstellungsdatum: Datum an dem diese Gerät angemeldet wurde.</li>
+<li>Gerät: Bezeichnung des Geräts</li>
+<li>Hersteller: Hersteller des Geräts</li>
+<li>Fehler: Beschreibung des Defekts</li>
+<li>Folgetermin: Boolesches Flag das anzeigt ob es sich um einen Folgetermin handelt.</li>
+<li>Foto vom Gerät</li>
+<li>Foto vom Typenschild</li>
+<li>Bestätigung gesendet?: Ein boolesches Flag das anzeigt ob eine eMail als Anmeldebestätigung gesendet wurde.</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Identifier: SHA256 Hash aus Gerät + Gast + Timestamp</li>
+<li>Gast: Referenz zum Gast der das Gerät besitzt</li>
+<li>Cafe: Referenz zum Repair-Café für das diese Gerät angemeldet ist</li>
+</ul>
+<h2 id="termin">Termin</h2>
+<p>Ein Termin ist eine Zuordnung von einem Gerät zu einem Zeitslot der Repair-Café Veranstaltung und einem Reparateur.
+Ein Termin ist bestätigt, wenn eine Organisator eine Termineinladung gesendet hat und er Gast diese bestätigt hat. </p>
+<p>Attribute:</p>
+<ul>
+<li>Uhrzeit: Uhrzeit des Termins</li>
+<li>Betätigt: Boolesches Flag. True wenn die Einladung vom Gast bestätigt wurde.</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Cafe: Referenz zum Cafe</li>
+<li>Reparateur: Referenz um Reparateur oder NULL</li>
+<li>Gerät: Referenz zum Gerät</li>
+</ul>
+<h2 id="frage">Frage</h2>
+<p>Eine Frage ist eine Rückfrage nach mehr Informationen zu einem Gerät, erstellt von einem Organisator oder einem Reparateur.</p>
+<p>Attribute:</p>
+<ul>
+<li>Frage: Frage zum Gerät oder Defekt</li>
+<li>Antwort: Antwort des Gastes</li>
+<li>Erstellungsdatum: Datum der Erstellung der Rückfrage</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Organisator: Referenz zum Organisator oder NULL</li>
+<li>Reparateur: Referenz zum Reparateur oder NULL</li>
+<li>Gerät: Referenz zum Gerät</li>
+</ul>
+<h2 id="kandidat">Kandidat</h2>
+<p>Ein Kandidat ist ein Geräte ohne festen Termin.
+Diese Geräte werden von den Gästen zu Beginn des Repair-Café gebracht und am Ende abgeholt.
+Falls ein Reparateur Zeit hat kann er eines dieser Geräte reparieren.</p>
+<ul>
+<li>Bestätigt: Boolesches Flag. True wenn die Einladung vom Gast bestätigt wurde.</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Cafe: Referenz zum Cafe</li>
+<li>Gerät: Referenz zum Gerät</li>
+</ul>
+<h2 id="einmal-login">Einmal-Login</h2>
+<p>Ein Einmal-Login ist ein Geheimnis das es einem Gast erlaubt sich einmalig damit anzumelden.</p>
+<ul>
+<li>Geheimnis: Geheimnis um den Gast zu identifizieren.</li>
+<li>URL: URL die nach der Anmeldung angezeigt werden soll.</li>
+<li>Erstellungsdatum: Datum an dem der Einmal-Login angelegt wurde.</li>
+<li>Login benutzt?: Boolesches Flag. True wenn der Einmal-Login bereits benutzt wurde.</li>
+<li>Login Datum: Datum an dem der Einmal-Login benutzt wurde, oder Datum der Erstellung, da das Feld aus technischen Gründen nicht leer sein kann.</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Benutzer: Referenz zum Benutzer</li>
+</ul>
+<h2 id="nachricht">Nachricht</h2>
+<p>Eine Nachricht ist eine Anfrage von einem Gast.</p>
+<ul>
+<li>Nachricht: Anfrage des Gastes.</li>
+<li>Antwort: Antwort an den Gast.</li>
+<li>Erstellungsdatum: Datum an dem die Anfrage erstellt wurde.</li>
+</ul>
+<p>Technische Attribute:</p>
+<ul>
+<li>Gast: Referenz zum Gast</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../views/" class="btn btn-neutral float-left" title="Ansichten"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../views/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
