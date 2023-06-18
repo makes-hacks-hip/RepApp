@@ -19,6 +19,8 @@ class CustomUser(AbstractUser):
     Custom user object with unique email.
     """
     email = models.EmailField(unique=True, verbose_name=_("eMail Adresse"))
+    notifications = models.BooleanField(
+        verbose_name=_("Benachrichtigungen"), default=True)
 
     class Meta:
         verbose_name = _('Benutzer')

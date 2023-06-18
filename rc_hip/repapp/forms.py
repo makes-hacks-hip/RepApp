@@ -129,3 +129,14 @@ class UpdateDeviceForm(forms.ModelForm):
         fields = ['question']
     question = forms.CharField(widget=CKEditorWidget(
         attrs={'style': 'width:100%;'}), label="Frage")
+
+
+class MemberSettings(forms.Form):
+    """
+    Form for editing member settings.
+    """
+    notifications = forms.BooleanField(
+        label="Benachrichtigungen",
+        help_text="Kreuzen Sie diese Kästchen an wenn sie Benachrichtigungen erhalten möchten.",
+        required=False
+    )

@@ -25,6 +25,8 @@ urlpatterns = [
     path("onetimelogin/<str:secret>/",
          views.one_time_login, name="one_time_login"),
     path("member/", views.member, name="member"),
+    path("member/settings/", views.MemberSettingsFormView.as_view(),
+         name="member_settings"),
     path("logout/", views.user_logout, name="logout"),
     path("orga/select/", views.select_role, name="select_role"),
     path("orga/", views.orga, name="orga"),

@@ -22,7 +22,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth import authenticate, login, logout
 from django.utils.timezone import now
-from .forms import RegisterDevice, RegisterGuest, Mail, UpdateDeviceForm
+from .forms import RegisterDevice, RegisterGuest, Mail, UpdateDeviceForm, MemberSettings
 from .models import (Cafe, Device, Guest, OneTimeLogin, Question,
                      CustomUser, Organisator, Reparateur)
 from . import mail_interface
@@ -937,3 +937,36 @@ def user_logout(request):
     """
     logout(request)
     return HttpResponseRedirect(reverse_lazy('index'))
+
+
+class MemberSettingsFormView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.FormView):
+    """
+    MemberSettingsFormView shows the member settings.
+    """
+    template_name = "repapp/member/member_settings.html"
+    form_class = MemberSettings
+
+    def form_valid(self, form):
+        user = self.request.user
+        if not is_member(user):
+            raise PermissionDenied('Not a member!')
+        user = get_object_or_404(CustomUser, email=user.email)
+        user.notifications = form.cleaned_data['notifications']
+        user.save()
+
+        return HttpResponseRedirect(reverse_lazy('member_settings'))
+
+    def get_initial(self):
+        initial = super(MemberSettingsFormView, self).get_initial()
+        initial['notifications'] = self.request.user.notifications
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super(MemberSettingsFormView, self).get_context_data(
+            **kwargs
+        )
+        context["user"] = self.request.user
+        return context
+
+    def test_func(self):
+        return is_member(self.request.user)
