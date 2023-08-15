@@ -65,11 +65,7 @@ Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wu
 - Auf der neuen Seite sehe ich ein Formular mit einem Textbereich der die Überschrift "Rückfrage" trägt. Im Formular ist bereits ein Standard-Text für Rückfragen. Ich passe den Text an um die notwendigen Informationen anzufragen und klicke auf den Knopf `Absenden`. Der Klick bringt mich zurück zum Hauptmenü.
 - In der Liste der neuen Geräte ist das gerade bearbeitete Gerät nicht mehr sichtbar.
 
-```
-@startuml firstDiagram
-
+```plantuml
 Alice -> Bob: Hello
 Bob -> Alice: Hi!
-		
-@enduml
 ```
