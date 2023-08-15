@@ -64,3 +64,12 @@ Als Organisator habe ich eine eMail bekommen dass ein neues Gerät angemeldet wu
 - Ich klicke auf den Knopf "Details" für das neue Gerät, und mein Browser öffnet eine Seite in der ich die Details zu dem Gerät sehe. Auf der Seite sind Knöpfe: `Annehmen für gewähltes Repair-Café`, `Annehmen für anderes Repair-Café`, `Ablehnen` und `Rückfrage`. Da notwendige Informationen fehlen entscheide ich mich eine Rückfrage an den Gast zu stellen, und drücke den Knopf `Rückfrage`. Der Klick bringt mich zu einer neuen Seite.
 - Auf der neuen Seite sehe ich ein Formular mit einem Textbereich der die Überschrift "Rückfrage" trägt. Im Formular ist bereits ein Standard-Text für Rückfragen. Ich passe den Text an um die notwendigen Informationen anzufragen und klicke auf den Knopf `Absenden`. Der Klick bringt mich zurück zum Hauptmenü.
 - In der Liste der neuen Geräte ist das gerade bearbeitete Gerät nicht mehr sichtbar.
+
+```
+@startuml firstDiagram
+
+Alice -> Bob: Hello
+Bob -> Alice: Hi!
+		
+@enduml
+```
