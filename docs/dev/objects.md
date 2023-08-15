@@ -20,12 +20,12 @@ In case of ambiguities, a **organizer** or a **repairer** can raise a **consulta
 
 A **repair_cafe** is a event happening at a specific date at a specific location. During a **repair_cafe** **appointments** of **guests** with **repairers** happens to fix broken *devices*.
 
-Field       | Type         | Description
--------------------------------------------------------------
-location    | Char (200)   | location of the event
-address     | Char (200)   | address where the event happens
-event_date  | Date         | date when the event happens
-repairer    | many to many | will attend the event
+### Fields
+
+- *location*: Char (200) -- location of the event
+- *address*: Char (200) -- address where the event happens
+- *event_date*: Date -- date when the event happens
+- *repairer*: many to many -- will attend the event
 
 ## Device
 

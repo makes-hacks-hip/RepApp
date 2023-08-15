@@ -19,5 +19,3 @@ nav:
 theme: readthedocs
 repo_url: https://github.com/makes-hacks-hip/RepApp/
 edit_uri: edit/main/docs/
-markdown_extensions:
-  - tables
