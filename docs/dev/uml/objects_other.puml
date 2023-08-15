@@ -1,0 +1,19 @@
+@startuml
+
+object Guest
+object Organizer
+object Repairer
+object Device
+object Appointment
+object Repair_Cafe
+
+Repair_Cafe *-- "happens during" Appointment
+Repair_Cafe -- "organizes" Organizer
+Repair_Cafe -- "attends" Repairer
+Repair_Cafe -- "visits" Guest
+Repair_Cafe -- "is fixed" Device
+
+Guest -- Organizer
+Guest o-- Device
+
+@enduml

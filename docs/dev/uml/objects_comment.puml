@@ -1,0 +1,13 @@
+@startuml
+
+object Repairer
+object Organizer
+object Device
+object Comment
+
+Comment *-- Organizer
+Comment *-- Repairer
+Comment *-- Device
+Comment -- Comment
+
+@enduml

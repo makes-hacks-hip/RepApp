@@ -1,0 +1,14 @@
+@startuml
+
+object Guest
+object Repairer
+object Organizer
+object Device
+object Appointment
+
+Appointment -- Organizer
+Appointment o-- Device
+Appointment o-- Repairer
+Appointment o-- Guest
+
+@enduml

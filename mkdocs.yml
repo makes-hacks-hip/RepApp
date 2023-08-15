@@ -9,6 +9,9 @@ nav:
         - Daten-Modell: 'models.md'
     - 'Developer documentation':
         - Overview: 'dev/index.md'
+        - Users: 'dev/users.md'
+        - Objects: 'dev/objects.md'
+        - Stories: 'dev/stories.md'
     - 'Repair-Café & Makespace':
         - Repair-Café: https://www.repaircafe-hilpoltstein.de
         - Makespace: https://makes-hacks-hip.de
