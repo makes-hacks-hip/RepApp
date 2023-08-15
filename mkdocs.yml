@@ -7,6 +7,8 @@ nav:
         - Abläufe: 'workflows.md'
         - Ansichten: 'views.md'
         - Daten-Modell: 'models.md'
+    - 'Developer documentation':
+        - Overview: 'dev/index.md'
     - 'Repair-Café & Makespace':
         - Repair-Café: https://www.repaircafe-hilpoltstein.de
         - Makespace: https://makes-hacks-hip.de
