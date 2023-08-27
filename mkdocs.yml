@@ -14,6 +14,7 @@ nav:
         - 'Use cases': 'dev/use_cases.md'
         - Apps: 'dev/apps.md'
         - Objects: 'dev/objects.md'
+        - 'Repapp configuration': 'dev/configuration.md'
     - 'Repair-Café & Makespace':
         - Repair-Café: https://www.repaircafe-hilpoltstein.de
         - Makespace: https://makes-hacks-hip.de

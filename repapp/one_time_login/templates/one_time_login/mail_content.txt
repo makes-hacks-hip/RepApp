@@ -1,0 +1,6 @@
+Hello,
+
+we prepared a one time login for you. Open {{ link }} in your browser to use the link.
+
+Kind regards,
+{{ organization }}
