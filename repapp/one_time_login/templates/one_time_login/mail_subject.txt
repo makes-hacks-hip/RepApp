@@ -1,1 +1,1 @@
-{{ organization }} - Einmal-Ammeldelink
+{% load i18n %}{{ organization }} - {% trans "one time login" %}

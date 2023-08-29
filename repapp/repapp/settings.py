@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,11 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # enable rosetta online translation interface
+    'rosetta',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # enable translation
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -104,13 +109,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 
-USE_I18N = True
+# USE_I18N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -160,3 +165,33 @@ EMAIL_PORT = (int)(os.getenv("DJANGO_EMAIL_PORT", "25"))
 EMAIL_HOST_USER = os.getenv("DJANGO_EMAIL_HOST_USER", None)
 EMAIL_HOST_PASSWORD = os.getenv("DJANGO_EMAIL_HOST_PASSWORD", None)
 EMAIL_USE_TLS = os.getenv("DJANGO_EMAIL_USE_TLS", "true") in ("true", "1", "t")
+DEFAULT_FROM_EMAIL = os.getenv("DJANGO_SENDER_ADDRESS", "")
+
+# Repapp language settings
+LANGUAGE_CODE = 'de'
+TIME_ZONE = 'Europe/Berlin'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+LANGUAGES = [
+    ('de', _('German')),
+    ('en', _('English')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+# Repapp specific authentication backends
+AUTHENTICATION_BACKENDS = [
+    # Backend for one time logins
+    "one_time_login.authentication_backends.OneTimeLoginBackend",
+]
+
+if DEBUG:
+    AUTHENTICATION_BACKENDS += [
+        # Default backend for admin login
+        "django.contrib.auth.backends.ModelBackend",
+    ]

@@ -11,7 +11,8 @@ The code of the Repapp is hosted on Github: https://github.com/makes-hacks-hip/R
 - Clone the Github repository
 - Create a Python environment: `python -m venv venv`
 - Activate the Python environment: `source venv/bin/activate`
-- Change to the Django project folder: `cd rc_hip`
+- Install the dependencies: `pip install -r requirements_prod.txt` and `pip install -r requirements_dev.txt`
+- Change to the Django project folder: `cd repapp`
 - Setup the database:
   - `python manage.py makemigrations`
   - `python manage.py migrate`
@@ -38,4 +39,4 @@ docker run --rm -d \
 ## Tests
 
 - Unit tests: `python manage.py test`
-- LiveServer tests: `python manage.py test repapp.live_tests.WorkflowTests`
+- LiveServer tests: `python manage.py test repapp.live_tests`

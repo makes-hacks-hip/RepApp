@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -7,12 +8,14 @@
         <title>One time login</title>
     </head>
     <body>
-        <p>Hello,</p>
+        <p>{% trans "Hello" %},</p>
         <p>
+            {% blocktrans with link=link %}
             we prepared a one time login for you. Click <a href="{{ link }}">here</a> to use the link.
+            {% endblocktrans %}
         </p>
         <p>
-            Kind regards,
+            {% trans "Kind regards" %},
             {{ organization }}
         </p>
     </body>

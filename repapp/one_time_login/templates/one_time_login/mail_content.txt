@@ -1,6 +1,9 @@
-Hello,
+{% load i18n %}
+{% trans "Hello" %},
 
+{% blocktrans with link=link %}
 we prepared a one time login for you. Open {{ link }} in your browser to use the link.
+{% endblocktrans %}
 
-Kind regards,
+{% trans "Kind regards" %},
 {{ organization }}

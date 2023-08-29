@@ -3,10 +3,6 @@ site_url: https://makes-hacks-hip.github.io/RepApp/
 nav:
     - RepApp:
         - Beschreibung: 'index.md'
-        - Anforderungen: 'use_cases.md'
-        - Abläufe: 'workflows.md'
-        - Ansichten: 'views.md'
-        - Daten-Modell: 'models.md'
     - 'Developer documentation':
         - Overview: 'dev/index.md'
         - Users: 'dev/users.md'
