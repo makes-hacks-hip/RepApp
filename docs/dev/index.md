@@ -40,3 +40,8 @@ docker run --rm -d \
 
 - Unit tests: `python manage.py test`
 - LiveServer tests: `python manage.py test repapp.live_tests`
+
+### Coverage
+
+- `coverage run --source='.' manage.py test`
+- `coverage report` or `coverage html`

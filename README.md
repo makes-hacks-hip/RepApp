@@ -40,3 +40,8 @@ Run `python manage.py test`
 ### LiveServer Tests
 
 Run `python manage.py test repapp.live_tests.WorkflowTests`
+
+### Coverage
+
+- `coverage run --source='.' manage.py test`
+- `coverage report` or `coverage html`
