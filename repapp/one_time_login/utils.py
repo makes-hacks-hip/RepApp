@@ -79,7 +79,8 @@ def send_one_time_login_mail(secret, mail, request, language=None):
     if send_ok > 0:
         messages.add_message(request, messages.INFO, _(
             'A new login link was sent by mail.'))
-    else:
+    else:  # pragma: no cover
+        # message send failure not testable
         messages.add_message(request, messages.ERROR, _(
             'Sending of one time login link failed!'))
 

@@ -20,7 +20,8 @@ class OneTimeLoginBackend(ModelBackend):
             logger.debug(
                 'One time login authentication for secret %s was successful', username)
             return login.user
-        else:
+        else:  # pragma: no cover
+            # This case is already handled by the utils method
             logger.info(
                 'One time login authentication for secret %s failed!', username)
             return None

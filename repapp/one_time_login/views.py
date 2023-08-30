@@ -35,7 +35,8 @@ def login_view(request, secret: str):
         if url is not None:
             logger.debug('one_time_login: redirecting to url %s', url)
             return HttpResponseRedirect(url)
-        else:
+        else:  # pragma: no cover
+            # would be an invalid OTL, which should never happen
             return HttpResponseRedirect('/')
 
     messages.add_message(request, messages.ERROR, _('Login failed!'))
@@ -43,5 +44,6 @@ def login_view(request, secret: str):
 
 
 @login_required
-def protected_test(request):
+def protected_test(request):  # pragma: no cover
+    # this view is only used for a live server test case
     return HttpResponse('protected content')
