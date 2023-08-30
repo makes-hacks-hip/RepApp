@@ -15,6 +15,9 @@ import logging
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
+# Set debug mode according to env variable
+DEBUG = os.getenv("DJANGO_DEBUG", "false").lower() in ("true", "1", "t")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -51,13 +54,15 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     # for creating thumbnails, used by email_interface demo views
     'easy_thumbnails',
-    # Django debug toolbar
-    'debug_toolbar',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += [
+        # Django debug toolbar
+        'debug_toolbar',
+    ]
+
 MIDDLEWARE = [
-    # Django debug toolbar
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # enable translation
@@ -68,6 +73,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = [
+        # Django debug toolbar
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + MIDDLEWARE
 
 ROOT_URLCONF = 'repapp.urls'
 
@@ -145,9 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ######################
 # Repapp configuration
 ######################
-
-# Set debug mode according to env variable
-DEBUG = os.getenv("DJANGO_DEBUG", "false").lower() in ("true", "1", "t")
 
 # basic Python logging configuration
 LOG_LEVEL = "INFO"

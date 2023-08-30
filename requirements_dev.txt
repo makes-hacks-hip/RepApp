@@ -8,3 +8,4 @@ pylint-django==2.5.3
 pylint-plugin-utils==0.7
 selenium==4.9.0
 django-debug-toolbar==4.2.0
+coverage==7.3.0
