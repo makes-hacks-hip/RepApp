@@ -45,8 +45,3 @@ def login_view(request, secret: str):
 @login_required
 def protected_test(request):
     return HttpResponse('protected content')
-
-
-@login_required
-def dummy_content(request):
-    return HttpResponse("dummy content")
