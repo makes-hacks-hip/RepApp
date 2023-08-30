@@ -1,0 +1,20 @@
+{% extends 'email_interface/testing/base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head %}
+    <title>{% trans 'Send mail demo' %}</title>
+    <meta name="description" content="{% trans 'Send mail demo' %}">
+    <meta property="og:title" content="{% trans 'Send mail demo' %}">
+    <meta property="og:description"
+          content="{% trans 'A send mail demo form.' %}">
+{% endblock head %}
+{% block content %}
+    <div class="col-8">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
+        </form>
+    </div>
+{% endblock content %}

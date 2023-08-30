@@ -1,0 +1,67 @@
+{% extends 'email_interface/testing/base.html' %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% block head %}
+    <title>{% trans 'Mails' %}</title>
+    <meta name="description" content="{% trans 'Mails' %}">
+    <meta property="og:title" content="{% trans 'Mails' %}">
+    <meta property="og:description" content="{% trans 'All my mails.' %}">
+{% endblock head %}
+{% block content %}
+    {% for mail in mails %}
+        <div class="col-8">
+            <div class="card" style="width: 100%; overflow: hidden;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        {% if mail.sender %}
+                            {{ mail.sender }} ({{ mail.sender.email }}):
+                        {% else %}
+                            {% trans 'No sender' %}
+                        {% endif %}
+                        <a href="{% url 'email_interface:mail_thread' mail.pk %}">{{ mail.summary }}</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        {% trans 'to' %}:
+                        {% if mail.receiver %}
+                            {{ mail.receiver }}
+                        {% else %}
+                            {% trans 'No receiver' %}
+                        {% endif %}
+                        , {{ mail.created|date:"l" }}
+                    </h6>
+                    <p class="card-text">
+                        {% if mail.html_content %}
+                            {{ mail.html_content|safe }}
+                        {% else %}
+                            {{ mail.text_content }}
+                        {% endif %}
+                    </p>
+                    {% for attachment in mail.attachments %}
+                        {% if 'image' in attachment.mime_type %}
+                            <a href="{{ attachment.file.url }}">
+                                <img src="{% thumbnail attachment.file 300x0 %}">
+                            </a>
+                        {% else %}
+                            <a href="{{ attachment.get_absolute_url }}" class="card-link">{{ attachment.name }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if mail.answers %}
+                        <hr>
+                        <p>{% trans 'Answers' %}:</p>
+                        {% for answer in mail.answers %}
+                            <a href="{% url 'email_interface:mail_thread' answer.pk %}">{{ answer.summary }} {% trans 'from' %} {{ answer.sender }}</a>
+                        {% endfor %}
+                    {% endif %}
+                    {% if mail.siblings %}
+                        <hr>
+                        <p>{% trans 'Siblings' %}:</p>
+                        {% for sibling in mail.siblings %}
+                            <a href="{% url 'email_interface:mail_thread' sibling.pk %}">{{ sibling.summary }} {% trans 'from' %} {{ sibling.sender }}</a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

@@ -16,13 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from django.conf.urls.i18n import i18n_patterns
+from django.conf import settings
+from django.conf.urls.static import static
 from django.utils.translation import gettext_lazy as _
+from ckeditor_uploader import views as ckeditor_views
 
 urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path(_('one_time_login/'),
          include('one_time_login.urls', namespace='one_time_login')),
+    path(_('emails/'),
+         include('email_interface.urls', namespace='email_interface')),
     # URLs for rosetta translation interface
     path('rosetta/', include('rosetta.urls')),
+    # CKEditor upload views
+    path('upload/', login_required(ckeditor_views.upload), name="ckeditor_upload"),
+    path('browse/', never_cache(login_required(ckeditor_views.browse)),
+         name="ckeditor_browse"),
 )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-29 09:17+0200\n"
-"PO-Revision-Date: 2023-08-29 09:17+0200\n"
+"POT-Creation-Date: 2023-08-30 21:12+0200\n"
+"PO-Revision-Date: 2023-08-30 21:13+0200\n"
 "Last-Translator:   <thomas@irgang.eu>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,6 +19,173 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
+#: email_interface/forms.py:14 email_interface/models.py:18
+msgid "Text content"
+msgstr "Text Inhalt"
+
+#: email_interface/forms.py:16
+msgid "Use text content?"
+msgstr "Text Inhalt verwenden?"
+
+#: email_interface/forms.py:29
+msgid "Mail text cannot be empty if it is used!"
+msgstr "Der Text Inhalt kann nicht leer sein wenn er verwendet wird!"
+
+#: email_interface/models.py:16
+msgid "Summary"
+msgstr "Betreff"
+
+#: email_interface/models.py:17
+msgid "HTML content"
+msgstr "HTML Inhalt"
+
+#: email_interface/models.py:20 one_time_login/models.py:20
+msgid "Creation date"
+msgstr "Erstellungsdatum"
+
+#: email_interface/models.py:22
+msgid "Receiver"
+msgstr "Empfänger"
+
+#: email_interface/models.py:24
+msgid "Sender"
+msgstr "Sender"
+
+#: email_interface/models.py:26
+#: email_interface/templates/email_interface/testing/mail_thread.html:74
+msgid "Reply to"
+msgstr "Antworten an"
+
+#: email_interface/models.py:27
+msgid "sent?"
+msgstr "gesendet?"
+
+#: email_interface/models.py:28
+msgid "answered?"
+msgstr "beantwortet?"
+
+#: email_interface/models.py:31 email_interface/models.py:84
+#: email_interface/templates/email_interface/testing/my_attachments.html:21
+msgid "Message"
+msgstr "Nachricht"
+
+#: email_interface/models.py:32
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: email_interface/models.py:76
+msgid "Owner"
+msgstr "Besitzer"
+
+#: email_interface/models.py:78
+msgid "File name"
+msgstr "Dateiname"
+
+#: email_interface/models.py:80
+msgid "MIME type"
+msgstr "MIME Typ"
+
+#: email_interface/models.py:82
+#: email_interface/templates/email_interface/testing/my_attachments.html:20
+msgid "File"
+msgstr "Datei"
+
+#: email_interface/models.py:87
+msgid "Attachment"
+msgstr "Anhang"
+
+#: email_interface/models.py:88
+#: email_interface/templates/email_interface/testing/my_attachments.html:6
+#: email_interface/templates/email_interface/testing/my_attachments.html:7
+#: email_interface/templates/email_interface/testing/my_attachments.html:8
+msgid "Attachments"
+msgstr "Anhänge"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:6
+#: email_interface/templates/email_interface/testing/mail_thread.html:8
+#: email_interface/templates/email_interface/testing/mail_thread.html:10
+#: email_interface/templates/email_interface/testing/mail_thread.html:12
+#: email_interface/templates/email_interface/testing/mail_thread.html:60
+#: email_interface/templates/email_interface/testing/mail_thread.html:68
+#: email_interface/templates/email_interface/testing/mail_thread.html:74
+#: email_interface/templates/email_interface/testing/my_attachments.html:40
+#: email_interface/templates/email_interface/testing/my_mails.html:53
+#: email_interface/templates/email_interface/testing/my_mails.html:60
+msgid "from"
+msgstr "von"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:23
+#: email_interface/templates/email_interface/testing/my_mails.html:20
+msgid "No sender"
+msgstr "Kein Sender"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:28
+#: email_interface/templates/email_interface/testing/my_mails.html:25
+msgid "to"
+msgstr "an"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:32
+#: email_interface/templates/email_interface/testing/my_mails.html:29
+msgid "No receiver"
+msgstr "Kein Empfänger"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:58
+#: email_interface/templates/email_interface/testing/my_mails.html:51
+msgid "Answers"
+msgstr "Antworten"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:66
+#: email_interface/templates/email_interface/testing/my_mails.html:58
+msgid "Siblings"
+msgstr "Weitere Antworten"
+
+#: email_interface/templates/email_interface/testing/mail_thread.html:79
+#: email_interface/templates/email_interface/testing/write_mail.html:17
+msgid "Send"
+msgstr "Senden"
+
+#: email_interface/templates/email_interface/testing/my_attachments.html:9
+#| msgid "Attachments"
+msgid "All my attachments."
+msgstr "Alle meine Anhänge."
+
+#: email_interface/templates/email_interface/testing/my_attachments.html:18
+msgid "Name"
+msgstr "Name"
+
+#: email_interface/templates/email_interface/testing/my_attachments.html:19
+msgid "MIME Type"
+msgstr "MIME Typ"
+
+#: email_interface/templates/email_interface/testing/my_mails.html:6
+#: email_interface/templates/email_interface/testing/my_mails.html:7
+#: email_interface/templates/email_interface/testing/my_mails.html:8
+#| msgid "emails/"
+msgid "Mails"
+msgstr "emails/"
+
+#: email_interface/templates/email_interface/testing/my_mails.html:9
+msgid "All my mails."
+msgstr "Alle meine eMails."
+
+#: email_interface/templates/email_interface/testing/write_mail.html:5
+#: email_interface/templates/email_interface/testing/write_mail.html:6
+#: email_interface/templates/email_interface/testing/write_mail.html:7
+msgid "Send mail demo"
+msgstr "Sende eMail Demo"
+
+#: email_interface/templates/email_interface/testing/write_mail.html:9
+msgid "A send mail demo form."
+msgstr "Ein Beispielformular um eMails zu senden."
+
+#: email_interface/views.py:57 email_interface/views.py:113
+msgid "Mail was sent."
+msgstr "Die eMail wurde gesendet."
+
+#: email_interface/views.py:60 email_interface/views.py:115
+msgid "Sending of mail failed!"
+msgstr "Senden der eMail ist fehlgeschlagen!"
+
 #: one_time_login/models.py:17
 msgid "Secret"
 msgstr "Geheimnis"
@@ -26,10 +193,6 @@ msgstr "Geheimnis"
 #: one_time_login/models.py:18
 msgid "URL"
 msgstr "URL"
-
-#: one_time_login/models.py:20
-msgid "Creation date"
-msgstr "Erstellungsdatum"
 
 #: one_time_login/models.py:22
 msgid "Was the login used?"
@@ -84,35 +247,38 @@ msgstr ""
 msgid "one time login"
 msgstr "Einmal-Anmeldung"
 
-#: one_time_login/utils.py:76
+#: one_time_login/utils.py:81
 msgid "A new login link was sent by mail."
 msgstr "Eine neue Einmal-Anmeldung wurde per eMail gesendet."
 
-#: one_time_login/utils.py:79
+#: one_time_login/utils.py:84
 msgid "Sending of one time login link failed!"
 msgstr "Senden der Einmal-Anmeldung ist fehlgeschlagen!"
 
-#: one_time_login/utils.py:90
+#: one_time_login/utils.py:99
 msgid "Login was used already."
 msgstr "Die Einmal-Anmeldung wurde bereits verwendet."
 
-#: one_time_login/views.py:25
+#: one_time_login/views.py:34
 msgid "Login successful!"
 msgstr "Die Anmeldung war erfolgreich."
 
-#: one_time_login/views.py:28
+#: one_time_login/views.py:41
 msgid "Login failed!"
 msgstr "Die Anmeldung ist fehlgeschlagen!"
 
-#: repapp/settings.py:179
+#: repapp/settings.py:191
 msgid "German"
 msgstr "Deutsch"
 
-#: repapp/settings.py:180
+#: repapp/settings.py:192
 msgid "English"
 msgstr "Englisch"
 
-#: repapp/urls.py:24
-#| msgid "one time login"
+#: repapp/urls.py:29
 msgid "one_time_login/"
 msgstr "einmal-anmeldung/"
+
+#: repapp/urls.py:31
+msgid "emails/"
+msgstr "emails/"

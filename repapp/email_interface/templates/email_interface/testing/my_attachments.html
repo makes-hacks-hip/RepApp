@@ -1,0 +1,48 @@
+{% extends 'email_interface/testing/base.html' %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% block head %}
+    <title>{% trans 'Attachments' %}</title>
+    <meta name="description" content="{% trans 'Attachments' %}">
+    <meta property="og:title" content="{% trans 'Attachments' %}">
+    <meta property="og:description" content="{% trans 'All my attachments.' %}">
+{% endblock head %}
+{% block content %}
+    {% for attachment in attachments %}
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{% trans 'Name' %}</th>
+                        <th scope="col">{% trans 'MIME Type' %}</th>
+                        <th scope="col">{% trans 'File' %}</th>
+                        <th scope="col">{% trans 'Message' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ attachment.pk }}</th>
+                        <td>{{ attachment.name }}</td>
+                        <td>{{ attachment.mime_type }}</td>
+                        <td>
+                            {% if 'image' in attachment.mime_type %}
+                                <a href="{{ attachment.file.url }}">
+                                    <img src="{% thumbnail attachment.file 300x0 %}">
+                                </a>
+                            {% else %}
+                                <a href="{{ attachment.get_absolute_url }}" class="card-link">{{ attachment.name }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url 'email_interface:mail_thread' attachment.message.pk %}">
+                                {{ attachment.message.summary }} {% trans 'from' %} {{ attachment.message.sender }}
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+{% endblock content %}

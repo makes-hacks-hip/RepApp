@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import logging
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "one_time_login.apps.OneTimeLoginConfig",
+    "email_interface.apps.EmailInterfaceConfig",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # enable rosetta online translation interface
     'rosetta',
+    # CKEditor for mail content editing
+    "ckeditor",
+    "ckeditor_uploader",
+    # Crispy forms for bootstrap 5 form design
+    "crispy_forms",
+    "crispy_bootstrap5",
+    # for creating thumbnails, used by email_interface demo views
+    'easy_thumbnails',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -153,6 +163,8 @@ LOGGING = {
         "level": LOG_LEVEL,
     },
 }
+
+logging.info('DEBUG is %b', DEBUG)
 
 # Organization name
 # used by one time login
@@ -195,3 +207,28 @@ if DEBUG:
         # Default backend for admin login
         "django.contrib.auth.backends.ModelBackend",
     ]
+
+# editor upload path, used e.g. for send mail demo
+CKEDITOR_UPLOAD_PATH = "editor_uploads/"
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# CKEditor default config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
+
+# Django media and static file config, required for CKEditor
+STATIC_URL = "static/"
+MEDIA_URL = "media/"
+# Use subfolders of project folder
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Crispy forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

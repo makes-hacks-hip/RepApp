@@ -103,3 +103,61 @@ AUTHENTICATION_BACKENDS = [
     "one_time_login.authentication_backends.OneTimeLoginBackend",
 ]
 ```
+
+## Email interface
+
+The email interface uses CKEditor, crispy forms and easy thumbnails. The apps are enabled with:
+
+```Python
+INSTALLED_APPS = [
+    ...
+    # CKEditor for mail content editing
+    "ckeditor",
+    "ckeditor_uploader",
+    # Crispy forms for bootstrap 5 form design
+    "crispy_forms",
+    "crispy_bootstrap5",
+    # for creating thumbnails, used by email_interface demo views
+    'easy_thumbnails',
+    ...
+]
+```
+
+For CKEditor, we use the following settings:
+
+```Python
+# editor upload path, used e.g. for send mail demo
+CKEDITOR_UPLOAD_PATH = "editor_uploads/"
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# CKEditor default config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
+```
+
+To enable the image upload of CKEditor, also the Django media paths and urls must get configured:
+
+```Python
+# Django media and static file config, required for CKEditor
+STATIC_URL = "static/"
+MEDIA_URL = "media/"
+# Use subfolders of project folder
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+```
+
+For crispy forms, we use the bootstrap 5 theme:
+
+```Python
+# Crispy forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+```
+
+The static files for bootstrap must also be made available.
