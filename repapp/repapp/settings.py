@@ -51,9 +51,13 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     # for creating thumbnails, used by email_interface demo views
     'easy_thumbnails',
+    # Django debug toolbar
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    # Django debug toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # enable translation
@@ -232,3 +236,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # Crispy forms settings
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Allowed IPs for Django debug toolbar
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

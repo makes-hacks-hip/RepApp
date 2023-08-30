@@ -41,3 +41,7 @@ urlpatterns = i18n_patterns(
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        # Django debug toolbar
+        path('__debug__/', include('debug_toolbar.urls')),
+    ]
