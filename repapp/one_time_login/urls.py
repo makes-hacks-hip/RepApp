@@ -17,6 +17,6 @@ urlpatterns = [
 
 if settings.DEBUG or sys.argv[1:2] == ['test']:
     logging.info('one_time_login: enable protected test URL')
-    urlpatterns += [
+    urlpatterns = [
         path("protected/", views.protected_test, name="protected"),
-    ]
+    ] + urlpatterns
