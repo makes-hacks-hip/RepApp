@@ -6,12 +6,14 @@ from django.apps import AppConfig
 logger = logging.getLogger(__name__)
 
 
-def message_answered_receiver(sender, instance, **kwargs):
+def message_answered_receiver(sender, instance, **kwargs):  # pragma: no cover
+    # used for manual testing only
     logger.debug('Message answered signal received: %s %s',
                  instance, kwargs['answer'])
 
 
-def new_message_receiver(sender, instance, **kwargs):
+def new_message_receiver(sender, instance, **kwargs):  # pragma: no cover
+    # used for manual testing only
     logger.debug('New message signal received: %s', instance)
 
 

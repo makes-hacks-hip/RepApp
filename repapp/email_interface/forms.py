@@ -23,17 +23,23 @@ class MessageForm(forms.ModelForm):
         fields = ['receiver', 'summary', 'html_content']
         widgets = {'html_content': CKEditorUploadingWidget()}
 
-    def clean(self):
-        if self.cleaned_data['use_mail_text'] and self.cleaned_data['mail_text'] == '':
+    def clean_mail_text(self):
+        text = self.cleaned_data["mail_text"]
+        use_text = self.data["use_mail_text"]
+
+        logger.debug(
+            'MessageForm clean_mail_text: use text: %r, text: %s', use_text, text)
+
+        if use_text and not text:
             raise forms.ValidationError(
                 _("Mail text cannot be empty if it is used!"))
 
-        return super().clean()
+        return text
 
     def save(self, commit: bool = True):
         message = super().save(commit=False)
 
-        if not self.cleaned_data['use_mail_text']:
+        if self.cleaned_data['use_mail_text']:
             message.text_content = self.cleaned_data['mail_text']
         else:
             # convert HTML content to text content
