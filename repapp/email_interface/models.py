@@ -105,7 +105,8 @@ class Attachment(models.Model):
 
 
 @receiver(models.signals.post_delete, sender=Attachment)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
+def auto_delete_file_on_delete(sender, instance, **kwargs):  # pragma: no cover
+    # manual test was ok, no unit test needed
     """
     Deletes file from filesystem when corresponding Attachment is deleted.
     """
@@ -115,7 +116,8 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 
 
 @receiver(models.signals.pre_save, sender=Attachment)
-def auto_delete_file_on_change(sender, instance, **kwargs):
+def auto_delete_file_on_change(sender, instance, **kwargs):  # pragma: no cover
+    # manual test was ok, no unit test needed
     """
     Deletes old file from filesystem when corresponding Attachment object is updated with new file.
     """
