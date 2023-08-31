@@ -56,3 +56,55 @@ class LiveOneTimeLoginTests(StaticLiveServerTestCase):
 
         self.assertTrue('protected content' in self.selenium.page_source)
         self.assertTrue(self.url in self.selenium.current_url)
+
+
+class LiveEmailInterfaceTests(StaticLiveServerTestCase):
+    """
+    Live server test for email interface
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.selenium = WebDriver()
+        cls.selenium.implicitly_wait(50)
+        cls.selenium.maximize_window()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.selenium.quit()
+        super().tearDownClass()
+
+    def setUp(self):
+        super().setUp()
+
+        # prepare test user
+        user = get_user_model().objects.create_user(
+            "john",
+            "lennon@thebeatles.com",
+            "johnpassword")
+        user.save()
+
+        # use english translations
+        translation.activate('en')
+
+    def test_process(self):
+        pass
+
+    def test_sent(self):
+        pass
+
+    def test_received(self):
+        pass
+
+    def test_attachments(self):
+        pass
+
+    def test_view(self):
+        pass
+
+    def test_test_mail(self):
+        pass
+
+    def test_send_mail(self):
+        pass
