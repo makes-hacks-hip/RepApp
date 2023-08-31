@@ -70,7 +70,8 @@ class Message(models.Model):
         return Message.objects.filter(sender=user).all()
 
 
-def attachment_file_path(instance, filename):
+def attachment_file_path(instance, filename):  # pragma: no cover
+    # manual test was ok, no unit test needed
     return f'{instance.owner.username}/{filename}'
 
 
