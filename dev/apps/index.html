@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/dev/apps/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Apps - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Apps";
+        var mkdocs_page_input_path = "dev/apps.md";
+        var mkdocs_page_url = "/RepApp/dev/apps/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Beschreibung</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Users</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stories/">Stories</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../use_cases/">Use cases</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Apps</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#one-time-login">One time login</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#email-interface">Email interface</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#configuration_1">Configuration</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../objects/">Objects</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../configuration/">Repapp configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Developer documentation &raquo;</li>
+      <li class="breadcrumb-item active">Apps</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/dev/apps.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="apps">Apps</h1>
+<p>The repapp is split into different modules, realized as Django apps, to improve the maintainability.</p>
+<h2 id="one-time-login">One time login</h2>
+<p>The one time login module provides a login for guests using a one time secret as part of an URL.</p>
+<ul>
+<li>The templates use the <code>settings.ORGANIZATION</code> variable to fill the organization name.</li>
+<li>The Django mail module is used to send emails. See https://docs.djangoproject.com/en/4.2/topics/email/ for details how to configure the mail host.</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p>To enable the one time login links, an additional authentication backend must get added:</p>
+<pre><code class="language-Python"># Repapp specific authentication backends
+AUTHENTICATION_BACKENDS = [
+    # Backend for one time logins
+    &quot;one_time_login.authentication_backends.OneTimeLoginBackend&quot;,
+]
+</code></pre>
+<p>The one time login urls must get added using namespace <code>one_time_login</code>:</p>
+<pre><code class="language-Python">urlpatterns = i18n_patterns(
+    ...
+    path(_('one_time_login/'),
+         include('one_time_login.urls', namespace='one_time_login')),
+    ...
+)
+</code></pre>
+<h2 id="email-interface">Email interface</h2>
+<p>The email interface modules supports handling of mails. It support sending of mails, including HTML formatting and attachments, and it supports receiving of plain text and HTML formatted mails, including attachments.</p>
+<ul>
+<li>The Django mail module is used to send emails. See https://docs.djangoproject.com/en/4.2/topics/email/ for details how to configure the mail host.</li>
+<li>CKEditor is used for email content editing. See https://django-ckeditor.readthedocs.io/en/latest/ for details.</li>
+<li>Crispy forms is used for form rendering. See https://django-crispy-forms.readthedocs.io/en/latest/ for details.</li>
+<li>Bootstrap 5 theme for crispy forms is used. See https://github.com/django-crispy-forms/crispy-bootstrap5 for details.</li>
+</ul>
+<h3 id="configuration_1">Configuration</h3>
+<p>The email interface urls must get added using namespace <code>email_interface</code>:</p>
+<pre><code class="language-Python">urlpatterns = i18n_patterns(
+    ...
+    path(_('emails/'),
+         include('email_interface.urls', namespace='email_interface')),
+    ...
+)
+</code></pre>
+<p>To use CKEditor as authenticated user, the following additional urls must get added:</p>
+<pre><code class="language-Python">urlpatterns = i18n_patterns(
+    ...
+    # CKEditor upload views
+    path('upload/', login_required(ckeditor_views.upload), name=&quot;ckeditor_upload&quot;),
+    path('browse/', never_cache(login_required(ckeditor_views.browse)),
+         name=&quot;ckeditor_browse&quot;),
+    ...
+)
+</code></pre>
+<p>To be abel to use CKEditor also the static an media content must get served. For development this is done with:</p>
+<pre><code class="language-Python">if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../use_cases/" class="btn btn-neutral float-left" title="Use cases"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../objects/" class="btn btn-neutral float-right" title="Objects">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../use_cases/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../objects/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/dev/configuration/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Repapp configuration - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Repapp configuration";
+        var mkdocs_page_input_path = "dev/configuration.md";
+        var mkdocs_page_url = "/RepApp/dev/configuration/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Beschreibung</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Users</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stories/">Stories</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../use_cases/">Use cases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/">Apps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../objects/">Objects</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Repapp configuration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#debug-mode">Debug mode</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organization-name">Organization name</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#email-settings">Email settings</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#translations">Translations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rosetta">Rosetta</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#one-time-login">One time login</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#email-interface">Email interface</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Developer documentation &raquo;</li>
+      <li class="breadcrumb-item active">Repapp configuration</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/dev/configuration.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="repapp-configuration">Repapp configuration</h1>
+<h2 id="debug-mode">Debug mode</h2>
+<p>The Django debug mode is activated if there is a environment variable <code>DJANGO_DEBUG</code> with the value "true", "1" or "t". By default, the debug mode is disabled. </p>
+<h2 id="organization-name">Organization name</h2>
+<p>Some templates use and organization name. This value is taken from <code>settings.ORGANIZATION</code> and defaults to "Repair-Café Hilpoltstein".</p>
+<h2 id="email-settings">Email settings</h2>
+<p>The following environment variables are used to configure the Django email feature:</p>
+<pre><code class="language-Python">EMAIL_HOST = os.getenv(&quot;DJANGO_EMAIL_HOST&quot;, &quot;&quot;)
+EMAIL_PORT = (int)(os.getenv(&quot;DJANGO_EMAIL_PORT&quot;, &quot;25&quot;))
+EMAIL_HOST_USER = os.getenv(&quot;DJANGO_EMAIL_HOST_USER&quot;, None)
+EMAIL_HOST_PASSWORD = os.getenv(&quot;DJANGO_EMAIL_HOST_PASSWORD&quot;, None)
+EMAIL_USE_TLS = os.getenv(&quot;DJANGO_EMAIL_USE_TLS&quot;, &quot;true&quot;) in (&quot;true&quot;, &quot;1&quot;, &quot;t&quot;)
+DEFAULT_FROM_EMAIL = os.getenv(&quot;DJANGO_SENDER_ADDRESS&quot;, &quot;&quot;)
+</code></pre>
+<p>See https://docs.djangoproject.com/en/4.2/topics/email/ for more details.</p>
+<h2 id="translations">Translations</h2>
+<p>Repapp is using localization, and comes with german and english translations.</p>
+<p>Enable the <code>LocaleMiddleware</code>:</p>
+<pre><code class="language-Python">MIDDLEWARE = [
+    ...
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    # enable translation
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    ...
+]
+</code></pre>
+<p>We use the following localization settings:</p>
+<pre><code class="language-Python">LANGUAGE_CODE = 'de'
+TIME_ZONE = 'Europe/Berlin'
+
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
+LANGUAGES = [
+    ('de', _('German')),
+    ('en', _('English')),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+</code></pre>
+<p>Also the URLs are localized, and the language is choosen using i18n URL patterns:</p>
+<pre><code class="language-Python">...
+from django.conf.urls.i18n import i18n_patterns
+from django.utils.translation import gettext_lazy as _
+
+urlpatterns = i18n_patterns(
+    path('admin/', admin.site.urls),
+    path(_('one_time_login/'),
+         include('one_time_login.urls', namespace='one_time_login')),
+    # URLs for rosetta translation interface
+    path('rosetta/', include('rosetta.urls')),
+)
+</code></pre>
+<h3 id="rosetta">Rosetta</h3>
+<p>For translating the interface, we use rosetta. For more details see https://pypi.org/project/django-rosetta/.</p>
+<p>You need to install rosetta (<code>pip install django-rosetta</code>) and enable it in the apps:</p>
+<pre><code class="language-Python">INSTALLED_APPS = [
+    ...
+    # enable rosetta online translation interface
+    'rosetta',
+    ...
+]
+</code></pre>
+<p>Rosatta is made availabel at <code>rosetta/</code>.</p>
+<h2 id="one-time-login">One time login</h2>
+<p>To enable the one time login links, an additional authentication backend must get added:</p>
+<pre><code class="language-Python"># Repapp specific authentication backends
+AUTHENTICATION_BACKENDS = [
+    # Backend for one time logins
+    &quot;one_time_login.authentication_backends.OneTimeLoginBackend&quot;,
+]
+</code></pre>
+<h2 id="email-interface">Email interface</h2>
+<p>The email interface uses CKEditor, crispy forms and easy thumbnails. The apps are enabled with:</p>
+<pre><code class="language-Python">INSTALLED_APPS = [
+    ...
+    # CKEditor for mail content editing
+    &quot;ckeditor&quot;,
+    &quot;ckeditor_uploader&quot;,
+    # Crispy forms for bootstrap 5 form design
+    &quot;crispy_forms&quot;,
+    &quot;crispy_bootstrap5&quot;,
+    # for creating thumbnails, used by email_interface demo views
+    'easy_thumbnails',
+    ...
+]
+</code></pre>
+<p>For CKEditor, we use the following settings:</p>
+<pre><code class="language-Python"># editor upload path, used e.g. for send mail demo
+CKEDITOR_UPLOAD_PATH = &quot;editor_uploads/&quot;
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
+# CKEditor default config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
+</code></pre>
+<p>To enable the image upload of CKEditor, also the Django media paths and urls must get configured:</p>
+<pre><code class="language-Python"># Django media and static file config, required for CKEditor
+STATIC_URL = &quot;static/&quot;
+MEDIA_URL = &quot;media/&quot;
+# Use subfolders of project folder
+STATIC_ROOT = os.path.join(BASE_DIR, &quot;static&quot;)
+MEDIA_ROOT = os.path.join(BASE_DIR, &quot;media&quot;)
+</code></pre>
+<p>For crispy forms, we use the bootstrap 5 theme:</p>
+<pre><code class="language-Python"># Crispy forms settings
+CRISPY_ALLOWED_TEMPLATE_PACKS = &quot;bootstrap5&quot;
+CRISPY_TEMPLATE_PACK = &quot;bootstrap5&quot;
+</code></pre>
+<p>The static files for bootstrap must also be made available.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../objects/" class="btn btn-neutral float-left" title="Objects"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../objects/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

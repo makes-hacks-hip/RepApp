@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/dev/objects/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Objects - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Objects";
+        var mkdocs_page_input_path = "dev/objects.md";
+        var mkdocs_page_url = "/RepApp/dev/objects/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Beschreibung</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Users</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../stories/">Stories</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../use_cases/">Use cases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/">Apps</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Objects</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#repair_cafe">Repair_Cafe</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fields">Fields</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#device">Device</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#appointment">Appointment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#guest">Guest</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#repairer">Repairer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#organizer">Organizer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consultation">Consultation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#comment">Comment</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../configuration/">Repapp configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Developer documentation &raquo;</li>
+      <li class="breadcrumb-item active">Objects</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/dev/objects.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="objects">Objects</h1>
+<p>A <strong>device</strong> is an object owned by a <strong>guest</strong> which has some issue. To get support for fixing the issue, a <strong>guest</strong> provides the information about the <strong>device</strong> and requests a repair <strong>appointment</strong> during a <strong>repair_cafe</strong>.</p>
+<p><img alt="Objects" src="../uml/objects_other.png" /></p>
+<p>A <strong>repair_cafe</strong> happens at a specific date and location. It's an event which consists of <strong>appointments</strong> of <strong>repairers</strong> with <strong>guests</strong> to fix a <strong>device</strong>.</p>
+<p>To organize a <strong>repair_cafe</strong>, a <strong>organizer</strong> needs to know which <strong>repairer</strong> will attend a <strong>repair_cafe</strong>, to schedule repair <strong>appointments</strong>.</p>
+<p><img alt="Appointment" src="../uml/objects_appointment.png" /></p>
+<p>In case of ambiguities, a <strong>organizer</strong> or a <strong>repairer</strong> can raise a <strong>consultation</strong> request. This <strong>consultation</strong> request is sent to the <strong>guest</strong> to get the needed information. In addition, a <strong>organizer</strong> or a <strong>repairer</strong> can add an <strong>comment</strong> to a <strong>device</strong>.</p>
+<p><img alt="Consultation" src="../uml/objects_consultation.png" /></p>
+<p><img alt="Comment" src="../uml/objects_comment.png" /></p>
+<h2 id="repair_cafe">Repair_Cafe</h2>
+<p>A <strong>repair_cafe</strong> is a event happening at a specific date at a specific location. During a <strong>repair_cafe</strong> <strong>appointments</strong> of <strong>guests</strong> with <strong>repairers</strong> happens to fix broken <em>devices</em>.</p>
+<h3 id="fields">Fields</h3>
+<ul>
+<li><em>location</em>: Char (200) -- location of the event</li>
+<li><em>address</em>: Char (200) -- address where the event happens</li>
+<li><em>event_date</em>: Date -- date when the event happens</li>
+<li><em>repairer</em>: many to many -- will attend the event</li>
+</ul>
+<h2 id="device">Device</h2>
+<h2 id="appointment">Appointment</h2>
+<h2 id="guest">Guest</h2>
+<h2 id="repairer">Repairer</h2>
+<h2 id="organizer">Organizer</h2>
+<h2 id="consultation">Consultation</h2>
+<h2 id="comment">Comment</h2>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../apps/" class="btn btn-neutral float-left" title="Apps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../configuration/" class="btn btn-neutral float-right" title="Repapp configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../apps/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../configuration/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

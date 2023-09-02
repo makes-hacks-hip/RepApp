@@ -1,0 +1,14 @@
+@startuml
+
+object User
+object Guest
+object Member
+object Organizer
+object Repairer
+
+User <|-- Guest
+User <|-- Member
+Member <|-- Organizer
+Member <|-- Repairer
+
+@enduml

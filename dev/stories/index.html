@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://makes-hacks-hip.github.io/RepApp/dev/stories/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Stories - RepApp - Makespace Repair-Café Hilpoltstein</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Stories";
+        var mkdocs_page_input_path = "dev/stories.md";
+        var mkdocs_page_url = "/RepApp/dev/stories/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> RepApp - Makespace Repair-Café Hilpoltstein
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">RepApp</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../..">Beschreibung</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer documentation</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../users/">Users</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Stories</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#repairer-cancels-on-short-notice">Repairer cancels on short notice</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#guest-cancels-a-repair-appointment-on-short-notice">Guest cancels a repair appointment on short notice</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#guest-misses-a-repair-appointment-or-causes-trouble">Guest misses a repair appointment or causes trouble</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-last-repair-appointment-of-a-repair-cafe-must-get-canceled">The last repair appointment of a repair-cafe must get canceled</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#all-slots-for-a-repair-cafe-are-very-early-assigned">All slots for a repair-cafe are very early assigned</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#all-slots-for-some-device-types-are-already-very-relay-assigned">All slots for some device types are already very relay assigned</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#creation-and-handling-of-waiting-lists">Creation and handling of waiting lists</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#the-guest-doesnt-confirm-the-appointment-and-doesnt-reply-to-mails">The guest doesn't confirm the appointment and doesn't reply to mails</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#some-device-types-are-not-repaired-during-a-repair-cafe">Some device types are not repaired during a repair-cafe</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#strategic-overbooking">strategic overbooking</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#communication-with-guests">Communication with guests</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#where-is-the-device">Where is the device?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#criteria-for-repair-assignments">Criteria for repair-assignments</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#paperwork-during-the-event">Paperwork during the event</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../use_cases/">Use cases</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../apps/">Apps</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../objects/">Objects</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../configuration/">Repapp configuration</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Repair-Café & Makespace</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="" href="https://www.repaircafe-hilpoltstein.de">Repair-Café</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.de">Makespace</a>
+                  </li>
+                  <li class="toctree-l1"><a class="" href="https://makes-hacks-hip.github.io">Makerspace@Github</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">RepApp - Makespace Repair-Café Hilpoltstein</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a> &raquo;</li>
+          <li>Developer documentation &raquo;</li>
+      <li class="breadcrumb-item active">Stories</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/makes-hacks-hip/RepApp/edit/main/docs/dev/stories.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="stories">Stories</h1>
+<p>User stories describing real world repair-cafe situations and workflows.</p>
+<h2 id="repairer-cancels-on-short-notice">Repairer cancels on short notice</h2>
+<p>One of the repairers cancels his attendance to a repair-cafe on short notice.</p>
+<p>If possible, assign existing repair appointments to other repairers, and align new time schedule with the guests using phone calls. If not possible, cancel repair assignments using phone calls.</p>
+<h2 id="guest-cancels-a-repair-appointment-on-short-notice">Guest cancels a repair appointment on short notice</h2>
+<p>A guest cancels a repair appointment on short notice. This frees a timeslot for an additional repair appointment.</p>
+<p>If there are fitting devices on the waiting list, the owner is called and a repair appointment is offered. If no fitting devices are available, the last appointment of the day is re-scheduled to the free slot, in alignment with the guest.</p>
+<h2 id="guest-misses-a-repair-appointment-or-causes-trouble">Guest misses a repair appointment or causes trouble</h2>
+<p>The guest is added to a blacklist.</p>
+<h2 id="the-last-repair-appointment-of-a-repair-cafe-must-get-canceled">The last repair appointment of a repair-cafe must get canceled</h2>
+<p>Because of delays or other issues, the last repair appointment of a repair-cafe event cannot happen anymore.</p>
+<p>If possible, the last repair appointment is cancelled using a phone call with the guest.</p>
+<h2 id="all-slots-for-a-repair-cafe-are-very-early-assigned">All slots for a repair-cafe are very early assigned</h2>
+<p>Deactivate registration form and give a hint on the homepage that the event is already fully booked.</p>
+<h2 id="all-slots-for-some-device-types-are-already-very-relay-assigned">All slots for some device types are already very relay assigned</h2>
+<p>Further registration is still possible, but a hint is added that repair assignments for devices types XYZ are not possible anymore.</p>
+<h2 id="creation-and-handling-of-waiting-lists">Creation and handling of waiting lists</h2>
+<p>If a repair appointment is not possible for a device, because of high demand for this device type of cancellation of a repairer, the guest is contacted and asked to register the device again for a later repair-cafe, or if the device shall be registered for a later repair-cafe.</p>
+<p>Guest registers again: It's possible that again no slots are free, and the repair appointment is canceled again. The information that the guest had the device already registered for a repair-cafe is lost.</p>
+<p>Organizer registers device: Increased organization effort and there is a high probability that the guest doesn't keep the repair appointment.</p>
+<p>All canceled devices are moved to the "canceled devices" section of the forum manually. These devices are considered during the planning of the next repair-cafe, and the forum entry is moved to the section of the next event.</p>
+<h2 id="the-guest-doesnt-confirm-the-appointment-and-doesnt-reply-to-mails">The guest doesn't confirm the appointment and doesn't reply to mails</h2>
+<p>Try to call guest by phone.</p>
+<p>If the organizers cannot reach the guest, the repair-appointment is canceled by mail. If possible, another guest form the waiting list is contacted.</p>
+<h2 id="some-device-types-are-not-repaired-during-a-repair-cafe">Some device types are not repaired during a repair-cafe</h2>
+<p>Some device types are not repaired during a repair-cafe. These devices are assigned to repairers for "offline" repair.</p>
+<p>Align with repairer: If the repairer accepts the device, the contact data of repairer are given to the guest.</p>
+<p>For TV: Type plate and issue description is given to a repairer, and options are evaluated. If a repair is possible, the guest shall bring the TV to the Haus Einstein. When the repair is done, the guest get's an update by mail.</p>
+<h2 id="strategic-overbooking">strategic overbooking</h2>
+<p>If all slots are booked, further devices are accepted on best effort. These devices are brought by the guests at the beginning of a repair-cafe and get collected at the end of a repair-cafe. When a repairer has some time between two repair-assignments, he can pick such a device.Having such devices is wanted by the repairers.</p>
+<p>This is only used for guests living very close to the event, and if the repair effort should be very limited.</p>
+<h2 id="communication-with-guests">Communication with guests</h2>
+<p>Communication shall primary happen by e-mail. If further information is needed for a device, a mail is written to the guest. This communication often involves embedded images and attachments.</p>
+<p>A FAQ on the website of the repair-cafe, which can get referenced, may help for this communication.</p>
+<h2 id="where-is-the-device">Where is the device?</h2>
+<p>It can happen that it's not clear where a device is located, for example if a device stays with the repair-cafe team for a follow up repair, or if a device is accepted outside of an repair-cafe event.</p>
+<p>Current workflow:</p>
+<p>For devices which get brought by the owner and collected later: If there was no time to repair the device, or if spare parts were missing, we may offer the guest to keep the device till the next repair-cafe event happens. Such devices are kept in Haus Einstein.</p>
+<p>Another such case may be that a guest brings a device a few days before the repair-cafe event, because of personal availability. Such devices are also stored in Haus Einstein.</p>
+<p>It may also happen that a repairer agrees with a guest to keep the device and continue with the repair activity outside of an repair-cafe event. Especially for such cases, the current location of a device may be not defined and a documentation is missing.</p>
+<h2 id="criteria-for-repair-assignments">Criteria for repair-assignments</h2>
+<ul>
+<li>Will a skilled repairer be available?</li>
+<li>Point of time of registration (waiting lists and registration date)</li>
+<li>Is the device and failure a candidate for an overbooking device?</li>
+<li>Is there a feedback of a repairer that he wants to take a look at the device?</li>
+<li>Is all needed information available?</li>
+</ul>
+<h2 id="paperwork-during-the-event">Paperwork during the event</h2>
+<p>Based on an Excel sheet, repair slips (guest data and signature) and routing slips (device data and fields for notes) are created. Both slips have the same date and id, so it's possible to match them if needed. This is required in case of issues or complaints of the guest.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../users/" class="btn btn-neutral float-left" title="Users"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../use_cases/" class="btn btn-neutral float-right" title="Use cases">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/makes-hacks-hip/RepApp/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../users/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../use_cases/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
