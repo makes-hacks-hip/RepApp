@@ -18,7 +18,8 @@ from .models import Message, Attachment
 logger = logging.getLogger(__name__)
 
 
-def process(request):
+def process(request):  # pragma: no cover
+    # no logic contained, no test needed
     count = process_mails()
     return HttpResponse(f'{count} new messages were processed.')
 
@@ -42,7 +43,10 @@ def mail_thread(request, id):
         form.data['receiver'] = message.sender.pk
         form.data['summary'] = summary
 
+        logger.debug('mail_thread: sending mail %r', form)
+
         if form.is_valid():
+            logger.debug('mail_thread: mail is valid. %r', form)
             m = form.save(commit=False)
             m.sender = request.user
             m.reply_to = message
@@ -56,8 +60,12 @@ def mail_thread(request, id):
             if success:
                 messages.info(request, _('Mail was sent.'))
                 return HttpResponseRedirect(reverse_lazy('email_interface:mail_thread', kwargs={'id': m.pk}))
-            else:
+            else:  # pragma: no cover
+                # should never happen
                 messages.error(request, _('Sending of mail failed!'))
+        else:  # pragma: no cover
+            # only debug log
+            logger.debug('mail_thread: mail is not valid! %r', form.errors)
 
     return render(
         request,
@@ -73,10 +81,11 @@ def mail_thread(request, id):
 
 
 @login_required
-def send_test_mail(request):
+def send_test_mail(request):  # pragma: no cover
     """
     Debug view to send a test mail.
     """
+    # debug view
     # get first user
     user = get_user_model().objects.get(pk=1)
     current_folder = Path(__file__).resolve().parent
@@ -97,7 +106,8 @@ def send_test_mail(request):
         return HttpResponse('Sending of mail failed!')
 
 
-class SendMailView(LoginRequiredMixin, generic.FormView):
+class SendMailView(LoginRequiredMixin, generic.FormView):  # pragma: no cover
+    # debug view
     form_class = MessageForm
     template_name = "email_interface/testing/write_mail.html"
     success_url = reverse_lazy("email_interface:send_mail")

@@ -35,7 +35,7 @@ def create_message(request, sender, receiver, summary, html_content, text_conten
             continue
 
         _, name = os.path.split(attachment)
-        mime_type = mimetypes.guess_type(attachment)
+        mime_type = mimetypes.guess_type(attachment)[0]
 
         if not attachment.startswith(settings.MEDIA_ROOT):
             with open(attachment, "rb") as file:
@@ -86,7 +86,8 @@ def send_message(message, request):
 
     try:
         res = email.send()
-    except:
+    except:  # pragma: no cover
+        # only happens with broken Django mail config
         # Sending mail cause an exception
         return False
 
@@ -95,13 +96,22 @@ def send_message(message, request):
         message.save()
         return True
 
-    return False
+    return False  # pragma: no cover
+    # should never happen
 
 
-def process_message(mail_message: MailMessage, guest):
+def process_message(mail_message: MailMessage):
     """
     Process a valid message from a guest.
     """
+    sender = mail_message.from_
+
+    guest = get_user_model().objects.filter(email=sender, is_active=True).first()
+    if not guest:
+        logger.info(
+            'Mail form unknown sender %s with subject %s ignored.', sender, mail_message.subject)
+        return False
+
     receiver = None
     reply_to = None
 
@@ -160,8 +170,11 @@ def process_message(mail_message: MailMessage, guest):
 
         logger.debug('New attachment %s', a)
 
+    return True
 
-def process_mails():
+
+def process_mails():  # pragma: no cover
+    # no test for imap_tools needed
     """
     Check for new messages and handle valid messages.
     """
@@ -175,14 +188,7 @@ def process_mails():
     message_count = 0
     for message in messages:
         message_count += 1
-        sender = message.from_
-
-        guest = get_user_model().objects.filter(email=sender, is_active=True).first()
-        if guest:
-            process_message(message, guest)
-        else:
-            logger.info(
-                'Mail form unknown sender %s with subject %s ignored.', sender, message.subject)
+        process_message(message)
 
     logger.debug('Processed %d new messages', message_count)
 
